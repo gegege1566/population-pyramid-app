@@ -24,9 +24,18 @@ const PrefectureSelector: React.FC<PrefectureSelectorProps> = ({
 
   const handleTogglePrefecture = (prefCode: string) => {
     if (selectedPrefCodes.includes(prefCode)) {
+      // 選択解除
       onPrefectureChange(selectedPrefCodes.filter(code => code !== prefCode));
     } else {
-      onPrefectureChange([...selectedPrefCodes, prefCode]);
+      // 選択追加
+      if (prefCode === '00000') {
+        // 全国を選択した場合、他をすべて解除
+        onPrefectureChange(['00000']);
+      } else {
+        // 都道府県を選択した場合、全国を除外
+        const newSelection = selectedPrefCodes.filter(code => code !== '00000');
+        onPrefectureChange([...newSelection, prefCode]);
+      }
     }
   };
 
@@ -39,8 +48,8 @@ const PrefectureSelector: React.FC<PrefectureSelectorProps> = ({
       // 地方の全県が選択されている場合は解除
       onPrefectureChange(selectedPrefCodes.filter(code => !regionCodes.includes(code)));
     } else {
-      // 地方の県を全選択（既に選択されている県は維持）
-      const newCodes = [...selectedPrefCodes];
+      // 地方の県を全選択（全国を除外して既存の選択を維持）
+      const newCodes = selectedPrefCodes.filter(code => code !== '00000');
       regionCodes.forEach(code => {
         if (!newCodes.includes(code)) {
           newCodes.push(code);

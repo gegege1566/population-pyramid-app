@@ -126,9 +126,9 @@ function App() {
 
       {/* メインコンテンツ */}
       <main className="w-full mx-auto px-2 sm:px-4 lg:px-6 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-8 gap-6">
+        <div className={`grid grid-cols-1 gap-6 ${showComparison ? 'lg:grid-cols-5' : 'lg:grid-cols-8'}`}>
           {/* 左サイドバー - 都道府県選択UI */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className={showComparison ? "lg:col-span-1 space-y-6" : "lg:col-span-2 space-y-6"}>
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
               <PrefectureSelector
                 selectedPrefCodes={selectedPrefCodes}
@@ -138,7 +138,7 @@ function App() {
           </div>
 
           {/* メインエリア - 人口ピラミッドまたは年度比較 */}
-          <div className="lg:col-span-4">
+          <div className={showComparison ? "lg:col-span-4" : "lg:col-span-4"}>
             {showComparison ? (
               <YearComparisonDemo
                 selectedPrefCode={selectedPrefCodes[0] || ''}
@@ -222,16 +222,18 @@ function App() {
             )}
           </div>
 
-          {/* 右サイドバー - 年度選択UI */}
-          <div className="lg:col-span-2 space-y-6">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-              <YearSelector
-                selectedYear={selectedYear}
-                availableYears={availableYears}
-                onYearChange={handleYearChange}
-              />
+          {/* 右サイドバー - 年度選択UI (年度比較時は非表示) */}
+          {!showComparison && (
+            <div className="lg:col-span-2 space-y-6">
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                <YearSelector
+                  selectedYear={selectedYear}
+                  availableYears={availableYears}
+                  onYearChange={handleYearChange}
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </main>
 

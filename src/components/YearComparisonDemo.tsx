@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PopulationPyramid from './PopulationPyramid';
 import { usePrefectureData } from '../hooks/usePrefectureData';
 
@@ -13,6 +13,8 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
 }) => {
   const [year1, setYear1] = useState(() => availableYears[0] || 2025); // 最初の年度
   const [year2, setYear2] = useState(() => availableYears[availableYears.length - 1] || 2050); // 最後の年度
+  const [containerWidth, setContainerWidth] = useState(1200);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // 利用可能年度が更新されたら年度を調整
   useEffect(() => {
@@ -23,6 +25,33 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
   }, [availableYears]);
 
   const { loadPrefectureData, getDataForYear, isDataAvailable, loading, preloading, currentPrefCode, fixedScale } = usePrefectureData();
+
+  // コンテナ幅を取得してグラフサイズを計算
+  useEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        const width = containerRef.current.offsetWidth;
+        setContainerWidth(width);
+      }
+    };
+
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+
+  // グラフの幅を動的に計算
+  const getGraphWidth = () => {
+    // コンテナ幅から2つのグラフ、ギャップ、パディングを考慮
+    const isLargeScreen = containerWidth >= 1280; // xlブレークポイント
+    if (isLargeScreen) {
+      // 2列表示時: 各グラフはコンテナ幅の約45%
+      return Math.min(Math.floor(containerWidth * 0.45), 800);
+    } else {
+      // 1列表示時: コンテナ幅の90%
+      return Math.min(Math.floor(containerWidth * 0.9), 800);
+    }
+  };
 
   // 都道府県変更時にデータをプリロード
   useEffect(() => {
@@ -49,7 +78,7 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+    <div ref={containerRef} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">
           年度比較表示 - {prefectureName}
@@ -103,27 +132,27 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
 
       {!loading1 && !loading2 && data1.length > 0 && data2.length > 0 && (
         <div className="overflow-x-auto">
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 min-w-[800px]">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
             {/* 年度1のピラミッド */}
-            <div className="border border-gray-200 rounded p-4">
+            <div className="border border-gray-200 rounded p-4 flex justify-center">
               <PopulationPyramid
                 data={data1}
                 prefecture={prefectureName}
                 year={year1}
-                width={380}
-                height={480}
+                width={getGraphWidth()}
+                height={550}
                 fixedScale={fixedScale || undefined}
               />
             </div>
 
             {/* 年度2のピラミッド */}
-            <div className="border border-gray-200 rounded p-4">
+            <div className="border border-gray-200 rounded p-4 flex justify-center">
               <PopulationPyramid
                 data={data2}
                 prefecture={prefectureName}
                 year={year2}
-                width={380}
-                height={480}
+                width={getGraphWidth()}
+                height={550}
                 fixedScale={fixedScale || undefined}
               />
             </div>

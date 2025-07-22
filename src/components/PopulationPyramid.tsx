@@ -22,13 +22,12 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
   fixedScale
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
+  const isInitializedRef = useRef(false);
 
   useEffect(() => {
     if (!data || data.length === 0) return;
 
     const svg = d3.select(svgRef.current);
-    svg.selectAll("*").remove(); // 既存の要素をクリア
-
     const pyramidData = createPopulationPyramid(data);
     
     // 固定スケールまたは動的スケールを使用
@@ -40,8 +39,94 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
       scale = localDataService.calculateDynamicScale(data);
     }
     
-    drawPyramid(svg, pyramidData, width, height, prefecture, year, scale);
+    // 初回描画か更新かを判定
+    if (!isInitializedRef.current) {
+      svg.selectAll("*").remove();
+      drawPyramid(svg, pyramidData, width, height, prefecture, year, scale);
+      isInitializedRef.current = true;
+    } else {
+      updatePyramid(svg, pyramidData, width, height, prefecture, year, scale);
+    }
   }, [data, width, height, prefecture, year, fixedScale]);
+
+  const updatePyramid = (
+    svg: d3.Selection<SVGSVGElement | null, unknown, null, undefined>,
+    pyramidData: PyramidData,
+    width: number,
+    height: number,
+    prefecture: string,
+    year: number,
+    dynamicScale: number
+  ) => {
+    const margin = { top: 40, right: 80, bottom: 60, left: 80 };
+    const chartWidth = width - margin.left - margin.right;
+    const chartHeight = height - margin.top - margin.bottom;
+
+    const maxValue = dynamicScale;
+
+    // スケール設定
+    const xScale = d3.scaleLinear()
+      .domain([-maxValue, maxValue])
+      .range([0, chartWidth]);
+
+    const yScale = d3.scaleBand()
+      .domain(pyramidData.ageGroups)
+      .range([0, chartHeight])
+      .padding(0.1);
+
+    const g = svg.select('.chart-container') as d3.Selection<SVGGElement, unknown, null, undefined>;
+
+    // 男性バーの更新
+    const maleBars = g.selectAll('.male-bar')
+      .data(pyramidData.maleData);
+
+    maleBars
+      .transition()
+      .duration(800)
+      .ease(d3.easeCubicInOut)
+      .attr('x', d => xScale(d))
+      .attr('width', d => xScale(0) - xScale(d));
+
+    // 女性バーの更新
+    const femaleBars = g.selectAll('.female-bar')
+      .data(pyramidData.femaleData);
+
+    femaleBars
+      .transition()
+      .duration(800)
+      .ease(d3.easeCubicInOut)
+      .attr('width', d => xScale(d) - xScale(0));
+
+    // X軸の更新
+    const xAxis = d3.axisBottom(xScale)
+      .tickFormat(d => Math.abs(d as number).toLocaleString());
+
+    g.select('.x-axis')
+      .transition()
+      .duration(800)
+      .call(xAxis as any);
+
+    // グリッドラインの更新
+    const xAxisGrid = d3.axisBottom(xScale)
+      .tickSize(-chartHeight)
+      .tickFormat(() => '');
+
+    g.select('.grid')
+      .transition()
+      .duration(800)
+      .call(xAxisGrid as any);
+
+    // 性別ラベルの位置更新
+    g.select('.male-label')
+      .transition()
+      .duration(800)
+      .attr('x', xScale(-maxValue * 0.7));
+
+    g.select('.female-label')
+      .transition()
+      .duration(800)
+      .attr('x', xScale(maxValue * 0.7));
+  };
 
   const drawPyramid = (
     svg: d3.Selection<SVGSVGElement | null, unknown, null, undefined>,
@@ -72,20 +157,21 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
 
     // メインコンテナ
     const g = svg.append('g')
+      .attr('class', 'chart-container')
       .attr('transform', `translate(${margin.left},${margin.top})`);
-
       
     // スケール表示を削除
 
     // 男性バー（左側）
-    g.selectAll('.male-bar')
-      .data(pyramidData.maleData)
-      .enter()
+    const maleBars = g.selectAll('.male-bar')
+      .data(pyramidData.maleData);
+      
+    maleBars.enter()
       .append('rect')
       .attr('class', 'male-bar')
-      .attr('x', d => xScale(d))
+      .attr('x', xScale(0))
       .attr('y', (d, i) => yScale(pyramidData.ageGroups[i])!)
-      .attr('width', d => xScale(0) - xScale(d))
+      .attr('width', 0)
       .attr('height', yScale.bandwidth())
       .attr('fill', '#3B82F6')
       .attr('opacity', 0.8)
@@ -111,17 +197,22 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
       })
       .on('mouseout', function() {
         d3.selectAll('.tooltip').remove();
-      });
+      })
+      .transition()
+      .duration(500)
+      .attr('x', d => xScale(d))
+      .attr('width', d => xScale(0) - xScale(d));
 
     // 女性バー（右側）
-    g.selectAll('.female-bar')
-      .data(pyramidData.femaleData)
-      .enter()
+    const femaleBars = g.selectAll('.female-bar')
+      .data(pyramidData.femaleData);
+      
+    femaleBars.enter()
       .append('rect')
       .attr('class', 'female-bar')
       .attr('x', xScale(0))
       .attr('y', (d, i) => yScale(pyramidData.ageGroups[i])!)
-      .attr('width', d => xScale(d) - xScale(0))
+      .attr('width', 0)
       .attr('height', yScale.bandwidth())
       .attr('fill', '#EC4899')
       .attr('opacity', 0.8)
@@ -147,7 +238,10 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
       })
       .on('mouseout', function() {
         d3.selectAll('.tooltip').remove();
-      });
+      })
+      .transition()
+      .duration(500)
+      .attr('width', d => xScale(d) - xScale(0));
 
     // 中央線
     g.append('line')
@@ -197,6 +291,7 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
 
     // 性別ラベル
     g.append('text')
+      .attr('class', 'male-label')
       .attr('x', xScale(-maxValue * 0.7))
       .attr('y', -10)
       .attr('text-anchor', 'middle')
@@ -206,6 +301,7 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
       .text('男性');
 
     g.append('text')
+      .attr('class', 'female-label')
       .attr('x', xScale(maxValue * 0.7))
       .attr('y', -10)
       .attr('text-anchor', 'middle')

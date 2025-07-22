@@ -111,7 +111,35 @@ const YearSelector: React.FC<YearSelectorProps> = ({
       {availableYears.length > 1 && (
         <div className="space-y-2">
           <div className="text-sm text-gray-600">スライダーで選択</div>
-          <div className="relative">
+          <div className="relative pt-8">
+            {/* 5年刻みのマーカー */}
+            <div className="absolute top-0 left-0 right-0 flex justify-between px-1">
+              {(() => {
+                const minYear = Math.min(...availableYears);
+                const maxYear = Math.max(...availableYears);
+                const markers = [];
+                
+                // 5年刻みでマーカーを作成
+                for (let year = minYear; year <= maxYear; year += 5) {
+                  if (availableYears.includes(year)) {
+                    const position = ((year - minYear) / (maxYear - minYear)) * 100;
+                    markers.push(
+                      <div
+                        key={year}
+                        className="absolute flex flex-col items-center"
+                        style={{ left: `${position}%`, transform: 'translateX(-50%)' }}
+                      >
+                        <div className="text-xs text-gray-600 font-medium">{year}</div>
+                        <div className="w-0.5 h-3 bg-gray-400 mt-1"></div>
+                      </div>
+                    );
+                  }
+                }
+                
+                return markers;
+              })()}
+            </div>
+            
             <input
               type="range"
               min={Math.min(...availableYears)}
@@ -124,12 +152,14 @@ const YearSelector: React.FC<YearSelectorProps> = ({
                   onYearChange(year);
                 }
               }}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider mt-4"
             />
-            <div className="flex justify-between text-xs text-gray-500 mt-1">
-              <span>{Math.min(...availableYears)}</span>
-              <span className="font-medium">{selectedYear}</span>
-              <span>{Math.max(...availableYears)}</span>
+            
+            {/* 現在の選択年表示 */}
+            <div className="text-center mt-2">
+              <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
+                {selectedYear}年
+              </span>
             </div>
           </div>
         </div>
@@ -141,18 +171,28 @@ const YearSelector: React.FC<YearSelectorProps> = ({
           height: 20px;
           width: 20px;
           border-radius: 50%;
-          background: #10B981;
+          background: #9333EA;
           cursor: pointer;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          transition: all 0.2s;
+        }
+        .slider::-webkit-slider-thumb:hover {
+          transform: scale(1.2);
+          box-shadow: 0 4px 8px rgba(147, 51, 234, 0.3);
         }
         .slider::-moz-range-thumb {
           height: 20px;
           width: 20px;
           border-radius: 50%;
-          background: #10B981;
+          background: #9333EA;
           cursor: pointer;
           border: none;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          transition: all 0.2s;
+        }
+        .slider::-moz-range-thumb:hover {
+          transform: scale(1.2);
+          box-shadow: 0 4px 8px rgba(147, 51, 234, 0.3);
         }
       `}</style>
     </div>
