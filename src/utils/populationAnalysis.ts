@@ -29,8 +29,8 @@ export const createPopulationPyramid = (data: PopulationData[]): PyramidData => 
     
     // 全国データかどうか判定してスケーリング調整
     const isNational = data.length > 0 && data[0].prefectureCode === '00000';
-    const maleScale = isNational ? malePopulation * 1000 : malePopulation; // 全国は百万人→千人単位に調整
-    const femaleScale = isNational ? femalePopulation * 1000 : femalePopulation; // 全国は百万人→千人単位に調整
+    const maleScale = isNational ? malePopulation : malePopulation; // 全国も都道府県も同じスケール
+    const femaleScale = isNational ? femalePopulation : femalePopulation; // 全国も都道府県も同じスケール
     
     pyramid.ageGroups.push(ageGroup);
     pyramid.maleData.push(-maleScale); // 左側表示のため負の値

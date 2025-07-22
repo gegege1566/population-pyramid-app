@@ -46,7 +46,7 @@ const PopulationStats: React.FC<PopulationStatsProps> = ({
       // 全国データと都道府県データを区別して処理
       const isNational = item.prefectureCode === '00000';
       const population = isNational 
-        ? item.population * 1000 * 1000 // 全国データ：百万人単位なので100万倍で実人数
+        ? item.population * 1000 // 全国データ：APIで1000で割った後なので1000倍で実人数
         : item.population * 1000; // 都道府県データ：千人単位なので1000倍で実人数
       const ageStart = parseInt(item.ageGroup.split('-')[0]);
       
