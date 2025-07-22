@@ -302,7 +302,7 @@ export class UnifiedEStatService {
           prefectureCode: '00000',
           ageGroup: ageGroup,
           gender: 'male',
-          population: data.male
+          population: Math.round(data.male / 1000) // 全国データは1000で割る（千人→百万人単位変換）
         });
         result.push({
           year,
@@ -310,12 +310,19 @@ export class UnifiedEStatService {
           prefectureCode: '00000',
           ageGroup: ageGroup,
           gender: 'female',
-          population: data.female
+          population: Math.round(data.female / 1000) // 全国データは1000で割る（千人→百万人単位変換）
         });
       });
 
-      this.cache.set(cacheKey, result);
+      // デバッグ: 全国データの合計を確認
+      const totalMale = result.filter(r => r.gender === 'male').reduce((sum, r) => sum + r.population, 0);
+      const totalFemale = result.filter(r => r.gender === 'female').reduce((sum, r) => sum + r.population, 0);
+      const totalPopulation = totalMale + totalFemale;
       console.log(`✅ National data fetched for ${year}. Total records: ${result.length}`);
+      console.log(`📊 National total population: ${totalPopulation.toLocaleString()} (${totalPopulation > 1000000 ? 'seems too large - may need /1000' : 'seems reasonable'})`);
+      console.log(`📊 Sample data:`, result.slice(0, 2).map(r => `${r.ageGroup} ${r.gender}: ${r.population.toLocaleString()}`));
+
+      this.cache.set(cacheKey, result);
       
       return result;
 

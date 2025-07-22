@@ -27,9 +27,14 @@ export const createPopulationPyramid = (data: PopulationData[]): PyramidData => 
     const malePopulation = data.find(d => d.ageGroup === ageGroup && d.gender === 'male')?.population || 0;
     const femalePopulation = data.find(d => d.ageGroup === ageGroup && d.gender === 'female')?.population || 0;
     
+    // 全国データかどうか判定してスケーリング調整
+    const isNational = data.length > 0 && data[0].prefectureCode === '00000';
+    const maleScale = isNational ? malePopulation * 1000 : malePopulation; // 全国は百万人→千人単位に調整
+    const femaleScale = isNational ? femalePopulation * 1000 : femalePopulation; // 全国は百万人→千人単位に調整
+    
     pyramid.ageGroups.push(ageGroup);
-    pyramid.maleData.push(-malePopulation); // 左側表示のため負の値
-    pyramid.femaleData.push(femalePopulation);
+    pyramid.maleData.push(-maleScale); // 左側表示のため負の値
+    pyramid.femaleData.push(femaleScale);
   });
   
   return pyramid;

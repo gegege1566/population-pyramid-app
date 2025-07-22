@@ -189,7 +189,11 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
 
         const index = pyramidData.maleData.indexOf(d);
         const ageGroup = pyramidData.ageGroups[index];
-        const population = Math.abs(d) * 1000; // 千人単位から人単位に変換
+        // データから全国かどうか判定
+        const isNational = data.length > 0 && data[0].prefectureCode === '00000';
+        const population = isNational 
+          ? Math.abs(d) * 1000 * 1000 // 全国データ：百万人単位なので100万倍で実人数
+          : Math.abs(d) * 1000; // 都道府県データ：千人単位なので1000倍で実人数
         
         tooltip.html(`男性 ${ageGroup}歳<br/>${population.toLocaleString()}人`)
           .style('left', (event.pageX + 10) + 'px')
@@ -230,7 +234,11 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
 
         const index = pyramidData.femaleData.indexOf(d);
         const ageGroup = pyramidData.ageGroups[index];
-        const population = d * 1000; // 千人単位から人単位に変換
+        // データから全国かどうか判定
+        const isNational = data.length > 0 && data[0].prefectureCode === '00000';
+        const population = isNational 
+          ? d * 1000 * 1000 // 全国データ：百万人単位なので100万倍で実人数
+          : d * 1000; // 都道府県データ：千人単位なので1000倍で実人数
         
         tooltip.html(`女性 ${ageGroup}歳<br/>${population.toLocaleString()}人`)
           .style('left', (event.pageX + 10) + 'px')
