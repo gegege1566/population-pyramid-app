@@ -31,14 +31,6 @@ const PopulationStats: React.FC<PopulationStatsProps> = ({
       };
     }
 
-    // デバッグ: データサンプルをログ出力
-    const isNational = data.length > 0 && data[0].prefectureCode === '00000';
-    console.log(`📊 PopulationStats DEBUG - ${isNational ? '全国' : '都道府県'}データ:`, 
-      data.slice(0, 4).map(d => `${d.ageGroup} ${d.gender}: ${d.population.toLocaleString()}`));
-    
-    if (isNational) {
-      console.log(`📊 National scaling: raw=${data[0].population}, multiplier=${isNational ? '1x (直接)' : '1000x'}`);
-    }
 
     let totalMale = 0;
     let totalFemale = 0;
