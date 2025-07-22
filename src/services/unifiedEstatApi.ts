@@ -106,9 +106,9 @@ export class UnifiedEStatService {
   }
 
   async getPopulationData(prefCode: string, year: number): Promise<PopulationData[]> {
-    // 日本全体の場合（prefCode = '00000'）
+    // 日本全体の場合（prefCode = '00000'）は直接APIから取得
     if (prefCode === '00000') {
-      return this.getNationalPopulationData(year);
+      return this.getNationalPopulationDataDirect(year);
     }
     const cacheKey = `${prefCode}-${year}`;
     
@@ -227,7 +227,109 @@ export class UnifiedEStatService {
     return result;
   }
 
-  // 日本全体のデータを取得（全都道府県の合計）
+  // 日本全体のデータをAPIから直接取得
+  async getNationalPopulationDataDirect(year: number): Promise<PopulationData[]> {
+    const cacheKey = `national-direct-${year}`;
+    
+    if (this.cache.has(cacheKey)) {
+      return this.cache.get(cacheKey)!;
+    }
+
+    try {
+      console.log(`Fetching national data directly from API for year ${year}...`);
+      
+      const allData: PopulationData[] = [];
+
+      // 全国データは地域コード 00000 で直接取得
+      // 男性データを取得
+      for (const seriesId of ALL_SERIES_IDS.male) {
+        const url = `${this.baseUrl}?Lang=JP&IndicatorCode=${seriesId}&RegionCode=00000`;
+        const response = await this.fetchRequest(url);
+
+        if (response.GET_STATS?.RESULT?.status !== "0") {
+          continue; // この系列IDのデータがない場合はスキップ
+        }
+
+        const dataObjects = response.GET_STATS?.STATISTICAL_DATA?.DATA_INF?.DATA_OBJ;
+        if (!dataObjects || !Array.isArray(dataObjects)) continue;
+
+        for (const obj of dataObjects) {
+          const value = obj.VALUE;
+          const timeCode = value['@time']; // 例: "2025CY00"
+          const dataYear = parseInt(timeCode.substring(0, 4));
+          
+          if (dataYear === year) {
+            const ageGroup = SERIES_TO_AGE[seriesId];
+            if (ageGroup) {
+              allData.push({
+                year: dataYear,
+                prefecture: '全国',
+                prefectureCode: '00000',
+                ageGroup,
+                gender: 'male',
+                population: Math.round(parseInt(value['$']) / 1000) // 人単位から千人単位に変換
+              });
+            }
+          }
+        }
+
+        // レート制限回避
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
+
+      // 女性データを取得
+      for (const seriesId of ALL_SERIES_IDS.female) {
+        const url = `${this.baseUrl}?Lang=JP&IndicatorCode=${seriesId}&RegionCode=00000`;
+        const response = await this.fetchRequest(url);
+
+        if (response.GET_STATS?.RESULT?.status !== "0") {
+          continue; // この系列IDのデータがない場合はスキップ
+        }
+
+        const dataObjects = response.GET_STATS?.STATISTICAL_DATA?.DATA_INF?.DATA_OBJ;
+        if (!dataObjects || !Array.isArray(dataObjects)) continue;
+
+        for (const obj of dataObjects) {
+          const value = obj.VALUE;
+          const timeCode = value['@time']; // 例: "2025CY00"
+          const dataYear = parseInt(timeCode.substring(0, 4));
+          
+          if (dataYear === year) {
+            const ageGroup = SERIES_TO_AGE[seriesId];
+            if (ageGroup) {
+              allData.push({
+                year: dataYear,
+                prefecture: '全国',
+                prefectureCode: '00000',
+                ageGroup,
+                gender: 'female',
+                population: Math.round(parseInt(value['$']) / 1000) // 人単位から千人単位に変換
+              });
+            }
+          }
+        }
+
+        // レート制限回避
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
+
+      // デバッグ: 全国データの合計を確認
+      const totalMale = allData.filter(r => r.gender === 'male').reduce((sum, r) => sum + r.population, 0);
+      const totalFemale = allData.filter(r => r.gender === 'female').reduce((sum, r) => sum + r.population, 0);
+      const totalPopulation = totalMale + totalFemale;
+      console.log(`✅ National data fetched directly for ${year}. Total records: ${allData.length}`);
+      console.log(`📊 National total population: ${totalPopulation.toLocaleString()} thousand people (${(totalPopulation * 1000).toLocaleString()} people)`);
+
+      this.cache.set(cacheKey, allData);
+      return allData;
+
+    } catch (error) {
+      console.error(`Failed to fetch national data directly for ${year}:`, error);
+      throw error;
+    }
+  }
+
+  // 日本全体のデータを取得（全都道府県の合計）- 旧方式（バックアップ用）
   async getNationalPopulationData(year: number): Promise<PopulationData[]> {
     const cacheKey = `national-${year}`;
     
