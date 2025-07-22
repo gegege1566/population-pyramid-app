@@ -106,6 +106,10 @@ export class UnifiedEStatService {
   }
 
   async getPopulationData(prefCode: string, year: number): Promise<PopulationData[]> {
+    // 日本全体の場合（prefCode = '00000'）
+    if (prefCode === '00000') {
+      return this.getNationalPopulationData(year);
+    }
     const cacheKey = `${prefCode}-${year}`;
     
     if (this.cache.has(cacheKey)) {
@@ -209,5 +213,115 @@ export class UnifiedEStatService {
 
   clearCache(): void {
     this.cache.clear();
+  }
+
+  // 都道府県データを直接取得（日本全体集計用）
+  private async fetchPrefectureDataDirect(prefCode: string, year: number): Promise<PopulationData[]> {
+    const cacheKey = `${prefCode}-${year}`;
+    if (this.cache.has(cacheKey)) {
+      return this.cache.get(cacheKey)!;
+    }
+
+    const result = await this.getPopulationData(prefCode, year);
+    this.cache.set(cacheKey, result);
+    return result;
+  }
+
+  // 日本全体のデータを取得（全都道府県の合計）
+  async getNationalPopulationData(year: number): Promise<PopulationData[]> {
+    const cacheKey = `national-${year}`;
+    
+    if (this.cache.has(cacheKey)) {
+      return this.cache.get(cacheKey)!;
+    }
+
+    try {
+      console.log(`Fetching national data for year ${year}...`);
+      
+      // 全都道府県のデータを並列取得
+      const prefectureCodes = [
+        '01000', '02000', '03000', '04000', '05000', '06000', '07000', '08000', 
+        '09000', '10000', '11000', '12000', '13000', '14000', '15000', '16000',
+        '17000', '18000', '19000', '20000', '21000', '22000', '23000', '24000',
+        '25000', '26000', '27000', '28000', '29000', '30000', '31000', '32000',
+        '33000', '34000', '35000', '36000', '37000', '38000', '39000', '40000',
+        '41000', '42000', '43000', '44000', '45000', '46000', '47000'
+      ];
+
+      const promises = prefectureCodes.map(async (prefCode, index) => {
+        try {
+          // レート制限対策
+          await new Promise(resolve => setTimeout(resolve, index * 50));
+          // 既存のgetPopulationDataを直接呼ばないようにして無限ループを回避
+          const data = await this.fetchPrefectureDataDirect(prefCode, year);
+          return data;
+        } catch (error) {
+          console.warn(`Failed to fetch data for ${prefCode}:`, error);
+          return [];
+        }
+      });
+
+      const allPrefectureData = await Promise.all(promises);
+      
+      // 年齢グループ別に集計
+      const nationalData: { [key: string]: { male: number, female: number } } = {};
+      
+      // 年齢グループを定義（0-4, 5-9, ..., 95-99, 100+）
+      const ageGroups = [];
+      for (let i = 0; i < 20; i++) {
+        ageGroups.push(`${i * 5}-${i * 5 + 4}`);
+      }
+      ageGroups.push('100+');
+      
+      // 初期化
+      ageGroups.forEach(ageGroup => {
+        nationalData[ageGroup] = { male: 0, female: 0 };
+      });
+
+      // 全都道府県データを集計
+      allPrefectureData.forEach(prefectureData => {
+        prefectureData.forEach(record => {
+          const ageGroup = record.ageGroup;
+          if (nationalData[ageGroup]) {
+            if (record.gender === 'male') {
+              nationalData[ageGroup].male += record.population;
+            } else {
+              nationalData[ageGroup].female += record.population;
+            }
+          }
+        });
+      });
+
+      // PopulationData形式に変換
+      const result: PopulationData[] = [];
+      ageGroups.forEach(ageGroup => {
+        const data = nationalData[ageGroup];
+        result.push({
+          year,
+          prefecture: '全国',
+          prefectureCode: '00000',
+          ageGroup: ageGroup,
+          gender: 'male',
+          population: data.male
+        });
+        result.push({
+          year,
+          prefecture: '全国',
+          prefectureCode: '00000',
+          ageGroup: ageGroup,
+          gender: 'female',
+          population: data.female
+        });
+      });
+
+      this.cache.set(cacheKey, result);
+      console.log(`✅ National data fetched for ${year}. Total records: ${result.length}`);
+      
+      return result;
+
+    } catch (error) {
+      console.error(`Failed to fetch national data for ${year}:`, error);
+      throw error;
+    }
   }
 }

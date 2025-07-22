@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { PopulationData } from '../types/population';
 import { createPopulationPyramid, PyramidData } from '../utils/populationAnalysis';
+import { LocalDataService } from '../services/localDataService';
 
 interface PopulationPyramidProps {
   data: PopulationData[];
@@ -9,6 +10,7 @@ interface PopulationPyramidProps {
   height?: number;
   prefecture?: string;
   year?: number;
+  fixedScale?: number; // 2025年ベースの固定スケール
 }
 
 const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
@@ -16,7 +18,8 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
   width = 800,
   height = 600,
   prefecture = '',
-  year = 2020
+  year = 2025,
+  fixedScale
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -27,8 +30,18 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
     svg.selectAll("*").remove(); // 既存の要素をクリア
 
     const pyramidData = createPopulationPyramid(data);
-    drawPyramid(svg, pyramidData, width, height, prefecture, year);
-  }, [data, width, height, prefecture, year]);
+    
+    // 固定スケールまたは動的スケールを使用
+    let scale: number;
+    if (fixedScale) {
+      scale = fixedScale;
+    } else {
+      const localDataService = new LocalDataService();
+      scale = localDataService.calculateDynamicScale(data);
+    }
+    
+    drawPyramid(svg, pyramidData, width, height, prefecture, year, scale);
+  }, [data, width, height, prefecture, year, fixedScale]);
 
   const drawPyramid = (
     svg: d3.Selection<SVGSVGElement | null, unknown, null, undefined>,
@@ -36,24 +49,16 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
     width: number,
     height: number,
     prefecture: string,
-    year: number
+    year: number,
+    dynamicScale: number
   ) => {
     const margin = { top: 40, right: 80, bottom: 60, left: 80 };
     const chartWidth = width - margin.left - margin.right;
     const chartHeight = height - margin.top - margin.bottom;
 
-    // 固定スケール設定（年度間比較を可能にするため）
-    // データは千人単位なので、適切な固定上限を設定
-    const FIXED_MAX_VALUE = 600; // 60万人（千人単位）= 600,000人
+    // 固定スケールを使用
+    const maxValue = dynamicScale;
     
-    // 動的な最大値も計算（デバッグ用）
-    const dynamicMaxValue = Math.max(
-      ...pyramidData.maleData.map(Math.abs),
-      ...pyramidData.femaleData
-    );
-    
-    // 固定値を使用
-    const maxValue = FIXED_MAX_VALUE;
 
     // スケール設定
     const xScale = d3.scaleLinear()
@@ -69,27 +74,8 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
     const g = svg.append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    // タイトル（将来推計の場合は明示）
-    const currentYear = new Date().getFullYear();
-    const isFutureData = year > currentYear;
-    const titleSuffix = isFutureData ? '年 将来推計' : '年';
-    
-    svg.append('text')
-      .attr('x', width / 2)
-      .attr('y', 25)
-      .attr('text-anchor', 'middle')
-      .attr('class', 'text-lg font-bold')
-      .attr('fill', isFutureData ? '#7C3AED' : '#1F2937')
-      .text(`${prefecture} 人口ピラミッド (${year}${titleSuffix})`);
       
-    // スケール固定の説明
-    svg.append('text')
-      .attr('x', width - 10)
-      .attr('y', 15)
-      .attr('text-anchor', 'end')
-      .attr('class', 'text-xs')
-      .attr('fill', '#6B7280')
-      .text('※スケール固定（年度比較可能）');
+    // スケール表示を削除
 
     // 男性バー（左側）
     g.selectAll('.male-bar')
@@ -207,7 +193,7 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
       .attr('y', chartHeight + 40)
       .attr('text-anchor', 'middle')
       .style('font-size', '14px')
-      .text('人口 (千人単位、最大値: 60万人固定)');
+      .text('人口 (千人単位)');
 
     // 性別ラベル
     g.append('text')

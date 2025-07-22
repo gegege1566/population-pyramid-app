@@ -14,15 +14,14 @@ const YearSelector: React.FC<YearSelectorProps> = ({
   className = ''
 }) => {
   const sortedYears = [...availableYears].sort((a, b) => a - b);
-  const currentYear = new Date().getFullYear();
   
-  // 過去データと将来推計データに分割
-  const pastYears = sortedYears.filter(year => year <= currentYear);
-  const futureYears = sortedYears.filter(year => year > currentYear);
+  // すべて将来推計データ（2025年以降）
+  const pastYears: number[] = []; // 過去データは不要
+  const futureYears = sortedYears; // すべて将来推計データ
 
   const getYearStyle = (year: number) => {
     const isSelected = selectedYear === year;
-    const isFuture = year > currentYear;
+    const isFuture = true; // すべて将来推計データ
     
     if (isSelected) {
       return isFuture 
@@ -94,12 +93,12 @@ const YearSelector: React.FC<YearSelectorProps> = ({
             <span className="inline-block w-3 h-3 bg-purple-100 border border-purple-300 rounded mr-2"></span>
             将来推計（予測値）
           </div>
-          <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {futureYears.map(year => (
               <button
                 key={year}
                 onClick={() => onYearChange(year)}
-                className={`px-3 py-2 text-sm rounded-md border transition-colors ${getYearStyle(year)}`}
+                className={`px-4 py-3 text-lg font-medium rounded-lg border-2 transition-colors ${getYearStyle(year)}`}
               >
                 {year}
               </button>

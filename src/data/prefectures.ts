@@ -1,6 +1,7 @@
 import { PrefectureInfo } from '../types/population';
 
 export const PREFECTURE_CODES: { [key: string]: string } = {
+  '00000': '全国（日本）',
   '01': '北海道',   '02': '青森県',   '03': '岩手県',   '04': '宮城県',
   '05': '秋田県',   '06': '山形県',   '07': '福島県',   '08': '茨城県',
   '09': '栃木県',   '10': '群馬県',   '11': '埼玉県',   '12': '千葉県',

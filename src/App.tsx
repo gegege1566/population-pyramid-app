@@ -2,53 +2,83 @@ import React, { useState, useEffect } from 'react';
 import PopulationPyramid from './components/PopulationPyramid';
 import PrefectureSelector from './components/PrefectureSelector';
 import YearSelector from './components/YearSelector';
-import StatsPanel from './components/StatsPanel';
 import YearComparisonDemo from './components/YearComparisonDemo';
-import { usePopulationData, useAvailableYears } from './hooks/usePopulationData';
+import { useAvailableYears } from './hooks/usePopulationData';
+import { usePrefectureData } from './hooks/usePrefectureData';
+import { useMultiplePrefectureData } from './hooks/useMultiplePrefectureData';
 import { LocalDataService } from './services/localDataService';
 
 const localDataService = new LocalDataService();
 
 function App() {
-  const [selectedPrefCode, setSelectedPrefCode] = useState('13'); // 東京都をデフォルト
-  const [selectedYear, setSelectedYear] = useState(2020);
+  const [selectedPrefCodes, setSelectedPrefCodes] = useState<string[]>(['00000']); // 全国（日本）をデフォルト
+  const [selectedYear, setSelectedYear] = useState(2025);
   const [isInitialized, setIsInitialized] = useState(false);
   const [showComparison, setShowComparison] = useState(false);
 
   const { years: availableYears, loading: yearsLoading } = useAvailableYears();
-  const { data, loading, error } = usePopulationData(selectedPrefCode, selectedYear);
+  const singlePrefectureHook = usePrefectureData();
+  const multiplePrefectureHook = useMultiplePrefectureData();
+  
+  // 選択状態に応じて適切なフックを使用
+  const isMultipleSelection = selectedPrefCodes.length > 1;
+  const currentHook = isMultipleSelection ? multiplePrefectureHook : singlePrefectureHook;
+  
+  const { getDataForYear, isDataAvailable, loading, error, fixedScale } = currentHook;
 
-  // 初期化とデータプリロード
+  // 初期化
   useEffect(() => {
-    const initializeApp = async () => {
-      try {
-        console.log('Initializing app and preloading data...');
-        await localDataService.preloadAllData();
-        setIsInitialized(true);
-      } catch (error) {
-        console.error('Failed to initialize app:', error);
-        setIsInitialized(true); // エラーでも初期化完了とする
-      }
-    };
-
-    initializeApp();
+    setIsInitialized(true);
   }, []);
 
-  // 利用可能年度が読み込まれたら2020年を選択（5年刻みの中心年）
+  // 利用可能年度が読み込まれたら2025年を選択（最初の年度）
   useEffect(() => {
     if (availableYears.length > 0 && !availableYears.includes(selectedYear)) {
-      // 2020年が利用可能な場合は2020年を、そうでなければ最も近い年を選択
-      const targetYear = availableYears.includes(2020) ? 2020 : availableYears[Math.floor(availableYears.length / 2)];
+      // 2025年が利用可能な場合は2025年を、そうでなければ最初の年を選択
+      const targetYear = availableYears.includes(2025) ? 2025 : availableYears[0];
       setSelectedYear(targetYear);
     }
   }, [availableYears, selectedYear]);
 
-  const selectedPrefecture = selectedPrefCode 
-    ? require('./data/prefectures').PREFECTURE_CODES[selectedPrefCode] || '未選択'
-    : '未選択';
+  // 都道府県と年度データが揃った時点で初回プリロードを実行
+  useEffect(() => {
+    if (selectedPrefCodes.length > 0 && availableYears.length > 0) {
+      if (selectedPrefCodes.length === 1) {
+        // 単一選択の場合
+        const prefCode = selectedPrefCodes[0];
+        if (singlePrefectureHook.currentPrefCode !== prefCode) {
+          singlePrefectureHook.loadPrefectureData(prefCode, availableYears);
+        }
+      } else {
+        // 複数選択の場合
+        const currentCodesStr = multiplePrefectureHook.currentPrefCodes.sort().join(',');
+        const selectedCodesStr = selectedPrefCodes.sort().join(',');
+        if (currentCodesStr !== selectedCodesStr) {
+          multiplePrefectureHook.loadMultiplePrefectureData(selectedPrefCodes, availableYears);
+        }
+      }
+    }
+  }, [selectedPrefCodes, availableYears, singlePrefectureHook, multiplePrefectureHook]);
 
-  const handlePrefectureChange = (prefCode: string) => {
-    setSelectedPrefCode(prefCode);
+  const getSelectedPrefectureNames = () => {
+    if (selectedPrefCodes.length === 0) return '未選択';
+    if (selectedPrefCodes.length === 1) {
+      const prefCode = selectedPrefCodes[0];
+      return prefCode === '00000' ? '全国（日本）' : 
+        require('./data/prefectures').PREFECTURE_CODES[prefCode] || '未選択';
+    }
+    return `${selectedPrefCodes.length}地域選択`;
+  };
+  
+  const selectedPrefecture = getSelectedPrefectureNames();
+
+  const handlePrefectureChange = (prefCodes: string[]) => {
+    setSelectedPrefCodes(prefCodes);
+    
+    // エリア選択時は必ず2025年を選択（全国（日本）以外）
+    if (prefCodes.length > 0 && !prefCodes.includes('00000') && availableYears.includes(2025)) {
+      setSelectedYear(2025);
+    }
   };
 
   const handleYearChange = (year: number) => {
@@ -70,7 +100,7 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       {/* ヘッダー */}
       <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="w-full mx-auto px-2 sm:px-4 lg:px-6 py-4">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold text-gray-900">
               都道府県別人口ピラミッド
@@ -95,40 +125,23 @@ function App() {
       </header>
 
       {/* メインコンテンツ */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          {/* サイドバー - 選択UI */}
-          <div className="lg:col-span-1 space-y-6">
+      <main className="w-full mx-auto px-2 sm:px-4 lg:px-6 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-8 gap-6">
+          {/* 左サイドバー - 都道府県選択UI */}
+          <div className="lg:col-span-2 space-y-6">
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
               <PrefectureSelector
-                selectedPrefCode={selectedPrefCode}
+                selectedPrefCodes={selectedPrefCodes}
                 onPrefectureChange={handlePrefectureChange}
               />
             </div>
-
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-              <YearSelector
-                selectedYear={selectedYear}
-                availableYears={availableYears}
-                onYearChange={handleYearChange}
-              />
-            </div>
-
-            {/* 統計パネル */}
-            {data.length > 0 && (
-              <StatsPanel
-                data={data}
-                prefecture={selectedPrefecture}
-                year={selectedYear}
-              />
-            )}
           </div>
 
           {/* メインエリア - 人口ピラミッドまたは年度比較 */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-4">
             {showComparison ? (
               <YearComparisonDemo
-                selectedPrefCode={selectedPrefCode}
+                selectedPrefCode={selectedPrefCodes[0] || ''}
                 availableYears={availableYears}
               />
             ) : (
@@ -157,7 +170,7 @@ function App() {
                   </div>
                 )}
 
-                {!loading && !error && data.length === 0 && selectedPrefCode && (
+                {!loading && !error && selectedPrefCodes.length > 0 && isDataAvailable(selectedYear) && getDataForYear(selectedYear).length === 0 && (
                   <div className="flex items-center justify-center h-96">
                     <div className="text-center">
                       <div className="text-gray-500 mb-2">データがありません</div>
@@ -168,17 +181,34 @@ function App() {
                   </div>
                 )}
 
-                {!loading && !error && data.length > 0 && (
-                  <PopulationPyramid
-                    data={data}
-                    prefecture={selectedPrefecture}
-                    year={selectedYear}
-                    width={800}
-                    height={600}
-                  />
+                {!loading && !error && isDataAvailable(selectedYear) && getDataForYear(selectedYear).length > 0 && (
+                  <div className="space-y-4">
+                    {/* グラフタイトル */}
+                    <div className="text-center">
+                      <h2 className="text-xl font-bold text-gray-900">
+                        {selectedPrefecture} 人口ピラミッド ({selectedYear}年)
+                      </h2>
+                      {selectedPrefCodes.length > 1 && (
+                        <p className="text-sm text-gray-600 mt-1">
+                          複数地域の合算値を表示
+                        </p>
+                      )}
+                    </div>
+                    
+                    <div className="overflow-x-auto">
+                      <PopulationPyramid
+                        data={getDataForYear(selectedYear)}
+                        prefecture={selectedPrefecture}
+                        year={selectedYear}
+                        width={800}
+                        height={600}
+                        fixedScale={fixedScale || undefined}
+                      />
+                    </div>
+                  </div>
                 )}
 
-                {!selectedPrefCode && (
+                {selectedPrefCodes.length === 0 && (
                   <div className="flex items-center justify-center h-96">
                     <div className="text-center">
                       <div className="text-gray-500 mb-2">都道府県を選択してください</div>
@@ -191,12 +221,23 @@ function App() {
               </div>
             )}
           </div>
+
+          {/* 右サイドバー - 年度選択UI */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+              <YearSelector
+                selectedYear={selectedYear}
+                availableYears={availableYears}
+                onYearChange={handleYearChange}
+              />
+            </div>
+          </div>
         </div>
       </main>
 
       {/* フッター */}
       <footer className="bg-white border-t border-gray-200 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="w-full mx-auto px-2 sm:px-4 lg:px-6 py-4">
           <div className="text-center text-sm text-gray-500 space-y-1">
             <div>
               <strong>データ範囲:</strong> 
