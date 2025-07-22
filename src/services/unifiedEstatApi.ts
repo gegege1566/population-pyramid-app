@@ -267,7 +267,7 @@ export class UnifiedEStatService {
                 prefectureCode: '00000',
                 ageGroup,
                 gender: 'male',
-                population: Math.round(parseInt(value['$']) / 1000) // 人単位から千人単位に変換
+                population: Math.round(parseInt(value['$']) / 1000 / 1000) // 全国データ：人単位を百万人単位に変換
               });
             }
           }
@@ -303,7 +303,7 @@ export class UnifiedEStatService {
                 prefectureCode: '00000',
                 ageGroup,
                 gender: 'female',
-                population: Math.round(parseInt(value['$']) / 1000) // 人単位から千人単位に変換
+                population: Math.round(parseInt(value['$']) / 1000 / 1000) // 全国データ：人単位を百万人単位に変換
               });
             }
           }
