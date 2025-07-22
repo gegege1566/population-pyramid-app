@@ -1,0 +1,19 @@
+[
+  {
+    "no": "1",
+    "graphTitle": "人口 / 人口ピラミッド",
+    "seriesName": "総人口（総数）",
+    "timeTable": "01",
+    "region": "全国",
+    "monthly": "",
+    "monthlySeasonallyAdjusted": "",
+    "quarterly": "",
+    "quarterlySeasonallyAdjusted": "",
+    "yearly": "",
+    "fiscalYear": "国勢調査／人口推計",
+    "source": "1975年10月",
+    "startDate": "最新",
+    "endDate": "0201010000000010000",
+    "seriesId": "0201010000000010000010201"
+  }
+]

@@ -1,0 +1,968 @@
+{
+  "13": [
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "0-4",
+      "gender": "male",
+      "population": 252311000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "5-9",
+      "gender": "male",
+      "population": 241790000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "10-14",
+      "gender": "male",
+      "population": 261598000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "15-19",
+      "gender": "male",
+      "population": 300701000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "20-24",
+      "gender": "male",
+      "population": 421764000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "25-29",
+      "gender": "male",
+      "population": 484127000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "30-34",
+      "gender": "male",
+      "population": 513712000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "35-39",
+      "gender": "male",
+      "population": 492483000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "40-44",
+      "gender": "male",
+      "population": 465740000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "45-49",
+      "gender": "male",
+      "population": 499493000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "50-54",
+      "gender": "male",
+      "population": 525374000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "55-59",
+      "gender": "male",
+      "population": 569118000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "60-64",
+      "gender": "male",
+      "population": 501146000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "65-69",
+      "gender": "male",
+      "population": 406399000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "70-74",
+      "gender": "male",
+      "population": 304281000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "75-79",
+      "gender": "male",
+      "population": 272061000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "80-84",
+      "gender": "male",
+      "population": 263297000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "85-89",
+      "gender": "male",
+      "population": 149145000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "90-94",
+      "gender": "male",
+      "population": 66127000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "95+",
+      "gender": "male",
+      "population": 20908000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "0-4",
+      "gender": "female",
+      "population": 240030000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "5-9",
+      "gender": "female",
+      "population": 229938000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "10-14",
+      "gender": "female",
+      "population": 250592000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "15-19",
+      "gender": "female",
+      "population": 293224000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "20-24",
+      "gender": "female",
+      "population": 415131000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "25-29",
+      "gender": "female",
+      "population": 474679000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "30-34",
+      "gender": "female",
+      "population": 511620000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "35-39",
+      "gender": "female",
+      "population": 484250000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "40-44",
+      "gender": "female",
+      "population": 464738000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "45-49",
+      "gender": "female",
+      "population": 493173000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "50-54",
+      "gender": "female",
+      "population": 516004000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "55-59",
+      "gender": "female",
+      "population": 566154000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "60-64",
+      "gender": "female",
+      "population": 494410000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "65-69",
+      "gender": "female",
+      "population": 406800000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "70-74",
+      "gender": "female",
+      "population": 323657000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "75-79",
+      "gender": "female",
+      "population": 316077000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "80-84",
+      "gender": "female",
+      "population": 357064000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "85-89",
+      "gender": "female",
+      "population": 263744000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "90-94",
+      "gender": "female",
+      "population": 158446000
+    },
+    {
+      "year": 2030,
+      "prefecture": "東京都",
+      "prefectureCode": "13",
+      "ageGroup": "95+",
+      "gender": "female",
+      "population": 77285000
+    }
+  ],
+  "23": [
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "0-4",
+      "gender": "male",
+      "population": 136265000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "5-9",
+      "gender": "male",
+      "population": 134884000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "10-14",
+      "gender": "male",
+      "population": 151531000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "15-19",
+      "gender": "male",
+      "population": 173744000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "20-24",
+      "gender": "male",
+      "population": 200543000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "25-29",
+      "gender": "male",
+      "population": 224401000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "30-34",
+      "gender": "male",
+      "population": 227771000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "35-39",
+      "gender": "male",
+      "population": 217859000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "40-44",
+      "gender": "male",
+      "population": 222463000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "45-49",
+      "gender": "male",
+      "population": 237996000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "50-54",
+      "gender": "male",
+      "population": 260924000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "55-59",
+      "gender": "male",
+      "population": 308178000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "60-64",
+      "gender": "male",
+      "population": 261029000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "65-69",
+      "gender": "male",
+      "population": 218272000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "70-74",
+      "gender": "male",
+      "population": 175957000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "75-79",
+      "gender": "male",
+      "population": 168433000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "80-84",
+      "gender": "male",
+      "population": 171636000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "85-89",
+      "gender": "male",
+      "population": 100390000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "90-94",
+      "gender": "male",
+      "population": 41477000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "95+",
+      "gender": "male",
+      "population": 10655000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "0-4",
+      "gender": "female",
+      "population": 129632000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "5-9",
+      "gender": "female",
+      "population": 128906000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "10-14",
+      "gender": "female",
+      "population": 144794000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "15-19",
+      "gender": "female",
+      "population": 164634000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "20-24",
+      "gender": "female",
+      "population": 186003000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "25-29",
+      "gender": "female",
+      "population": 198449000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "30-34",
+      "gender": "female",
+      "population": 207711000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "35-39",
+      "gender": "female",
+      "population": 198384000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "40-44",
+      "gender": "female",
+      "population": 203494000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "45-49",
+      "gender": "female",
+      "population": 222783000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "50-54",
+      "gender": "female",
+      "population": 248644000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "55-59",
+      "gender": "female",
+      "population": 293336000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "60-64",
+      "gender": "female",
+      "population": 252195000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "65-69",
+      "gender": "female",
+      "population": 219593000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "70-74",
+      "gender": "female",
+      "population": 188241000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "75-79",
+      "gender": "female",
+      "population": 200853000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "80-84",
+      "gender": "female",
+      "population": 229005000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "85-89",
+      "gender": "female",
+      "population": 159894000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "90-94",
+      "gender": "female",
+      "population": 87257000
+    },
+    {
+      "year": 2030,
+      "prefecture": "愛知県",
+      "prefectureCode": "23",
+      "ageGroup": "95+",
+      "gender": "female",
+      "population": 37338000
+    }
+  ],
+  "27": [
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "0-4",
+      "gender": "male",
+      "population": 140766000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "5-9",
+      "gender": "male",
+      "population": 140673000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "10-14",
+      "gender": "male",
+      "population": 160706000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "15-19",
+      "gender": "male",
+      "population": 181872000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "20-24",
+      "gender": "male",
+      "population": 210978000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "25-29",
+      "gender": "male",
+      "population": 230258000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "30-34",
+      "gender": "male",
+      "population": 244307000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "35-39",
+      "gender": "male",
+      "population": 236061000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "40-44",
+      "gender": "male",
+      "population": 235966000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "45-49",
+      "gender": "male",
+      "population": 249735000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "50-54",
+      "gender": "male",
+      "population": 281342000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "55-59",
+      "gender": "male",
+      "population": 351920000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "60-64",
+      "gender": "male",
+      "population": 309883000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "65-69",
+      "gender": "male",
+      "population": 252676000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "70-74",
+      "gender": "male",
+      "population": 196647000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "75-79",
+      "gender": "male",
+      "population": 195569000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "80-84",
+      "gender": "male",
+      "population": 206062000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "85-89",
+      "gender": "male",
+      "population": 123372000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "90-94",
+      "gender": "male",
+      "population": 52065000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "95+",
+      "gender": "male",
+      "population": 13484000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "0-4",
+      "gender": "female",
+      "population": 133915000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "5-9",
+      "gender": "female",
+      "population": 133752000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "10-14",
+      "gender": "female",
+      "population": 153693000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "15-19",
+      "gender": "female",
+      "population": 177569000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "20-24",
+      "gender": "female",
+      "population": 213371000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "25-29",
+      "gender": "female",
+      "population": 235737000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "30-34",
+      "gender": "female",
+      "population": 249967000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "35-39",
+      "gender": "female",
+      "population": 236756000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "40-44",
+      "gender": "female",
+      "population": 238551000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "45-49",
+      "gender": "female",
+      "population": 255229000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "50-54",
+      "gender": "female",
+      "population": 292780000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "55-59",
+      "gender": "female",
+      "population": 361630000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "60-64",
+      "gender": "female",
+      "population": 320008000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "65-69",
+      "gender": "female",
+      "population": 269737000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "70-74",
+      "gender": "female",
+      "population": 222790000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "75-79",
+      "gender": "female",
+      "population": 244894000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "80-84",
+      "gender": "female",
+      "population": 294647000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "85-89",
+      "gender": "female",
+      "population": 218189000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "90-94",
+      "gender": "female",
+      "population": 120426000
+    },
+    {
+      "year": 2030,
+      "prefecture": "大阪府",
+      "prefectureCode": "27",
+      "ageGroup": "95+",
+      "gender": "female",
+      "population": 49642000
+    }
+  ]
+}
