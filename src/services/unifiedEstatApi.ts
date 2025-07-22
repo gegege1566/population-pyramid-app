@@ -302,7 +302,7 @@ export class UnifiedEStatService {
           prefectureCode: '00000',
           ageGroup: ageGroup,
           gender: 'male',
-          population: Math.round(data.male / 1000) // 全国データは1000で割る（千人→百万人単位変換）
+          population: data.male // 全国データ：都道府県データ（千人単位）の合計なのでそのまま
         });
         result.push({
           year,
@@ -310,7 +310,7 @@ export class UnifiedEStatService {
           prefectureCode: '00000',
           ageGroup: ageGroup,
           gender: 'female',
-          population: Math.round(data.female / 1000) // 全国データは1000で割る（千人→百万人単位変換）
+          population: data.female // 全国データ：都道府県データ（千人単位）の合計なのでそのまま
         });
       });
 
