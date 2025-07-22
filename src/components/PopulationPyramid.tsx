@@ -192,7 +192,7 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
         // 全国データのみ特別処理、都道府県データはそのまま
         const isNational = data.length > 0 && data[0].prefectureCode === '00000';
         const population = isNational 
-          ? Math.abs(d) // 全国データ：グラフ値をそのまま使用
+          ? Math.abs(d) * 1000 // 全国データ：千人単位グラフ値を実人数に変換
           : Math.abs(d) * 1000; // 都道府県データ：千人単位から人単位に変換
         
         tooltip.html(`男性 ${ageGroup}歳<br/>${population.toLocaleString()}人`)
@@ -237,7 +237,7 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
         // 全国データのみ特別処理、都道府県データはそのまま
         const isNational = data.length > 0 && data[0].prefectureCode === '00000';
         const population = isNational 
-          ? d // 全国データ：グラフ値をそのまま使用
+          ? d * 1000 // 全国データ：千人単位グラフ値を実人数に変換
           : d * 1000; // 都道府県データ：千人単位から人単位に変換
         
         tooltip.html(`女性 ${ageGroup}歳<br/>${population.toLocaleString()}人`)

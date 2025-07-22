@@ -13,6 +13,10 @@ export const createPopulationPyramid = (data: PopulationData[]): PyramidData => 
     femaleData: []
   };
   
+  // デバッグ: 全国データかどうか確認
+  const isNational = data.length > 0 && data[0].prefectureCode === '00000';
+  console.log(`🔍 PyramidAnalysis: ${isNational ? '全国' : '都道府県'}データ処理開始`);
+  
   // 年齢階級でグループ化（高齢者を上に表示するため降順）
   const ageGroups = Array.from(new Set(data.map(d => d.ageGroup))).sort((a, b) => {
     // 年齢順にソート（降順）
@@ -27,10 +31,15 @@ export const createPopulationPyramid = (data: PopulationData[]): PyramidData => 
     const malePopulation = data.find(d => d.ageGroup === ageGroup && d.gender === 'male')?.population || 0;
     const femalePopulation = data.find(d => d.ageGroup === ageGroup && d.gender === 'female')?.population || 0;
     
-    // 全国データの場合は百万人単位なので千人単位相当に調整
+    // 全国データは実人数なので千人単位相当に調整してグラフ表示
     const isNational = data.length > 0 && data[0].prefectureCode === '00000';
-    const maleScale = isNational ? malePopulation * 1000 : malePopulation;
-    const femaleScale = isNational ? femalePopulation * 1000 : femalePopulation;
+    const maleScale = isNational ? malePopulation / 1000 : malePopulation;
+    const femaleScale = isNational ? femalePopulation / 1000 : femalePopulation;
+    
+    // デバッグ: スケーリング確認（最初の数個のみ）
+    if (pyramid.ageGroups.length < 3) {
+      console.log(`🔍 ${ageGroup}: male=${malePopulation}${isNational ? '→' + maleScale : ''}, female=${femalePopulation}${isNational ? '→' + femaleScale : ''}`);
+    }
     
     pyramid.ageGroups.push(ageGroup);
     pyramid.maleData.push(-maleScale); // 左側表示のため負の値

@@ -261,13 +261,21 @@ export class UnifiedEStatService {
           if (dataYear === year) {
             const ageGroup = SERIES_TO_AGE[seriesId];
             if (ageGroup) {
+              const rawValue = parseInt(value['$']);
+              const processedValue = Math.round(rawValue / 1000 / 1000);
+              
+              // デバッグ: 最初の数個の変換を確認
+              if (allData.length < 3) {
+                console.log(`🔍 National API raw: ${ageGroup} male = ${rawValue.toLocaleString()} → ${processedValue.toLocaleString()} (÷1M)`);
+              }
+              
               allData.push({
                 year: dataYear,
                 prefecture: '全国',
                 prefectureCode: '00000',
                 ageGroup,
                 gender: 'male',
-                population: Math.round(parseInt(value['$']) / 1000 / 1000) // 全国データ：人単位を百万人単位に変換
+                population: processedValue
               });
             }
           }
@@ -297,13 +305,21 @@ export class UnifiedEStatService {
           if (dataYear === year) {
             const ageGroup = SERIES_TO_AGE[seriesId];
             if (ageGroup) {
+              const rawValue = parseInt(value['$']);
+              const processedValue = Math.round(rawValue / 1000 / 1000);
+              
+              // デバッグ: 最初の数個の変換を確認  
+              if (allData.filter(d => d.gender === 'female').length < 3) {
+                console.log(`🔍 National API raw: ${ageGroup} female = ${rawValue.toLocaleString()} → ${processedValue.toLocaleString()} (÷1M)`);
+              }
+              
               allData.push({
                 year: dataYear,
                 prefecture: '全国',
                 prefectureCode: '00000',
                 ageGroup,
                 gender: 'female',
-                population: Math.round(parseInt(value['$']) / 1000 / 1000) // 全国データ：人単位を百万人単位に変換
+                population: processedValue
               });
             }
           }
@@ -318,7 +334,13 @@ export class UnifiedEStatService {
       const totalFemale = allData.filter(r => r.gender === 'female').reduce((sum, r) => sum + r.population, 0);
       const totalPopulation = totalMale + totalFemale;
       console.log(`✅ National data fetched directly for ${year}. Total records: ${allData.length}`);
-      console.log(`📊 National total population: ${totalPopulation.toLocaleString()} thousand people (${(totalPopulation * 1000).toLocaleString()} people)`);
+      console.log(`📊 National API raw total: ${totalPopulation.toLocaleString()} (after ÷1M processing)`);
+      console.log(`📊 Sample national data:`, allData.slice(0, 4).map(r => `${r.ageGroup} ${r.gender}: ${r.population.toLocaleString()}`));
+      
+      // 一つのサンプルデータでAPI原値も確認
+      if (allData.length > 0) {
+        console.log(`📊 First record scaling: API÷1M=${allData[0].population}, Display would be: ${allData[0].population} (direct)`);
+      }
 
       this.cache.set(cacheKey, allData);
       return allData;

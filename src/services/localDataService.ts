@@ -126,11 +126,15 @@ export class LocalDataService {
       return 250; // デフォルト値
     }
     
+    // 全国データの場合は実人数を千人単位に変換してからスケール計算
+    const isNational = data.length > 0 && data[0].prefectureCode === '00000';
+    
     // 現在表示されているデータから最大値を計算
     let maxPopulation = 0;
     for (const record of data) {
-      if (record.population > maxPopulation) {
-        maxPopulation = record.population;
+      const adjustedPopulation = isNational ? record.population / 1000 : record.population;
+      if (adjustedPopulation > maxPopulation) {
+        maxPopulation = adjustedPopulation;
       }
     }
     
@@ -154,7 +158,7 @@ export class LocalDataService {
       scale = Math.ceil(maxPopulation * 1.05 / 50) * 50;
     }
     
-    console.log(`Dynamic scale calculated: ${scale} (max population: ${maxPopulation})`);
+    console.log(`Dynamic scale calculated: ${scale} (max population: ${maxPopulation} ${isNational ? 'thousand people (adjusted from actual)' : 'thousand people'})`);
     return Math.max(scale, 15); // 最低15千人
   }
 
