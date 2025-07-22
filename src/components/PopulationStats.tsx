@@ -38,7 +38,7 @@ const PopulationStats: React.FC<PopulationStatsProps> = ({
     let elderly = 0; // 65歳以上
 
     data.forEach(item => {
-      const population = item.population; // 実際の人数データ
+      const population = item.population * 1000; // 千人単位から実人数に変換
       const ageStart = parseInt(item.ageGroup.split('-')[0]);
       
       if (item.gender === 'male') {
