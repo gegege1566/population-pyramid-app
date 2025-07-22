@@ -3,6 +3,7 @@ import PopulationPyramid from './components/PopulationPyramid';
 import PrefectureSelector from './components/PrefectureSelector';
 import YearSelector from './components/YearSelector';
 import YearComparisonDemo from './components/YearComparisonDemo';
+import PopulationStats from './components/PopulationStats';
 import { useAvailableYears } from './hooks/usePopulationData';
 import { usePrefectureData } from './hooks/usePrefectureData';
 import { useMultiplePrefectureData } from './hooks/useMultiplePrefectureData';
@@ -232,6 +233,17 @@ function App() {
                   onYearChange={handleYearChange}
                 />
               </div>
+              
+              {/* 人口統計表示 */}
+              {selectedPrefCodes.length === 1 && getDataForYear(selectedYear).length > 0 && (
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                  <PopulationStats
+                    data={getDataForYear(selectedYear)}
+                    prefecture={selectedPrefecture}
+                    year={selectedYear}
+                  />
+                </div>
+              )}
             </div>
           )}
         </div>
