@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>組合員データテスト</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .pass { background-color: #d4edda; color: #155724; }
+        .fail { background-color: #f8d7da; color: #721c24; }
+        .loading { background-color: #d1ecf1; color: #0c5460; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>組合員データ読み込みテスト</h1>
+    
+    <div id="test-results"></div>
+    
+    <h2>データ一覧</h2>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>都道府県</th>
+                <th>年度</th>
+                <th>ファイル</th>
+                <th>総組合員数</th>
+                <th>ステータス</th>
+            </tr>
+        </thead>
+        <tbody id="data-tbody">
+        </tbody>
+    </table>
+
+    <script>
+        async function testCoopMemberData() {
+            const resultsDiv = document.getElementById('test-results');
+            const tbody = document.getElementById('data-tbody');
+            
+            // テスト対象のファイル
+            const testFiles = [
+                { file: 'coop_members_national_2030.json', name: '全国', year: 2030 },
+                { file: 'coop_members_national_2035.json', name: '全国', year: 2035 },
+                { file: 'coop_members_13_2030.json', name: '東京都', year: 2030 },
+                { file: 'coop_members_13_2035.json', name: '東京都', year: 2035 },
+                { file: 'coop_members_23_2030.json', name: '愛知県', year: 2030 },
+                { file: 'coop_members_23_2035.json', name: '愛知県', year: 2035 },
+                { file: 'coop_members_27_2030.json', name: '大阪府', year: 2030 },
+                { file: 'coop_members_27_2035.json', name: '大阪府', year: 2035 }
+            ];
+            
+            let passedTests = 0;
+            let totalTests = testFiles.length;
+            
+            for (const testFile of testFiles) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${testFile.name}</td>
+                    <td>${testFile.year}</td>
+                    <td>${testFile.file}</td>
+                    <td class="loading">読み込み中...</td>
+                    <td class="loading">テスト中...</td>
+                `;
+                tbody.appendChild(row);
+                
+                try {
+                    const response = await fetch(`/data/coop-members/${testFile.file}`);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    // データ検証
+                    if (!Array.isArray(data) || data.length === 0) {
+                        throw new Error('無効なデータ形式');
+                    }
+                    
+                    // 総組合員数を計算
+                    const totalMembers = data.reduce((sum, item) => sum + (item.memberCount || 0), 0);
+                    
+                    // 結果を更新
+                    row.cells[3].textContent = `${totalMembers.toFixed(1)}千人`;
+                    row.cells[3].className = '';
+                    row.cells[4].textContent = 'PASS';
+                    row.cells[4].className = 'pass';
+                    
+                    passedTests++;
+                    
+                } catch (error) {
+                    row.cells[3].textContent = '-';
+                    row.cells[3].className = '';
+                    row.cells[4].textContent = `FAIL: ${error.message}`;
+                    row.cells[4].className = 'fail';
+                }
+            }
+            
+            // 最終結果
+            const finalResult = document.createElement('div');
+            finalResult.className = passedTests === totalTests ? 'test-result pass' : 'test-result fail';
+            finalResult.innerHTML = `
+                <strong>テスト結果: ${passedTests}/${totalTests} 通過</strong>
+                ${passedTests === totalTests ? 
+                    '<p>✓ すべての組合員データファイルが正常に読み込まれました。</p>' : 
+                    '<p>✗ 一部のデータファイルに問題があります。</p>'
+                }
+            `;
+            resultsDiv.appendChild(finalResult);
+        }
+        
+        // ページ読み込み時にテスト実行
+        document.addEventListener('DOMContentLoaded', testCoopMemberData);
+    </script>
+</body>
+</html>

@@ -1,22 +1,30 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { PopulationData } from '../types/population';
+import { CoopMemberData } from '../types/coopMember';
 import { createPopulationPyramid } from '../utils/populationAnalysis';
 import { LocalDataService } from '../services/localDataService';
 import { usePrefectureData } from '../hooks/usePrefectureData';
+import { CoopMemberService } from '../services/coopMemberService';
 
 interface YearComparisonDemoProps {
   selectedPrefCode: string;
   availableYears: number[];
+  showCoopMembers: boolean;
+  onCoopMembersChange: (show: boolean) => void;
 }
 
 const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
   selectedPrefCode,
-  availableYears
+  availableYears,
+  showCoopMembers,
+  onCoopMembersChange
 }) => {
   const [year1, setYear1] = useState(2025);
   const [year2, setYear2] = useState(2035);
   const [containerWidth, setContainerWidth] = useState(1200);
+  const [coopData1, setCoopData1] = useState<CoopMemberData[]>([]);
+  const [coopData2, setCoopData2] = useState<CoopMemberData[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -33,6 +41,7 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
   }, [availableYears, year1, year2]);
 
   const { loadPrefectureData, getDataForYear, isDataAvailable, loading, preloading, currentPrefCode, fixedScale } = usePrefectureData();
+  const coopMemberService = CoopMemberService.getInstance();
 
   // コンテナ幅を取得してグラフサイズを計算
   useEffect(() => {
@@ -47,6 +56,29 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
     window.addEventListener('resize', updateWidth);
     return () => window.removeEventListener('resize', updateWidth);
   }, []);
+
+  // 組合員データを読み込み
+  useEffect(() => {
+    const loadCoopData = async () => {
+      if (selectedPrefCode && showCoopMembers) {
+        try {
+          const data1 = await coopMemberService.getCoopMemberData(selectedPrefCode, year1);
+          const data2 = await coopMemberService.getCoopMemberData(selectedPrefCode, year2);
+          setCoopData1(data1);
+          setCoopData2(data2);
+        } catch (error) {
+          console.error('組合員データの読み込みに失敗:', error);
+          setCoopData1([]);
+          setCoopData2([]);
+        }
+      } else {
+        setCoopData1([]);
+        setCoopData2([]);
+      }
+    };
+
+    loadCoopData();
+  }, [selectedPrefCode, year1, year2, showCoopMembers, coopMemberService]);
 
   // 重ね描画用のピラミッドを描画
   const drawOverlaidPyramids = () => {
@@ -164,6 +196,73 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
       .selectAll('text')
       .style('font-size', '12px');
 
+    // 組合員データのオーバーレイ表示
+    if (showCoopMembers && coopData1.length > 0) {
+      // 組合員データを年齢階級順に並べ替え
+      const ageGroupOrder = pyramid1.ageGroups;
+      const sortedCoopData1 = ageGroupOrder.map(age => 
+        coopData1.find(d => d.ageGroup === age)?.memberCount || 0
+      );
+      const sortedCoopData2 = ageGroupOrder.map(age => 
+        coopData2.find(d => d.ageGroup === age)?.memberCount || 0
+      );
+
+      // 組合員バー（人口ピラミッドと同じ太さで表示）
+      // 第1年度 - 塗りつぶしオレンジ（左側・男性部分）
+      g.selectAll('.coop-bar-year1-male')
+        .data(sortedCoopData1)
+        .enter()
+        .append('rect')
+        .attr('class', 'coop-bar-year1-male')
+        .attr('x', d => xScale(-Math.abs(d)))
+        .attr('y', (d, i) => yScale(ageGroupOrder[i])!)
+        .attr('width', d => xScale(0) - xScale(-Math.abs(d)))
+        .attr('height', yScale.bandwidth())
+        .attr('fill', '#F97316')
+        .attr('opacity', 0.7);
+
+      // 第1年度 - 塗りつぶしオレンジ（右側・女性部分）
+      g.selectAll('.coop-bar-year1-female')
+        .data(sortedCoopData1)
+        .enter()
+        .append('rect')
+        .attr('class', 'coop-bar-year1-female')
+        .attr('x', xScale(0))
+        .attr('y', (d, i) => yScale(ageGroupOrder[i])!)
+        .attr('width', d => xScale(Math.abs(d)) - xScale(0))
+        .attr('height', yScale.bandwidth())
+        .attr('fill', '#F97316')
+        .attr('opacity', 0.7);
+
+      // 第2年度 - 実線赤（左側・男性部分）
+      g.selectAll('.coop-bar-year2-male')
+        .data(sortedCoopData2)
+        .enter()
+        .append('rect')
+        .attr('class', 'coop-bar-year2-male')
+        .attr('x', d => xScale(-Math.abs(d)))
+        .attr('y', (d, i) => yScale(ageGroupOrder[i])!)
+        .attr('width', d => xScale(0) - xScale(-Math.abs(d)))
+        .attr('height', yScale.bandwidth())
+        .attr('fill', 'none')
+        .attr('stroke', '#DC2626')
+        .attr('stroke-width', 1.5);
+
+      // 第2年度 - 実線赤（右側・女性部分）
+      g.selectAll('.coop-bar-year2-female')
+        .data(sortedCoopData2)
+        .enter()
+        .append('rect')
+        .attr('class', 'coop-bar-year2-female')
+        .attr('x', xScale(0))
+        .attr('y', (d, i) => yScale(ageGroupOrder[i])!)
+        .attr('width', d => xScale(Math.abs(d)) - xScale(0))
+        .attr('height', yScale.bandwidth())
+        .attr('fill', 'none')
+        .attr('stroke', '#DC2626')
+        .attr('stroke-width', 1.5);
+    }
+
     // 軸ラベル
     g.append('text')
       .attr('x', -chartHeight / 2)
@@ -199,21 +298,30 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
       .style('font-weight', 'bold')
       .text('女性');
 
-    // 凡例（下部中央に男性・女性分けて表示）
+    // 凡例（下部中央に表示）
+    const legendStartY = showCoopMembers ? chartHeight + 60 : chartHeight + 60;
     const legend = g.append('g')
-      .attr('transform', `translate(${chartWidth / 2 - 200}, ${chartHeight + 60})`);
+      .attr('transform', `translate(${chartWidth / 2 - 250}, ${legendStartY})`);
 
-    // 男性凡例
+    // 人口凡例
     legend.append('text')
       .attr('x', 0)
       .attr('y', 0)
-      .style('font-size', '14px')
+      .style('font-size', '12px')
+      .style('font-weight', 'bold')
+      .text('人口:');
+
+    // 男性凡例
+    legend.append('text')
+      .attr('x', 40)
+      .attr('y', 0)
+      .style('font-size', '12px')
       .style('font-weight', 'bold')
       .attr('fill', '#3B82F6')
-      .text('男性:');
+      .text('男性');
 
     legend.append('rect')
-      .attr('x', 40)
+      .attr('x', 75)
       .attr('y', -12)
       .attr('width', 20)
       .attr('height', 12)
@@ -221,13 +329,13 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
       .attr('opacity', 0.7);
 
     legend.append('text')
-      .attr('x', 65)
+      .attr('x', 100)
       .attr('y', -2)
-      .style('font-size', '12px')
+      .style('font-size', '10px')
       .text(`${year1}年`);
 
     legend.append('rect')
-      .attr('x', 110)
+      .attr('x', 135)
       .attr('y', -12)
       .attr('width', 20)
       .attr('height', 12)
@@ -237,22 +345,22 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
       .attr('stroke-dasharray', '3,3');
 
     legend.append('text')
-      .attr('x', 135)
+      .attr('x', 160)
       .attr('y', -2)
-      .style('font-size', '12px')
+      .style('font-size', '10px')
       .text(`${year2}年`);
 
     // 女性凡例
     legend.append('text')
       .attr('x', 200)
       .attr('y', 0)
-      .style('font-size', '14px')
+      .style('font-size', '12px')
       .style('font-weight', 'bold')
       .attr('fill', '#EC4899')
-      .text('女性:');
+      .text('女性');
 
     legend.append('rect')
-      .attr('x', 240)
+      .attr('x', 235)
       .attr('y', -12)
       .attr('width', 20)
       .attr('height', 12)
@@ -260,13 +368,13 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
       .attr('opacity', 0.7);
 
     legend.append('text')
-      .attr('x', 265)
+      .attr('x', 260)
       .attr('y', -2)
-      .style('font-size', '12px')
+      .style('font-size', '10px')
       .text(`${year1}年`);
 
     legend.append('rect')
-      .attr('x', 310)
+      .attr('x', 295)
       .attr('y', -12)
       .attr('width', 20)
       .attr('height', 12)
@@ -276,10 +384,50 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
       .attr('stroke-dasharray', '3,3');
 
     legend.append('text')
-      .attr('x', 335)
+      .attr('x', 320)
       .attr('y', -2)
-      .style('font-size', '12px')
+      .style('font-size', '10px')
       .text(`${year2}年`);
+
+    // 組合員凡例（表示時のみ）
+    if (showCoopMembers) {
+      legend.append('text')
+        .attr('x', 380)
+        .attr('y', 0)
+        .style('font-size', '12px')
+        .style('font-weight', 'bold')
+        .attr('fill', '#F97316')
+        .text('組合員:');
+
+      legend.append('rect')
+        .attr('x', 430)
+        .attr('y', -12)
+        .attr('width', 20)
+        .attr('height', 12)
+        .attr('fill', '#F97316')
+        .attr('opacity', 0.7);
+
+      legend.append('text')
+        .attr('x', 455)
+        .attr('y', -2)
+        .style('font-size', '10px')
+        .text(`${year1}年`);
+
+      legend.append('rect')
+        .attr('x', 490)
+        .attr('y', -12)
+        .attr('width', 20)
+        .attr('height', 12)
+        .attr('fill', 'none')
+        .attr('stroke', '#DC2626')
+        .attr('stroke-width', 1.5);
+
+      legend.append('text')
+        .attr('x', 515)
+        .attr('y', -2)
+        .style('font-size', '10px')
+        .text(`${year2}年`);
+    }
   };
 
   // 都道府県変更時にデータをプリロード
@@ -297,7 +445,7 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
     if (data1.length > 0 && data2.length > 0 && containerWidth > 0) {
       drawOverlaidPyramids();
     }
-  }, [data1, data2, containerWidth, year1, year2]);
+  }, [data1, data2, coopData1, coopData2, containerWidth, year1, year2, showCoopMembers]);
   const loading1 = loading || preloading || !isDataAvailable(year1);
   const loading2 = loading || preloading || !isDataAvailable(year2);
 
@@ -321,6 +469,19 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
         </h3>
         <div className="text-sm text-gray-600 mb-4">
           ※各年度のデータから動的にスケールを計算し、詳細な人口変化を可視化
+        </div>
+
+        {/* 組合員表示切り替え */}
+        <div className="mb-4">
+          <label className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              checked={showCoopMembers}
+              onChange={(e) => onCoopMembersChange(e.target.checked)}
+              className="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 rounded focus:ring-orange-500"
+            />
+            <span className="text-sm font-medium text-gray-700">組合員数推計を表示</span>
+          </label>
         </div>
         
         {/* 年度選択 */}
@@ -387,6 +548,9 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
             <li>• 塗りつぶしのバーが{year1}年のデータ、点線囲みのバーが{year2}年のデータです</li>
             <li>• 両年度のデータを重ねて表示し、人口構成の変化を直接比較できます</li>
             <li>• {year2}年は{year1}年と比べて、少子高齢化の進行が視覚的に確認できます</li>
+            {showCoopMembers && (
+              <li>• オレンジ色のバーは組合員数推計で、人口データと同じスケールで中央に表示されます</li>
+            )}
             <li>• グラフは左右一杯に表示され、詳細な変化を確認できます</li>
           </ul>
         </div>

@@ -1,0 +1,836 @@
+{
+  "nationalRates": {
+    "70-74": 12.8,
+    "75-79": 25.6,
+    "80-84": 48.3,
+    "85-89": 89.2,
+    "90-94": 158.7,
+    "95-99": 267.4
+  },
+  "elderlyHighRiskPrefectures": {
+    "75-79": [
+      {
+        "prefCode": "05",
+        "prefecture": "秋田県",
+        "annualMortalityRate": 29.439999999999998,
+        "fiveYearSurvivalRate": 0.8612157093633759,
+        "adjustmentFactor": 1.15
+      },
+      {
+        "prefCode": "02",
+        "prefecture": "青森県",
+        "annualMortalityRate": 28.672000000000004,
+        "fiveYearSurvivalRate": 0.8646284877647391,
+        "adjustmentFactor": 1.12
+      },
+      {
+        "prefCode": "32",
+        "prefecture": "島根県",
+        "annualMortalityRate": 28.416000000000004,
+        "fiveYearSurvivalRate": 0.8657684816570187,
+        "adjustmentFactor": 1.11
+      },
+      {
+        "prefCode": "06",
+        "prefecture": "山形県",
+        "annualMortalityRate": 28.416000000000004,
+        "fiveYearSurvivalRate": 0.8657684816570187,
+        "adjustmentFactor": 1.11
+      },
+      {
+        "prefCode": "39",
+        "prefecture": "高知県",
+        "annualMortalityRate": 28.160000000000004,
+        "fiveYearSurvivalRate": 0.8669096776781045,
+        "adjustmentFactor": 1.1
+      },
+      {
+        "prefCode": "03",
+        "prefecture": "岩手県",
+        "annualMortalityRate": 28.160000000000004,
+        "fiveYearSurvivalRate": 0.8669096776781045,
+        "adjustmentFactor": 1.1
+      },
+      {
+        "prefCode": "31",
+        "prefecture": "鳥取県",
+        "annualMortalityRate": 27.904000000000003,
+        "fiveYearSurvivalRate": 0.8680520767784832,
+        "adjustmentFactor": 1.09
+      },
+      {
+        "prefCode": "36",
+        "prefecture": "徳島県",
+        "annualMortalityRate": 27.648000000000003,
+        "fiveYearSurvivalRate": 0.8691956799091438,
+        "adjustmentFactor": 1.08
+      },
+      {
+        "prefCode": "46",
+        "prefecture": "鹿児島県",
+        "annualMortalityRate": 27.648000000000003,
+        "fiveYearSurvivalRate": 0.8691956799091438,
+        "adjustmentFactor": 1.08
+      },
+      {
+        "prefCode": "01",
+        "prefecture": "北海道",
+        "annualMortalityRate": 27.648000000000003,
+        "fiveYearSurvivalRate": 0.8691956799091438,
+        "adjustmentFactor": 1.08
+      }
+    ],
+    "80-84": [
+      {
+        "prefCode": "05",
+        "prefecture": "秋田県",
+        "annualMortalityRate": 55.544999999999995,
+        "fiveYearSurvivalRate": 0.7514608348170657,
+        "adjustmentFactor": 1.15
+      },
+      {
+        "prefCode": "02",
+        "prefecture": "青森県",
+        "annualMortalityRate": 54.096000000000004,
+        "fiveYearSurvivalRate": 0.7572430742982555,
+        "adjustmentFactor": 1.12
+      },
+      {
+        "prefCode": "32",
+        "prefecture": "島根県",
+        "annualMortalityRate": 53.613,
+        "fiveYearSurvivalRate": 0.7591783770060139,
+        "adjustmentFactor": 1.11
+      },
+      {
+        "prefCode": "06",
+        "prefecture": "山形県",
+        "annualMortalityRate": 53.613,
+        "fiveYearSurvivalRate": 0.7591783770060139,
+        "adjustmentFactor": 1.11
+      },
+      {
+        "prefCode": "39",
+        "prefecture": "高知県",
+        "annualMortalityRate": 53.13,
+        "fiveYearSurvivalRate": 0.7611176345691956,
+        "adjustmentFactor": 1.1
+      },
+      {
+        "prefCode": "03",
+        "prefecture": "岩手県",
+        "annualMortalityRate": 53.13,
+        "fiveYearSurvivalRate": 0.7611176345691956,
+        "adjustmentFactor": 1.1
+      },
+      {
+        "prefCode": "31",
+        "prefecture": "鳥取県",
+        "annualMortalityRate": 52.647,
+        "fiveYearSurvivalRate": 0.7630608530461149,
+        "adjustmentFactor": 1.09
+      },
+      {
+        "prefCode": "36",
+        "prefecture": "徳島県",
+        "annualMortalityRate": 52.164,
+        "fiveYearSurvivalRate": 0.7650080385012706,
+        "adjustmentFactor": 1.08
+      },
+      {
+        "prefCode": "46",
+        "prefecture": "鹿児島県",
+        "annualMortalityRate": 52.164,
+        "fiveYearSurvivalRate": 0.7650080385012706,
+        "adjustmentFactor": 1.08
+      },
+      {
+        "prefCode": "01",
+        "prefecture": "北海道",
+        "annualMortalityRate": 52.164,
+        "fiveYearSurvivalRate": 0.7650080385012706,
+        "adjustmentFactor": 1.08
+      }
+    ],
+    "85-89": [
+      {
+        "prefCode": "05",
+        "prefecture": "秋田県",
+        "annualMortalityRate": 102.58,
+        "fiveYearSurvivalRate": 0.582074696249823,
+        "adjustmentFactor": 1.15
+      },
+      {
+        "prefCode": "02",
+        "prefecture": "青森県",
+        "annualMortalityRate": 99.90400000000001,
+        "fiveYearSurvivalRate": 0.5908049951918067,
+        "adjustmentFactor": 1.12
+      },
+      {
+        "prefCode": "32",
+        "prefecture": "島根県",
+        "annualMortalityRate": 99.01200000000001,
+        "fiveYearSurvivalRate": 0.593738257905934,
+        "adjustmentFactor": 1.11
+      },
+      {
+        "prefCode": "06",
+        "prefecture": "山形県",
+        "annualMortalityRate": 99.01200000000001,
+        "fiveYearSurvivalRate": 0.593738257905934,
+        "adjustmentFactor": 1.11
+      },
+      {
+        "prefCode": "39",
+        "prefecture": "高知県",
+        "annualMortalityRate": 98.12,
+        "fiveYearSurvivalRate": 0.5966831596540807,
+        "adjustmentFactor": 1.1
+      },
+      {
+        "prefCode": "03",
+        "prefecture": "岩手県",
+        "annualMortalityRate": 98.12,
+        "fiveYearSurvivalRate": 0.5966831596540807,
+        "adjustmentFactor": 1.1
+      },
+      {
+        "prefCode": "31",
+        "prefecture": "鳥取県",
+        "annualMortalityRate": 97.22800000000001,
+        "fiveYearSurvivalRate": 0.5996397350392495,
+        "adjustmentFactor": 1.09
+      },
+      {
+        "prefCode": "36",
+        "prefecture": "徳島県",
+        "annualMortalityRate": 96.33600000000001,
+        "fiveYearSurvivalRate": 0.6026080187329591,
+        "adjustmentFactor": 1.08
+      },
+      {
+        "prefCode": "46",
+        "prefecture": "鹿児島県",
+        "annualMortalityRate": 96.33600000000001,
+        "fiveYearSurvivalRate": 0.6026080187329591,
+        "adjustmentFactor": 1.08
+      },
+      {
+        "prefCode": "01",
+        "prefecture": "北海道",
+        "annualMortalityRate": 96.33600000000001,
+        "fiveYearSurvivalRate": 0.6026080187329591,
+        "adjustmentFactor": 1.08
+      }
+    ],
+    "90-94": [
+      {
+        "prefCode": "05",
+        "prefecture": "秋田県",
+        "annualMortalityRate": 182.50499999999997,
+        "fiveYearSurvivalRate": 0.3651115111030483,
+        "adjustmentFactor": 1.15
+      },
+      {
+        "prefCode": "02",
+        "prefecture": "青森県",
+        "annualMortalityRate": 177.744,
+        "fiveYearSurvivalRate": 0.3758679160368371,
+        "adjustmentFactor": 1.12
+      },
+      {
+        "prefCode": "32",
+        "prefecture": "島根県",
+        "annualMortalityRate": 176.157,
+        "fiveYearSurvivalRate": 0.37950917494491315,
+        "adjustmentFactor": 1.11
+      },
+      {
+        "prefCode": "06",
+        "prefecture": "山形県",
+        "annualMortalityRate": 176.157,
+        "fiveYearSurvivalRate": 0.37950917494491315,
+        "adjustmentFactor": 1.11
+      },
+      {
+        "prefCode": "39",
+        "prefecture": "高知県",
+        "annualMortalityRate": 174.57,
+        "fiveYearSurvivalRate": 0.38317859938914495,
+        "adjustmentFactor": 1.1
+      },
+      {
+        "prefCode": "03",
+        "prefecture": "岩手県",
+        "annualMortalityRate": 174.57,
+        "fiveYearSurvivalRate": 0.38317859938914495,
+        "adjustmentFactor": 1.1
+      },
+      {
+        "prefCode": "31",
+        "prefecture": "鳥取県",
+        "annualMortalityRate": 172.983,
+        "fiveYearSurvivalRate": 0.38687635245209995,
+        "adjustmentFactor": 1.09
+      },
+      {
+        "prefCode": "36",
+        "prefecture": "徳島県",
+        "annualMortalityRate": 171.396,
+        "fiveYearSurvivalRate": 0.3906025978446486,
+        "adjustmentFactor": 1.08
+      },
+      {
+        "prefCode": "46",
+        "prefecture": "鹿児島県",
+        "annualMortalityRate": 171.396,
+        "fiveYearSurvivalRate": 0.3906025978446486,
+        "adjustmentFactor": 1.08
+      },
+      {
+        "prefCode": "01",
+        "prefecture": "北海道",
+        "annualMortalityRate": 171.396,
+        "fiveYearSurvivalRate": 0.3906025978446486,
+        "adjustmentFactor": 1.08
+      }
+    ],
+    "95-99": [
+      {
+        "prefCode": "05",
+        "prefecture": "秋田県",
+        "annualMortalityRate": 307.50999999999993,
+        "fiveYearSurvivalRate": 0.15924563298523053,
+        "adjustmentFactor": 1.15
+      },
+      {
+        "prefCode": "02",
+        "prefecture": "青森県",
+        "annualMortalityRate": 299.488,
+        "fiveYearSurvivalRate": 0.16868555581182745,
+        "adjustmentFactor": 1.12
+      },
+      {
+        "prefCode": "32",
+        "prefecture": "島根県",
+        "annualMortalityRate": 296.814,
+        "fiveYearSurvivalRate": 0.17192976837024374,
+        "adjustmentFactor": 1.11
+      },
+      {
+        "prefCode": "06",
+        "prefecture": "山形県",
+        "annualMortalityRate": 296.814,
+        "fiveYearSurvivalRate": 0.17192976837024374,
+        "adjustmentFactor": 1.11
+      },
+      {
+        "prefCode": "39",
+        "prefecture": "高知県",
+        "annualMortalityRate": 294.14,
+        "fiveYearSurvivalRate": 0.17522370498941292,
+        "adjustmentFactor": 1.1
+      },
+      {
+        "prefCode": "03",
+        "prefecture": "岩手県",
+        "annualMortalityRate": 294.14,
+        "fiveYearSurvivalRate": 0.17522370498941292,
+        "adjustmentFactor": 1.1
+      },
+      {
+        "prefCode": "31",
+        "prefecture": "鳥取県",
+        "annualMortalityRate": 291.466,
+        "fiveYearSurvivalRate": 0.17856793508233074,
+        "adjustmentFactor": 1.09
+      },
+      {
+        "prefCode": "36",
+        "prefecture": "徳島県",
+        "annualMortalityRate": 288.792,
+        "fiveYearSurvivalRate": 0.18196303239256623,
+        "adjustmentFactor": 1.08
+      },
+      {
+        "prefCode": "46",
+        "prefecture": "鹿児島県",
+        "annualMortalityRate": 288.792,
+        "fiveYearSurvivalRate": 0.18196303239256623,
+        "adjustmentFactor": 1.08
+      },
+      {
+        "prefCode": "01",
+        "prefecture": "北海道",
+        "annualMortalityRate": 288.792,
+        "fiveYearSurvivalRate": 0.18196303239256623,
+        "adjustmentFactor": 1.08
+      }
+    ]
+  },
+  "elderlyLowRiskPrefectures": {
+    "75-79": [
+      {
+        "prefCode": "09",
+        "prefecture": "栃木県",
+        "annualMortalityRate": 24.576,
+        "fiveYearSurvivalRate": 0.8830131786829816,
+        "adjustmentFactor": 0.96
+      },
+      {
+        "prefCode": "27",
+        "prefecture": "大阪府",
+        "annualMortalityRate": 24.32,
+        "fiveYearSurvivalRate": 0.8841725209753617,
+        "adjustmentFactor": 0.95
+      },
+      {
+        "prefCode": "08",
+        "prefecture": "茨城県",
+        "annualMortalityRate": 24.32,
+        "fiveYearSurvivalRate": 0.8841725209753617,
+        "adjustmentFactor": 0.95
+      },
+      {
+        "prefCode": "25",
+        "prefecture": "滋賀県",
+        "annualMortalityRate": 24.064,
+        "fiveYearSurvivalRate": 0.8853330806645234,
+        "adjustmentFactor": 0.94
+      },
+      {
+        "prefCode": "12",
+        "prefecture": "千葉県",
+        "annualMortalityRate": 23.808000000000003,
+        "fiveYearSurvivalRate": 0.8864948587089835,
+        "adjustmentFactor": 0.93
+      },
+      {
+        "prefCode": "23",
+        "prefecture": "愛知県",
+        "annualMortalityRate": 23.552000000000003,
+        "fiveYearSurvivalRate": 0.887657856067763,
+        "adjustmentFactor": 0.92
+      },
+      {
+        "prefCode": "11",
+        "prefecture": "埼玉県",
+        "annualMortalityRate": 23.296000000000003,
+        "fiveYearSurvivalRate": 0.8888220737003848,
+        "adjustmentFactor": 0.91
+      },
+      {
+        "prefCode": "14",
+        "prefecture": "神奈川県",
+        "annualMortalityRate": 22.528000000000002,
+        "fiveYearSurvivalRate": 0.8923220578440861,
+        "adjustmentFactor": 0.88
+      },
+      {
+        "prefCode": "47",
+        "prefecture": "沖縄県",
+        "annualMortalityRate": 22.272000000000002,
+        "fiveYearSurvivalRate": 0.8934911661773772,
+        "adjustmentFactor": 0.87
+      },
+      {
+        "prefCode": "13",
+        "prefecture": "東京都",
+        "annualMortalityRate": 21.76,
+        "fiveYearSurvivalRate": 0.8958330590435345,
+        "adjustmentFactor": 0.85
+      }
+    ],
+    "80-84": [
+      {
+        "prefCode": "09",
+        "prefecture": "栃木県",
+        "annualMortalityRate": 46.367999999999995,
+        "fiveYearSurvivalRate": 0.7886859041977661,
+        "adjustmentFactor": 0.96
+      },
+      {
+        "prefCode": "27",
+        "prefecture": "大阪府",
+        "annualMortalityRate": 45.885,
+        "fiveYearSurvivalRate": 0.7906852150587542,
+        "adjustmentFactor": 0.95
+      },
+      {
+        "prefCode": "08",
+        "prefecture": "茨城県",
+        "annualMortalityRate": 45.885,
+        "fiveYearSurvivalRate": 0.7906852150587542,
+        "adjustmentFactor": 0.95
+      },
+      {
+        "prefCode": "25",
+        "prefecture": "滋賀県",
+        "annualMortalityRate": 45.401999999999994,
+        "fiveYearSurvivalRate": 0.7926885784520298,
+        "adjustmentFactor": 0.94
+      },
+      {
+        "prefCode": "12",
+        "prefecture": "千葉県",
+        "annualMortalityRate": 44.919,
+        "fiveYearSurvivalRate": 0.794696000535227,
+        "adjustmentFactor": 0.93
+      },
+      {
+        "prefCode": "23",
+        "prefecture": "愛知県",
+        "annualMortalityRate": 44.436,
+        "fiveYearSurvivalRate": 0.7967074874722164,
+        "adjustmentFactor": 0.92
+      },
+      {
+        "prefCode": "11",
+        "prefecture": "埼玉県",
+        "annualMortalityRate": 43.952999999999996,
+        "fiveYearSurvivalRate": 0.7987230454331044,
+        "adjustmentFactor": 0.91
+      },
+      {
+        "prefCode": "14",
+        "prefecture": "神奈川県",
+        "annualMortalityRate": 42.504,
+        "fiveYearSurvivalRate": 0.8047942072538558,
+        "adjustmentFactor": 0.88
+      },
+      {
+        "prefCode": "47",
+        "prefecture": "沖縄県",
+        "annualMortalityRate": 42.021,
+        "fiveYearSurvivalRate": 0.806826111136266,
+        "adjustmentFactor": 0.87
+      },
+      {
+        "prefCode": "13",
+        "prefecture": "東京都",
+        "annualMortalityRate": 41.055,
+        "fiveYearSurvivalRate": 0.8109022310130007,
+        "adjustmentFactor": 0.85
+      }
+    ],
+    "85-89": [
+      {
+        "prefCode": "09",
+        "prefecture": "栃木県",
+        "annualMortalityRate": 85.632,
+        "fiveYearSurvivalRate": 0.639153385376162,
+        "adjustmentFactor": 0.96
+      },
+      {
+        "prefCode": "27",
+        "prefecture": "大阪府",
+        "annualMortalityRate": 84.74,
+        "fiveYearSurvivalRate": 0.6422770634870104,
+        "adjustmentFactor": 0.95
+      },
+      {
+        "prefCode": "08",
+        "prefecture": "茨城県",
+        "annualMortalityRate": 84.74,
+        "fiveYearSurvivalRate": 0.6422770634870104,
+        "adjustmentFactor": 0.95
+      },
+      {
+        "prefCode": "25",
+        "prefecture": "滋賀県",
+        "annualMortalityRate": 83.848,
+        "fiveYearSurvivalRate": 0.6454129425397441,
+        "adjustmentFactor": 0.94
+      },
+      {
+        "prefCode": "12",
+        "prefecture": "千葉県",
+        "annualMortalityRate": 82.956,
+        "fiveYearSurvivalRate": 0.6485610582417471,
+        "adjustmentFactor": 0.93
+      },
+      {
+        "prefCode": "23",
+        "prefecture": "愛知県",
+        "annualMortalityRate": 82.06400000000001,
+        "fiveYearSurvivalRate": 0.6517214463700036,
+        "adjustmentFactor": 0.92
+      },
+      {
+        "prefCode": "11",
+        "prefecture": "埼玉県",
+        "annualMortalityRate": 81.17200000000001,
+        "fiveYearSurvivalRate": 0.654894142771165,
+        "adjustmentFactor": 0.91
+      },
+      {
+        "prefCode": "14",
+        "prefecture": "神奈川県",
+        "annualMortalityRate": 78.49600000000001,
+        "fiveYearSurvivalRate": 0.6644864411250326,
+        "adjustmentFactor": 0.88
+      },
+      {
+        "prefCode": "47",
+        "prefecture": "沖縄県",
+        "annualMortalityRate": 77.604,
+        "fiveYearSurvivalRate": 0.667708730480054,
+        "adjustmentFactor": 0.87
+      },
+      {
+        "prefCode": "13",
+        "prefecture": "東京都",
+        "annualMortalityRate": 75.82000000000001,
+        "fiveYearSurvivalRate": 0.6741908111168233,
+        "adjustmentFactor": 0.85
+      }
+    ],
+    "90-94": [
+      {
+        "prefCode": "09",
+        "prefecture": "栃木県",
+        "annualMortalityRate": 152.35199999999998,
+        "fiveYearSurvivalRate": 0.4376003979306752,
+        "adjustmentFactor": 0.96
+      },
+      {
+        "prefCode": "27",
+        "prefecture": "大阪府",
+        "annualMortalityRate": 150.765,
+        "fiveYearSurvivalRate": 0.44171222937362475,
+        "adjustmentFactor": 0.95
+      },
+      {
+        "prefCode": "08",
+        "prefecture": "茨城県",
+        "annualMortalityRate": 150.765,
+        "fiveYearSurvivalRate": 0.44171222937362475,
+        "adjustmentFactor": 0.95
+      },
+      {
+        "prefCode": "25",
+        "prefecture": "滋賀県",
+        "annualMortalityRate": 149.17799999999997,
+        "fiveYearSurvivalRate": 0.44585491174665914,
+        "adjustmentFactor": 0.94
+      },
+      {
+        "prefCode": "12",
+        "prefecture": "千葉県",
+        "annualMortalityRate": 147.591,
+        "fiveYearSurvivalRate": 0.450028618330155,
+        "adjustmentFactor": 0.93
+      },
+      {
+        "prefCode": "23",
+        "prefecture": "愛知県",
+        "annualMortalityRate": 146.004,
+        "fiveYearSurvivalRate": 0.4542335230521201,
+        "adjustmentFactor": 0.92
+      },
+      {
+        "prefCode": "11",
+        "prefecture": "埼玉県",
+        "annualMortalityRate": 144.417,
+        "fiveYearSurvivalRate": 0.45846980048940117,
+        "adjustmentFactor": 0.91
+      },
+      {
+        "prefCode": "14",
+        "prefecture": "神奈川県",
+        "annualMortalityRate": 139.65599999999998,
+        "fiveYearSurvivalRate": 0.47136862461956164,
+        "adjustmentFactor": 0.88
+      },
+      {
+        "prefCode": "47",
+        "prefecture": "沖縄県",
+        "annualMortalityRate": 138.069,
+        "fiveYearSurvivalRate": 0.4757321517056352,
+        "adjustmentFactor": 0.87
+      },
+      {
+        "prefCode": "13",
+        "prefecture": "東京都",
+        "annualMortalityRate": 134.89499999999998,
+        "fiveYearSurvivalRate": 0.48455615049627776,
+        "adjustmentFactor": 0.85
+      }
+    ],
+    "95-99": [
+      {
+        "prefCode": "09",
+        "prefecture": "栃木県",
+        "annualMortalityRate": 256.70399999999995,
+        "fiveYearSurvivalRate": 0.22688666861743145,
+        "adjustmentFactor": 0.96
+      },
+      {
+        "prefCode": "27",
+        "prefecture": "大阪府",
+        "annualMortalityRate": 254.02999999999997,
+        "fiveYearSurvivalRate": 0.23099725068653582,
+        "adjustmentFactor": 0.95
+      },
+      {
+        "prefCode": "08",
+        "prefecture": "茨城県",
+        "annualMortalityRate": 254.02999999999997,
+        "fiveYearSurvivalRate": 0.23099725068653582,
+        "adjustmentFactor": 0.95
+      },
+      {
+        "prefCode": "25",
+        "prefecture": "滋賀県",
+        "annualMortalityRate": 251.35599999999997,
+        "fiveYearSurvivalRate": 0.23516719628021526,
+        "adjustmentFactor": 0.94
+      },
+      {
+        "prefCode": "12",
+        "prefecture": "千葉県",
+        "annualMortalityRate": 248.682,
+        "fiveYearSurvivalRate": 0.2393971460692981,
+        "adjustmentFactor": 0.93
+      },
+      {
+        "prefCode": "23",
+        "prefecture": "愛知県",
+        "annualMortalityRate": 246.00799999999998,
+        "fiveYearSurvivalRate": 0.24368774531767393,
+        "adjustmentFactor": 0.92
+      },
+      {
+        "prefCode": "11",
+        "prefecture": "埼玉県",
+        "annualMortalityRate": 243.33399999999997,
+        "fiveYearSurvivalRate": 0.2480396438986988,
+        "adjustmentFactor": 0.91
+      },
+      {
+        "prefCode": "14",
+        "prefecture": "神奈川県",
+        "annualMortalityRate": 235.31199999999998,
+        "fiveYearSurvivalRate": 0.26146970385773505,
+        "adjustmentFactor": 0.88
+      },
+      {
+        "prefCode": "47",
+        "prefecture": "沖縄県",
+        "annualMortalityRate": 232.63799999999998,
+        "fiveYearSurvivalRate": 0.26607339126643226,
+        "adjustmentFactor": 0.87
+      },
+      {
+        "prefCode": "13",
+        "prefecture": "東京都",
+        "annualMortalityRate": 227.28999999999996,
+        "fiveYearSurvivalRate": 0.27547529920533975,
+        "adjustmentFactor": 0.85
+      }
+    ]
+  },
+  "survivalRateComparison": {
+    "75-79": {
+      "highest": {
+        "prefCode": "13",
+        "prefecture": "東京都",
+        "annualMortalityRate": 21.76,
+        "fiveYearSurvivalRate": 0.8958330590435345,
+        "adjustmentFactor": 0.85
+      },
+      "lowest": {
+        "prefCode": "05",
+        "prefecture": "秋田県",
+        "annualMortalityRate": 29.439999999999998,
+        "fiveYearSurvivalRate": 0.8612157093633759,
+        "adjustmentFactor": 1.15
+      },
+      "national": {
+        "annualMortalityRate": 25.6,
+        "fiveYearSurvivalRate": 0.878387964328532
+      }
+    },
+    "80-84": {
+      "highest": {
+        "prefCode": "13",
+        "prefecture": "東京都",
+        "annualMortalityRate": 41.055,
+        "fiveYearSurvivalRate": 0.8109022310130007,
+        "adjustmentFactor": 0.85
+      },
+      "lowest": {
+        "prefCode": "05",
+        "prefecture": "秋田県",
+        "annualMortalityRate": 55.544999999999995,
+        "fiveYearSurvivalRate": 0.7514608348170657,
+        "adjustmentFactor": 1.15
+      },
+      "national": {
+        "annualMortalityRate": 48.3,
+        "fiveYearSurvivalRate": 0.7807290631420116
+      }
+    },
+    "85-89": {
+      "highest": {
+        "prefCode": "13",
+        "prefecture": "東京都",
+        "annualMortalityRate": 75.82000000000001,
+        "fiveYearSurvivalRate": 0.6741908111168233,
+        "adjustmentFactor": 0.85
+      },
+      "lowest": {
+        "prefCode": "05",
+        "prefecture": "秋田県",
+        "annualMortalityRate": 102.58,
+        "fiveYearSurvivalRate": 0.582074696249823,
+        "adjustmentFactor": 1.15
+      },
+      "national": {
+        "annualMortalityRate": 89.2,
+        "fiveYearSurvivalRate": 0.6267799706361362
+      }
+    },
+    "90-94": {
+      "highest": {
+        "prefCode": "13",
+        "prefecture": "東京都",
+        "annualMortalityRate": 134.89499999999998,
+        "fiveYearSurvivalRate": 0.48455615049627776,
+        "adjustmentFactor": 0.85
+      },
+      "lowest": {
+        "prefCode": "05",
+        "prefecture": "秋田県",
+        "annualMortalityRate": 182.50499999999997,
+        "fiveYearSurvivalRate": 0.3651115111030483,
+        "adjustmentFactor": 1.15
+      },
+      "national": {
+        "annualMortalityRate": 158.7,
+        "fiveYearSurvivalRate": 0.42145813845163144
+      }
+    },
+    "95-99": {
+      "highest": {
+        "prefCode": "13",
+        "prefecture": "東京都",
+        "annualMortalityRate": 227.28999999999996,
+        "fiveYearSurvivalRate": 0.27547529920533975,
+        "adjustmentFactor": 0.85
+      },
+      "lowest": {
+        "prefCode": "05",
+        "prefecture": "秋田県",
+        "annualMortalityRate": 307.50999999999993,
+        "fiveYearSurvivalRate": 0.15924563298523053,
+        "adjustmentFactor": 1.15
+      },
+      "national": {
+        "annualMortalityRate": 267.4,
+        "fiveYearSurvivalRate": 0.2110253220086191
+      }
+    }
+  }
+}

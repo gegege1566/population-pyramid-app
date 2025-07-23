@@ -4,18 +4,24 @@ import PrefectureSelector from './components/PrefectureSelector';
 import YearSelector from './components/YearSelector';
 import YearComparisonDemo from './components/YearComparisonDemo';
 import PopulationStats from './components/PopulationStats';
+import CoopMemberStats from './components/CoopMemberStats';
 import { useAvailableYears } from './hooks/usePopulationData';
 import { usePrefectureData } from './hooks/usePrefectureData';
 import { useMultiplePrefectureData } from './hooks/useMultiplePrefectureData';
 import { LocalDataService } from './services/localDataService';
+import { CoopMemberService } from './services/coopMemberService';
+import { CoopMemberData } from './types/coopMember';
 
 const localDataService = new LocalDataService();
+const coopMemberService = CoopMemberService.getInstance();
 
 function App() {
   const [selectedPrefCodes, setSelectedPrefCodes] = useState<string[]>(['00000']); // 全国（日本）をデフォルト
   const [selectedYear, setSelectedYear] = useState(2025);
   const [isInitialized, setIsInitialized] = useState(false);
   const [showComparison, setShowComparison] = useState(false);
+  const [showCoopMembers, setShowCoopMembers] = useState(false);
+  const [coopMemberData, setCoopMemberData] = useState<CoopMemberData[] | undefined>(undefined);
 
   const { years: availableYears, loading: yearsLoading } = useAvailableYears();
   const singlePrefectureHook = usePrefectureData();
@@ -40,6 +46,24 @@ function App() {
       setSelectedYear(targetYear);
     }
   }, [availableYears, selectedYear]);
+
+  // 組合員データを読み込み
+  useEffect(() => {
+    if (showCoopMembers && selectedPrefCodes.length > 0) {
+      const loadCoopMemberData = async () => {
+        try {
+          const data = await coopMemberService.getMultipleCoopMemberData(selectedPrefCodes, selectedYear);
+          setCoopMemberData(data);
+        } catch (error) {
+          console.error('組合員データの読み込みに失敗:', error);
+          setCoopMemberData(undefined);
+        }
+      };
+      loadCoopMemberData();
+    } else {
+      setCoopMemberData(undefined);
+    }
+  }, [showCoopMembers, selectedPrefCodes, selectedYear]);
 
   // 都道府県と年度データが揃った時点で初回プリロードを実行
   useEffect(() => {
@@ -111,6 +135,16 @@ function App() {
                 {selectedPrefecture} • {selectedYear}年
               </div>
               <button
+                onClick={() => setShowCoopMembers(!showCoopMembers)}
+                className={`px-3 py-1 text-sm rounded-md border transition-colors ${
+                  showCoopMembers
+                    ? 'bg-orange-500 text-white border-orange-500'
+                    : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                }`}
+              >
+                組合員数推計
+              </button>
+              <button
                 onClick={() => setShowComparison(!showComparison)}
                 className={`px-3 py-1 text-sm rounded-md border transition-colors ${
                   showComparison
@@ -144,6 +178,8 @@ function App() {
               <YearComparisonDemo
                 selectedPrefCode={selectedPrefCodes[0] || ''}
                 availableYears={availableYears}
+                showCoopMembers={showCoopMembers}
+                onCoopMembersChange={setShowCoopMembers}
               />
             ) : (
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -204,8 +240,22 @@ function App() {
                         width={800}
                         height={600}
                         fixedScale={fixedScale || undefined}
+                        showCoopMembers={showCoopMembers}
+                        coopMemberData={coopMemberData}
                       />
                     </div>
+
+                    {/* 組合員数統計 */}
+                    {showCoopMembers && (
+                      <div className="mt-6">
+                        <CoopMemberStats
+                          data={coopMemberData || []}
+                          populationData={getDataForYear(selectedYear)}
+                          prefecture={selectedPrefecture}
+                          year={selectedYear}
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -235,7 +285,7 @@ function App() {
               </div>
               
               {/* 人口統計表示 */}
-              {selectedPrefCodes.length === 1 && getDataForYear(selectedYear).length > 0 && (
+              {getDataForYear(selectedYear).length > 0 && (
                 <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
                   <PopulationStats
                     data={getDataForYear(selectedYear)}
@@ -266,6 +316,12 @@ function App() {
               データソース: e-Stat (政府統計の総合窓口) • 
               本サービスは政府統計データを利用していますが、内容は政府によって保証されたものではありません
             </div>
+            {showCoopMembers && (
+              <div className="mt-4 pt-4 border-t border-gray-200 text-xs text-gray-400 text-left max-w-4xl mx-auto">
+                <div className="font-semibold mb-1">生協組合員数推計について:</div>
+                <div className="whitespace-pre-line">{coopMemberService.getNoticeText()}</div>
+              </div>
+            )}
           </div>
         </div>
       </footer>

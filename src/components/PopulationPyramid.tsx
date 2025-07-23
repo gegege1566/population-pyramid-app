@@ -3,6 +3,7 @@ import * as d3 from 'd3';
 import { PopulationData } from '../types/population';
 import { createPopulationPyramid, PyramidData } from '../utils/populationAnalysis';
 import { LocalDataService } from '../services/localDataService';
+import { CoopMemberData } from '../types/coopMember';
 
 interface PopulationPyramidProps {
   data: PopulationData[];
@@ -11,6 +12,8 @@ interface PopulationPyramidProps {
   prefecture?: string;
   year?: number;
   fixedScale?: number; // 2025年ベースの固定スケール
+  showCoopMembers?: boolean;
+  coopMemberData?: CoopMemberData[];
 }
 
 const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
@@ -19,7 +22,9 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
   height = 600,
   prefecture = '',
   year = 2025,
-  fixedScale
+  fixedScale,
+  showCoopMembers = false,
+  coopMemberData
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const isInitializedRef = useRef(false);
@@ -48,6 +53,21 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
       updatePyramid(svg, pyramidData, width, height, prefecture, year, scale);
     }
   }, [data, width, height, prefecture, year, fixedScale]);
+
+  // 組合員数データの描画/削除を別のuseEffectで管理
+  useEffect(() => {
+    if (!svgRef.current) return;
+    const svg = d3.select(svgRef.current);
+    const g = svg.select('.chart-container') as d3.Selection<SVGGElement, unknown, null, undefined>;
+    
+    if (showCoopMembers && coopMemberData && g.node()) {
+      const scale = fixedScale || new LocalDataService().calculateDynamicScale(data);
+      drawCoopMembers(svg as d3.Selection<SVGSVGElement, unknown, null, undefined>, coopMemberData, width, height, scale, data);
+    } else {
+      // 組合員数バーを削除
+      g.selectAll('.coop-member-bar').remove();
+    }
+  }, [showCoopMembers, coopMemberData, data, width, height, fixedScale]);
 
   const updatePyramid = (
     svg: d3.Selection<SVGSVGElement | null, unknown, null, undefined>,
@@ -330,6 +350,104 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
       .selectAll('line')
       .attr('stroke', '#E5E7EB')
       .attr('stroke-width', 0.5);
+  };
+
+  const drawCoopMembers = (
+    svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
+    coopData: CoopMemberData[],
+    width: number,
+    height: number,
+    dynamicScale: number,
+    populationData: PopulationData[]
+  ) => {
+    const margin = { top: 40, right: 80, bottom: 60, left: 80 };
+    const chartWidth = width - margin.left - margin.right;
+    const chartHeight = height - margin.top - margin.bottom;
+
+    const maxValue = dynamicScale;
+
+    // スケール設定
+    const xScale = d3.scaleLinear()
+      .domain([-maxValue, maxValue])
+      .range([0, chartWidth]);
+
+    // 既存のyScaleを再利用（人口ピラミッドと同じスケールを使用）
+    const g = svg.select('.chart-container') as d3.Selection<SVGGElement, unknown, null, undefined>;
+    
+    if (!g.node()) {
+      console.error('Chart container not found');
+      return;
+    }
+
+    // 人口ピラミッドで使用されているyScaleの情報を取得
+    const existingYAxis = g.select('.y-axis');
+    if (!existingYAxis.node()) {
+      console.error('Y-axis not found');
+      return;
+    }
+
+    // 人口ピラミッドのageGroupsと同じものを使用するため、
+    // 既存のy軸からドメインを取得
+    const pyramidData = createPopulationPyramid(populationData);
+    const yScale = d3.scaleBand()
+      .domain(pyramidData.ageGroups)
+      .range([0, chartHeight])
+      .padding(0.1);
+
+    // 既存の組合員バーを削除
+    g.selectAll('.coop-member-bar').remove();
+
+    // 組合員データを年齢階級別に整理
+    const membersByAge: { [key: string]: number } = {};
+    coopData.forEach(d => {
+      membersByAge[d.ageGroup] = d.memberCount;
+    });
+
+    // 組合員バー（中央に配置）
+    const coopBars = g.selectAll('.coop-member-bar')
+      .data(pyramidData.ageGroups);
+
+    coopBars.enter()
+      .append('rect')
+      .attr('class', 'coop-member-bar')
+      .attr('x', (d) => {
+        const memberCount = membersByAge[d] || 0;
+        // 男女半々として左側に配置
+        return xScale(-memberCount / 2);
+      })
+      .attr('y', (d) => yScale(d)!)
+      .attr('width', (d) => {
+        const memberCount = membersByAge[d] || 0;
+        // 全体の幅
+        return xScale(memberCount / 2) - xScale(-memberCount / 2);
+      })
+      .attr('height', yScale.bandwidth())
+      .attr('fill', '#FF6B35') // オレンジ色
+      .attr('opacity', 0.7)
+      .attr('stroke', '#FF6B35')
+      .attr('stroke-width', 1)
+      .on('mouseover', function(event, d) {
+        const tooltip = d3.select('body').append('div')
+          .attr('class', 'tooltip')
+          .style('position', 'absolute')
+          .style('background', 'rgba(0, 0, 0, 0.8)')
+          .style('color', 'white')
+          .style('padding', '8px')
+          .style('border-radius', '4px')
+          .style('font-size', '12px')
+          .style('pointer-events', 'none')
+          .style('z-index', '1000');
+
+        const memberCount = membersByAge[d] || 0;
+        const population = memberCount * 1000; // 千人単位から人単位に変換
+        
+        tooltip.html(`生協組合員 ${d}歳<br/>${population.toLocaleString()}人`)
+          .style('left', (event.pageX + 10) + 'px')
+          .style('top', (event.pageY - 10) + 'px');
+      })
+      .on('mouseout', function() {
+        d3.selectAll('.tooltip').remove();
+      });
   };
 
   return (

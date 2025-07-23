@@ -1,0 +1,142 @@
+[
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "0-4",
+    "memberCount": 0
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "5-9",
+    "memberCount": 0
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "10-14",
+    "memberCount": 0
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "15-19",
+    "memberCount": 0
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "20-24",
+    "memberCount": 0.01
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "25-29",
+    "memberCount": 0.01
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "30-34",
+    "memberCount": 0.03
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "35-39",
+    "memberCount": 0.03
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "40-44",
+    "memberCount": 0.03
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "45-49",
+    "memberCount": 0.06
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "50-54",
+    "memberCount": 0.06
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "55-59",
+    "memberCount": 0.08
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "60-64",
+    "memberCount": 0.07
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "65-69",
+    "memberCount": 0.09
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "70-74",
+    "memberCount": 0.07
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "75-79",
+    "memberCount": 0.08
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "80-84",
+    "memberCount": 0.05
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "85-89",
+    "memberCount": 0.02
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "90-94",
+    "memberCount": 0.01
+  },
+  {
+    "year": 2030,
+    "prefecture": "愛知県",
+    "prefectureCode": "23",
+    "ageGroup": "95-99",
+    "memberCount": 0
+  }
+]

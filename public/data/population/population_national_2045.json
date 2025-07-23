@@ -302,5 +302,21 @@
     "ageGroup": "90-94",
     "gender": "female",
     "population": 2115856
+  },
+  {
+    "year": 2045,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "95-99",
+    "gender": "male",
+    "population": 635000
+  },
+  {
+    "year": 2045,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "95-99",
+    "gender": "female",
+    "population": 1542000
   }
 ]
