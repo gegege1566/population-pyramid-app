@@ -32,111 +32,111 @@
     "prefecture": "沖縄県",
     "prefectureCode": "47",
     "ageGroup": "20-24",
-    "memberCount": 0
+    "memberCount": 1.6
   },
   {
     "year": 2025,
     "prefecture": "沖縄県",
     "prefectureCode": "47",
     "ageGroup": "25-29",
-    "memberCount": 0
+    "memberCount": 1.8
   },
   {
     "year": 2025,
     "prefecture": "沖縄県",
     "prefectureCode": "47",
     "ageGroup": "30-34",
-    "memberCount": 0.01
+    "memberCount": 9.5
   },
   {
     "year": 2025,
     "prefecture": "沖縄県",
     "prefectureCode": "47",
     "ageGroup": "35-39",
-    "memberCount": 0.01
+    "memberCount": 10.7
   },
   {
     "year": 2025,
     "prefecture": "沖縄県",
     "prefectureCode": "47",
     "ageGroup": "40-44",
-    "memberCount": 0.02
+    "memberCount": 17.5
   },
   {
     "year": 2025,
     "prefecture": "沖縄県",
     "prefectureCode": "47",
     "ageGroup": "45-49",
-    "memberCount": 0.02
+    "memberCount": 18.9
   },
   {
     "year": 2025,
     "prefecture": "沖縄県",
     "prefectureCode": "47",
     "ageGroup": "50-54",
-    "memberCount": 0.03
+    "memberCount": 26.1
   },
   {
     "year": 2025,
     "prefecture": "沖縄県",
     "prefectureCode": "47",
     "ageGroup": "55-59",
-    "memberCount": 0.03
+    "memberCount": 26.5
   },
   {
     "year": 2025,
     "prefecture": "沖縄県",
     "prefectureCode": "47",
     "ageGroup": "60-64",
-    "memberCount": 0.03
+    "memberCount": 29.7
   },
   {
     "year": 2025,
     "prefecture": "沖縄県",
     "prefectureCode": "47",
     "ageGroup": "65-69",
-    "memberCount": 0.03
+    "memberCount": 27.4
   },
   {
     "year": 2025,
     "prefecture": "沖縄県",
     "prefectureCode": "47",
     "ageGroup": "70-74",
-    "memberCount": 0.03
+    "memberCount": 27.4
   },
   {
     "year": 2025,
     "prefecture": "沖縄県",
     "prefectureCode": "47",
     "ageGroup": "75-79",
-    "memberCount": 0.02
+    "memberCount": 23.8
   },
   {
     "year": 2025,
     "prefecture": "沖縄県",
     "prefectureCode": "47",
     "ageGroup": "80-84",
-    "memberCount": 0.01
+    "memberCount": 9.2
   },
   {
     "year": 2025,
     "prefecture": "沖縄県",
     "prefectureCode": "47",
     "ageGroup": "85-89",
-    "memberCount": 0.01
+    "memberCount": 5.9
   },
   {
     "year": 2025,
     "prefecture": "沖縄県",
     "prefectureCode": "47",
     "ageGroup": "90-94",
-    "memberCount": 0
+    "memberCount": 2.9
   },
   {
     "year": 2025,
     "prefecture": "沖縄県",
     "prefectureCode": "47",
     "ageGroup": "95-99",
-    "memberCount": 0
+    "memberCount": 0.9
   }
 ]

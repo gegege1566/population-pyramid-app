@@ -32,111 +32,111 @@
     "prefecture": "神奈川県",
     "prefectureCode": "14",
     "ageGroup": "20-24",
-    "memberCount": 0.01
+    "memberCount": 7.9
   },
   {
     "year": 2040,
     "prefecture": "神奈川県",
     "prefectureCode": "14",
     "ageGroup": "25-29",
-    "memberCount": 0.01
+    "memberCount": 9.4
   },
   {
     "year": 2040,
     "prefecture": "神奈川県",
     "prefectureCode": "14",
     "ageGroup": "30-34",
-    "memberCount": 0.05
+    "memberCount": 53.8
   },
   {
     "year": 2040,
     "prefecture": "神奈川県",
     "prefectureCode": "14",
     "ageGroup": "35-39",
-    "memberCount": 0.05
+    "memberCount": 62.5
   },
   {
     "year": 2040,
     "prefecture": "神奈川県",
     "prefectureCode": "14",
     "ageGroup": "40-44",
-    "memberCount": 0.06
+    "memberCount": 97.6
   },
   {
     "year": 2040,
     "prefecture": "神奈川県",
     "prefectureCode": "14",
     "ageGroup": "45-49",
-    "memberCount": 0.04
+    "memberCount": 91.9
   },
   {
     "year": 2040,
     "prefecture": "神奈川県",
     "prefectureCode": "14",
     "ageGroup": "50-54",
-    "memberCount": 0.06
+    "memberCount": 90.7
   },
   {
     "year": 2040,
     "prefecture": "神奈川県",
     "prefectureCode": "14",
     "ageGroup": "55-59",
-    "memberCount": 0.1
+    "memberCount": 102.7
   },
   {
     "year": 2040,
     "prefecture": "神奈川県",
     "prefectureCode": "14",
     "ageGroup": "60-64",
-    "memberCount": 0.07
+    "memberCount": 117.7
   },
   {
     "year": 2040,
     "prefecture": "神奈川県",
     "prefectureCode": "14",
     "ageGroup": "65-69",
-    "memberCount": 0.14
+    "memberCount": 156.7
   },
   {
     "year": 2040,
     "prefecture": "神奈川県",
     "prefectureCode": "14",
     "ageGroup": "70-74",
-    "memberCount": 0.14
+    "memberCount": 146.8
   },
   {
     "year": 2040,
     "prefecture": "神奈川県",
     "prefectureCode": "14",
     "ageGroup": "75-79",
-    "memberCount": 0.12
+    "memberCount": 127.5
   },
   {
     "year": 2040,
     "prefecture": "神奈川県",
     "prefectureCode": "14",
     "ageGroup": "80-84",
-    "memberCount": 0.1
+    "memberCount": 79.7
   },
   {
     "year": 2040,
     "prefecture": "神奈川県",
     "prefectureCode": "14",
     "ageGroup": "85-89",
-    "memberCount": 0.05
+    "memberCount": 44.4
   },
   {
     "year": 2040,
     "prefecture": "神奈川県",
     "prefectureCode": "14",
     "ageGroup": "90-94",
-    "memberCount": 0.03
+    "memberCount": 14.5
   },
   {
     "year": 2040,
     "prefecture": "神奈川県",
     "prefectureCode": "14",
     "ageGroup": "95-99",
-    "memberCount": 0
+    "memberCount": 2
   }
 ]

@@ -277,15 +277,15 @@ class AllPrefectureCoopProjectionGenerator {
         if (ageGroup === '0-4' || ageGroup === '5-9' || ageGroup === '10-14' || ageGroup === '15-19') {
           // 20歳未満は常に0
           memberCount = 0;
-        } else if (ageGroup === '20-24' || ageGroup === '25-29' || ageGroup === '30-34') {
-          // 若年層：シェア率維持（新規加入）
+        } else if (ageGroup === '20-24' || ageGroup === '25-29' || ageGroup === '30-34' || ageGroup === '35-39' || ageGroup === '40-44') {
+          // 若年層（20-44歳）：シェア率維持（新規加入）
           // その年の実際の人口データを使用してシェア率を維持
           const nextYearPop = this.aggregatePopulationByAge(this.loadPopulationData(nextYear), prefCode)[ageGroup] || 0;
           
           const shareRate = shareRates2025[ageGroup] || 0;
           memberCount = nextYearPop * shareRate; // 千人単位 × シェア率
         } else {
-          // 35歳以上：コーホート繰り上がり
+          // 45歳以上：コーホート繰り上がり
           const sourceIndex = index - 1; // 1つ下の年齢層から繰り上がり
           
           if (sourceIndex >= 0 && this.ageGroups[sourceIndex]) {
@@ -336,7 +336,7 @@ class AllPrefectureCoopProjectionGenerator {
         prefecture: prefName,
         prefectureCode: prefCode,
         ageGroup: ageGroup,
-        memberCount: Math.round(membersByAge[ageGroup] / 1000 * 100) / 100 // 千人単位、小数点2桁
+        memberCount: Math.round(membersByAge[ageGroup] * 10) / 10 // 千人単位、小数点1桁
       });
     });
     

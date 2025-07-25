@@ -28,10 +28,9 @@ export const createPopulationPyramid = (data: PopulationData[]): PyramidData => 
     const malePopulation = data.find(d => d.ageGroup === ageGroup && d.gender === 'male')?.population || 0;
     const femalePopulation = data.find(d => d.ageGroup === ageGroup && d.gender === 'female')?.population || 0;
     
-    // 全国データは実人数なので千人単位相当に調整してグラフ表示
-    const isNational = data.length > 0 && data[0].prefectureCode === '00000';
-    const maleScale = isNational ? malePopulation / 1000 : malePopulation;
-    const femaleScale = isNational ? femalePopulation / 1000 : femalePopulation;
+    // 全国・都道府県データ共に既に千人単位で統一済み
+    const maleScale = malePopulation;
+    const femaleScale = femalePopulation;
     
     pyramid.ageGroups.push(ageGroup);
     pyramid.maleData.push(-maleScale); // 左側表示のため負の値

@@ -1,5 +1,5 @@
 {
-  "name": "population-pyramid-new",
+  "name": "population-pyramid-simulation",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,7 +9,6 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/d3": "^7.4.3",
-    "@types/file-saver": "^2.0.7",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.126",
     "@types/react": "^19.1.8",
@@ -60,6 +59,7 @@
     ]
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.7",
     "pm2": "^6.0.8"
   }
 }

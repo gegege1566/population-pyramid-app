@@ -32,111 +32,111 @@
     "prefecture": "徳島県",
     "prefectureCode": "36",
     "ageGroup": "20-24",
-    "memberCount": 0
+    "memberCount": 0.3
   },
   {
     "year": 2040,
     "prefecture": "徳島県",
     "prefectureCode": "36",
     "ageGroup": "25-29",
-    "memberCount": 0
+    "memberCount": 0.3
   },
   {
     "year": 2040,
     "prefecture": "徳島県",
     "prefectureCode": "36",
     "ageGroup": "30-34",
-    "memberCount": 0
+    "memberCount": 2
   },
   {
     "year": 2040,
     "prefecture": "徳島県",
     "prefectureCode": "36",
     "ageGroup": "35-39",
-    "memberCount": 0
+    "memberCount": 2.2
   },
   {
     "year": 2040,
     "prefecture": "徳島県",
     "prefectureCode": "36",
     "ageGroup": "40-44",
-    "memberCount": 0
+    "memberCount": 3.2
   },
   {
     "year": 2040,
     "prefecture": "徳島県",
     "prefectureCode": "36",
     "ageGroup": "45-49",
-    "memberCount": 0
+    "memberCount": 3
   },
   {
     "year": 2040,
     "prefecture": "徳島県",
     "prefectureCode": "36",
     "ageGroup": "50-54",
-    "memberCount": 0
+    "memberCount": 3.6
   },
   {
     "year": 2040,
     "prefecture": "徳島県",
     "prefectureCode": "36",
     "ageGroup": "55-59",
-    "memberCount": 0
+    "memberCount": 4.5
   },
   {
     "year": 2040,
     "prefecture": "徳島県",
     "prefectureCode": "36",
     "ageGroup": "60-64",
-    "memberCount": 0.01
+    "memberCount": 5.3
   },
   {
     "year": 2040,
     "prefecture": "徳島県",
     "prefectureCode": "36",
     "ageGroup": "65-69",
-    "memberCount": 0.01
+    "memberCount": 6.5
   },
   {
     "year": 2040,
     "prefecture": "徳島県",
     "prefectureCode": "36",
     "ageGroup": "70-74",
-    "memberCount": 0.01
+    "memberCount": 5.8
   },
   {
     "year": 2040,
     "prefecture": "徳島県",
     "prefectureCode": "36",
     "ageGroup": "75-79",
-    "memberCount": 0.01
+    "memberCount": 5.1
   },
   {
     "year": 2040,
     "prefecture": "徳島県",
     "prefectureCode": "36",
     "ageGroup": "80-84",
-    "memberCount": 0.01
+    "memberCount": 3.4
   },
   {
     "year": 2040,
     "prefecture": "徳島県",
     "prefectureCode": "36",
     "ageGroup": "85-89",
-    "memberCount": 0
+    "memberCount": 2
   },
   {
     "year": 2040,
     "prefecture": "徳島県",
     "prefectureCode": "36",
     "ageGroup": "90-94",
-    "memberCount": 0
+    "memberCount": 0.5
   },
   {
     "year": 2040,
     "prefecture": "徳島県",
     "prefectureCode": "36",
     "ageGroup": "95-99",
-    "memberCount": 0
+    "memberCount": 0.1
   }
 ]

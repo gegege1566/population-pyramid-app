@@ -5,12 +5,16 @@ import YearSelector from './components/YearSelector';
 import YearComparisonDemo from './components/YearComparisonDemo';
 import PopulationStats from './components/PopulationStats';
 import CoopMemberStats from './components/CoopMemberStats';
+import SpendingEstimation from './components/SpendingEstimation';
+import SpendingSettings from './components/SpendingSettings';
 import { useAvailableYears } from './hooks/usePopulationData';
 import { usePrefectureData } from './hooks/usePrefectureData';
 import { useMultiplePrefectureData } from './hooks/useMultiplePrefectureData';
 import { LocalDataService } from './services/localDataService';
 import { CoopMemberService } from './services/coopMemberService';
 import { CoopMemberData } from './types/coopMember';
+import { AgeGroupSpending, DEFAULT_AGE_GROUP_SPENDING } from './types/coopSpending';
+import { getSelectedPrefectureNames, getDetailedPrefectureNames, getAbbreviatedPrefectureNames, getPDFTitlePrefectureNames } from './utils/prefectureUtils';
 
 const localDataService = new LocalDataService();
 const coopMemberService = CoopMemberService.getInstance();
@@ -22,6 +26,8 @@ function App() {
   const [showComparison, setShowComparison] = useState(false);
   const [showCoopMembers, setShowCoopMembers] = useState(false);
   const [coopMemberData, setCoopMemberData] = useState<CoopMemberData[] | undefined>(undefined);
+  const [showSpendingSettings, setShowSpendingSettings] = useState(false);
+  const [ageGroupSpending, setAgeGroupSpending] = useState<AgeGroupSpending[]>(DEFAULT_AGE_GROUP_SPENDING);
 
   const { years: availableYears, loading: yearsLoading } = useAvailableYears();
   const singlePrefectureHook = usePrefectureData();
@@ -85,17 +91,14 @@ function App() {
     }
   }, [selectedPrefCodes, availableYears, singlePrefectureHook, multiplePrefectureHook]);
 
-  const getSelectedPrefectureNames = () => {
-    if (selectedPrefCodes.length === 0) return '未選択';
-    if (selectedPrefCodes.length === 1) {
-      const prefCode = selectedPrefCodes[0];
-      return prefCode === '00000' ? '全国（日本）' : 
-        require('./data/prefectures').PREFECTURE_CODES[prefCode] || '未選択';
-    }
-    return `${selectedPrefCodes.length}地域選択`;
-  };
-  
-  const selectedPrefecture = getSelectedPrefectureNames();
+  // 表示用地域名（UI表示用）
+  const selectedPrefecture = getSelectedPrefectureNames(selectedPrefCodes);
+  // 詳細地域名（Excel用）
+  const detailedPrefectureName = getDetailedPrefectureNames(selectedPrefCodes);
+  // 省略形地域名（シート名・タイトル用）
+  const abbreviatedPrefectureName = getAbbreviatedPrefectureNames(selectedPrefCodes);
+  // PDF用タイトル地域名
+  const pdfTitlePrefectureName = getPDFTitlePrefectureNames(selectedPrefCodes);
 
   const handlePrefectureChange = (prefCodes: string[]) => {
     setSelectedPrefCodes(prefCodes);
@@ -128,7 +131,7 @@ function App() {
         <div className="w-full mx-auto px-2 sm:px-4 lg:px-6 py-4">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold text-gray-900">
-              都道府県別人口ピラミッド
+              Population pyramid simulation
             </h1>
             <div className="flex items-center space-x-4">
               <div className="text-sm text-gray-500">
@@ -144,6 +147,14 @@ function App() {
               >
                 組合員数推計
               </button>
+              {showCoopMembers && (
+                <button
+                  onClick={() => setShowSpendingSettings(true)}
+                  className="px-3 py-1 text-sm rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+                >
+                  利用金額設定
+                </button>
+              )}
               <button
                 onClick={() => setShowComparison(!showComparison)}
                 className={`px-3 py-1 text-sm rounded-md border transition-colors ${
@@ -176,10 +187,11 @@ function App() {
           <div className={showComparison ? "lg:col-span-4" : "lg:col-span-4"}>
             {showComparison ? (
               <YearComparisonDemo
-                selectedPrefCode={selectedPrefCodes[0] || ''}
+                selectedPrefCodes={selectedPrefCodes}
                 availableYears={availableYears}
                 showCoopMembers={showCoopMembers}
                 onCoopMembersChange={setShowCoopMembers}
+                ageGroupSpending={ageGroupSpending}
               />
             ) : (
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -235,24 +247,33 @@ function App() {
                     <div className="overflow-x-auto">
                       <PopulationPyramid
                         data={getDataForYear(selectedYear)}
-                        prefecture={selectedPrefecture}
+                        prefecture={detailedPrefectureName}
                         year={selectedYear}
                         width={800}
                         height={600}
                         fixedScale={fixedScale || undefined}
                         showCoopMembers={showCoopMembers}
                         coopMemberData={coopMemberData}
+                        abbreviatedName={abbreviatedPrefectureName}
+                        pdfTitleName={pdfTitlePrefectureName}
                       />
                     </div>
 
                     {/* 組合員数統計 */}
                     {showCoopMembers && (
-                      <div className="mt-6">
+                      <div className="mt-6 space-y-6">
                         <CoopMemberStats
                           data={coopMemberData || []}
                           populationData={getDataForYear(selectedYear)}
-                          prefecture={selectedPrefecture}
+                          prefecture={detailedPrefectureName}
                           year={selectedYear}
+                        />
+                        {/* 利用金額推定 */}
+                        <SpendingEstimation
+                          coopMemberData={coopMemberData}
+                          year={selectedYear}
+                          prefecture={detailedPrefectureName}
+                          ageGroupSpending={ageGroupSpending}
                         />
                       </div>
                     )}
@@ -325,6 +346,13 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* 利用金額設定モーダル */}
+      <SpendingSettings
+        isOpen={showSpendingSettings}
+        onClose={() => setShowSpendingSettings(false)}
+        onSpendingChange={setAgeGroupSpending}
+      />
     </div>
   );
 }

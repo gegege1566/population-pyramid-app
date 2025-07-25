@@ -32,111 +32,111 @@
     "prefecture": "長野県",
     "prefectureCode": "20",
     "ageGroup": "20-24",
-    "memberCount": 0
+    "memberCount": 1.4
   },
   {
     "year": 2050,
     "prefecture": "長野県",
     "prefectureCode": "20",
     "ageGroup": "25-29",
-    "memberCount": 0
+    "memberCount": 1.5
   },
   {
     "year": 2050,
     "prefecture": "長野県",
     "prefectureCode": "20",
     "ageGroup": "30-34",
-    "memberCount": 0.01
+    "memberCount": 10.5
   },
   {
     "year": 2050,
     "prefecture": "長野県",
     "prefectureCode": "20",
     "ageGroup": "35-39",
-    "memberCount": 0.01
+    "memberCount": 12.4
   },
   {
     "year": 2050,
     "prefecture": "長野県",
     "prefectureCode": "20",
     "ageGroup": "40-44",
-    "memberCount": 0.01
+    "memberCount": 19.8
   },
   {
     "year": 2050,
     "prefecture": "長野県",
     "prefectureCode": "20",
     "ageGroup": "45-49",
-    "memberCount": 0.01
+    "memberCount": 20.4
   },
   {
     "year": 2050,
     "prefecture": "長野県",
     "prefectureCode": "20",
     "ageGroup": "50-54",
-    "memberCount": 0.01
+    "memberCount": 21.7
   },
   {
     "year": 2050,
     "prefecture": "長野県",
     "prefectureCode": "20",
     "ageGroup": "55-59",
-    "memberCount": 0.01
+    "memberCount": 21.8
   },
   {
     "year": 2050,
     "prefecture": "長野県",
     "prefectureCode": "20",
     "ageGroup": "60-64",
-    "memberCount": 0.02
+    "memberCount": 23.6
   },
   {
     "year": 2050,
     "prefecture": "長野県",
     "prefectureCode": "20",
     "ageGroup": "65-69",
-    "memberCount": 0.01
+    "memberCount": 26.8
   },
   {
     "year": 2050,
     "prefecture": "長野県",
     "prefectureCode": "20",
     "ageGroup": "70-74",
-    "memberCount": 0.02
+    "memberCount": 29.7
   },
   {
     "year": 2050,
     "prefecture": "長野県",
     "prefectureCode": "20",
     "ageGroup": "75-79",
-    "memberCount": 0.02
+    "memberCount": 31.2
   },
   {
     "year": 2050,
     "prefecture": "長野県",
     "prefectureCode": "20",
     "ageGroup": "80-84",
-    "memberCount": 0.02
+    "memberCount": 20.9
   },
   {
     "year": 2050,
     "prefecture": "長野県",
     "prefectureCode": "20",
     "ageGroup": "85-89",
-    "memberCount": 0.01
+    "memberCount": 11.4
   },
   {
     "year": 2050,
     "prefecture": "長野県",
     "prefectureCode": "20",
     "ageGroup": "90-94",
-    "memberCount": 0
+    "memberCount": 3.1
   },
   {
     "year": 2050,
     "prefecture": "長野県",
     "prefectureCode": "20",
     "ageGroup": "95-99",
-    "memberCount": 0
+    "memberCount": 0.6
   }
 ]

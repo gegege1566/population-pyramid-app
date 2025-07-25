@@ -1,0 +1,949 @@
+{
+  "metadata": {
+    "calculationDate": "2025-07-23T22:12:32.123Z",
+    "baseYear": 2025,
+    "targetYears": [
+      2025,
+      2030,
+      2035,
+      2040,
+      2045,
+      2050
+    ],
+    "totalRecords": 5760,
+    "prefectureCount": 48,
+    "ageGroupCount": 20
+  },
+  "nationalSummary": {
+    "year2050Summary": [
+      {
+        "ageGroup": "0-4",
+        "population2025": 3953,
+        "population2050": 3212,
+        "cumulativeRate": -18.745,
+        "annualAverageRate": -0.75
+      },
+      {
+        "ageGroup": "5-9",
+        "population2025": 4548,
+        "population2050": 3483,
+        "cumulativeRate": -23.417,
+        "annualAverageRate": -0.937
+      },
+      {
+        "ageGroup": "10-14",
+        "population2025": 5132,
+        "population2050": 3711,
+        "cumulativeRate": -27.689,
+        "annualAverageRate": -1.108
+      },
+      {
+        "ageGroup": "15-19",
+        "population2025": 5442,
+        "population2050": 3932,
+        "cumulativeRate": -27.747,
+        "annualAverageRate": -1.11
+      },
+      {
+        "ageGroup": "20-24",
+        "population2025": 5972,
+        "population2050": 4269,
+        "cumulativeRate": -28.516,
+        "annualAverageRate": -1.141
+      },
+      {
+        "ageGroup": "25-29",
+        "population2025": 6472,
+        "population2050": 4561,
+        "cumulativeRate": -29.527,
+        "annualAverageRate": -1.181
+      },
+      {
+        "ageGroup": "30-34",
+        "population2025": 6418,
+        "population2050": 5254,
+        "cumulativeRate": -18.136,
+        "annualAverageRate": -0.725
+      },
+      {
+        "ageGroup": "35-39",
+        "population2025": 6709,
+        "population2050": 5847,
+        "cumulativeRate": -12.848,
+        "annualAverageRate": -0.514
+      },
+      {
+        "ageGroup": "40-44",
+        "population2025": 7483,
+        "population2050": 6081,
+        "cumulativeRate": -18.736,
+        "annualAverageRate": -0.749
+      },
+      {
+        "ageGroup": "45-49",
+        "population2025": 8440,
+        "population2050": 6259,
+        "cumulativeRate": -25.841,
+        "annualAverageRate": -1.034
+      },
+      {
+        "ageGroup": "50-54",
+        "population2025": 9785,
+        "population2050": 6478,
+        "cumulativeRate": -33.797,
+        "annualAverageRate": -1.352
+      },
+      {
+        "ageGroup": "55-59",
+        "population2025": 8615,
+        "population2050": 6283,
+        "cumulativeRate": -27.069,
+        "annualAverageRate": -1.083
+      },
+      {
+        "ageGroup": "60-64",
+        "population2025": 7767,
+        "population2050": 6438,
+        "cumulativeRate": -17.111,
+        "annualAverageRate": -0.684
+      },
+      {
+        "ageGroup": "65-69",
+        "population2025": 7190,
+        "population2050": 6988,
+        "cumulativeRate": -2.809,
+        "annualAverageRate": -0.112
+      },
+      {
+        "ageGroup": "70-74",
+        "population2025": 7792,
+        "population2050": 7558,
+        "cumulativeRate": -3.003,
+        "annualAverageRate": -0.12
+      },
+      {
+        "ageGroup": "75-79",
+        "population2025": 8421,
+        "population2050": 8216,
+        "cumulativeRate": -2.434,
+        "annualAverageRate": -0.097
+      },
+      {
+        "ageGroup": "80-84",
+        "population2025": 6054,
+        "population2050": 6504,
+        "cumulativeRate": 7.433,
+        "annualAverageRate": 0.297
+      },
+      {
+        "ageGroup": "85-89",
+        "population2025": 4061,
+        "population2050": 4770,
+        "cumulativeRate": 17.459,
+        "annualAverageRate": 0.698
+      },
+      {
+        "ageGroup": "90-94",
+        "population2025": 2199,
+        "population2050": 2931,
+        "cumulativeRate": 33.288,
+        "annualAverageRate": 1.332
+      },
+      {
+        "ageGroup": "95-99",
+        "population2025": 702,
+        "population2050": 1443,
+        "cumulativeRate": 105.556,
+        "annualAverageRate": 4.222
+      }
+    ]
+  },
+  "extremeChanges": {
+    "maxIncrease": [
+      {
+        "prefecture": "千葉県",
+        "ageGroup": "90-94",
+        "rate": 372.414
+      },
+      {
+        "prefecture": "埼玉県",
+        "ageGroup": "95-99",
+        "rate": 231.25
+      },
+      {
+        "prefecture": "千葉県",
+        "ageGroup": "95-99",
+        "rate": 190.625
+      },
+      {
+        "prefecture": "神奈川県",
+        "ageGroup": "95-99",
+        "rate": 182.979
+      },
+      {
+        "prefecture": "愛知県",
+        "ageGroup": "95-99",
+        "rate": 177.143
+      },
+      {
+        "prefecture": "栃木県",
+        "ageGroup": "95-99",
+        "rate": 172.727
+      },
+      {
+        "prefecture": "大阪府",
+        "ageGroup": "95-99",
+        "rate": 166.667
+      },
+      {
+        "prefecture": "奈良県",
+        "ageGroup": "95-99",
+        "rate": 166.667
+      },
+      {
+        "prefecture": "茨城県",
+        "ageGroup": "95-99",
+        "rate": 155.556
+      },
+      {
+        "prefecture": "沖縄県",
+        "ageGroup": "95-99",
+        "rate": 155.556
+      }
+    ],
+    "maxDecrease": [
+      {
+        "prefecture": "青森県",
+        "ageGroup": "20-24",
+        "rate": -54.762
+      },
+      {
+        "prefecture": "秋田県",
+        "ageGroup": "15-19",
+        "rate": -54.545
+      },
+      {
+        "prefecture": "秋田県",
+        "ageGroup": "20-24",
+        "rate": -53.571
+      },
+      {
+        "prefecture": "青森県",
+        "ageGroup": "10-14",
+        "rate": -52.273
+      },
+      {
+        "prefecture": "秋田県",
+        "ageGroup": "10-14",
+        "rate": -51.613
+      },
+      {
+        "prefecture": "長崎県",
+        "ageGroup": "50-54",
+        "rate": -51.163
+      },
+      {
+        "prefecture": "青森県",
+        "ageGroup": "50-54",
+        "rate": -51.163
+      },
+      {
+        "prefecture": "青森県",
+        "ageGroup": "25-29",
+        "rate": -51.163
+      },
+      {
+        "prefecture": "青森県",
+        "ageGroup": "15-19",
+        "rate": -51.111
+      },
+      {
+        "prefecture": "秋田県",
+        "ageGroup": "45-49",
+        "rate": -50
+      }
+    ]
+  },
+  "ageGroupTrends": {
+    "0-4": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 3953,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 3864,
+          "cumulativeRate": -2.251
+        },
+        {
+          "year": 2035,
+          "population": 3832,
+          "cumulativeRate": -3.061
+        },
+        {
+          "year": 2040,
+          "population": 3680,
+          "cumulativeRate": -6.906
+        },
+        {
+          "year": 2045,
+          "population": 3473,
+          "cumulativeRate": -12.143
+        },
+        {
+          "year": 2050,
+          "population": 3212,
+          "cumulativeRate": -18.745
+        }
+      ]
+    },
+    "5-9": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 4548,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 3964,
+          "cumulativeRate": -12.841
+        },
+        {
+          "year": 2035,
+          "population": 3876,
+          "cumulativeRate": -14.776
+        },
+        {
+          "year": 2040,
+          "population": 3843,
+          "cumulativeRate": -15.501
+        },
+        {
+          "year": 2045,
+          "population": 3692,
+          "cumulativeRate": -18.821
+        },
+        {
+          "year": 2050,
+          "population": 3483,
+          "cumulativeRate": -23.417
+        }
+      ]
+    },
+    "10-14": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 5132,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 4569,
+          "cumulativeRate": -10.97
+        },
+        {
+          "year": 2035,
+          "population": 3983,
+          "cumulativeRate": -22.389
+        },
+        {
+          "year": 2040,
+          "population": 3895,
+          "cumulativeRate": -24.104
+        },
+        {
+          "year": 2045,
+          "population": 3863,
+          "cumulativeRate": -24.727
+        },
+        {
+          "year": 2050,
+          "population": 3711,
+          "cumulativeRate": -27.689
+        }
+      ]
+    },
+    "15-19": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 5442,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 5201,
+          "cumulativeRate": -4.429
+        },
+        {
+          "year": 2035,
+          "population": 4639,
+          "cumulativeRate": -14.756
+        },
+        {
+          "year": 2040,
+          "population": 4054,
+          "cumulativeRate": -25.505
+        },
+        {
+          "year": 2045,
+          "population": 3965,
+          "cumulativeRate": -27.141
+        },
+        {
+          "year": 2050,
+          "population": 3932,
+          "cumulativeRate": -27.747
+        }
+      ]
+    },
+    "20-24": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 5972,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 5770,
+          "cumulativeRate": -3.382
+        },
+        {
+          "year": 2035,
+          "population": 5532,
+          "cumulativeRate": -7.368
+        },
+        {
+          "year": 2040,
+          "population": 4973,
+          "cumulativeRate": -16.728
+        },
+        {
+          "year": 2045,
+          "population": 4366,
+          "cumulativeRate": -26.892
+        },
+        {
+          "year": 2050,
+          "population": 4269,
+          "cumulativeRate": -28.516
+        }
+      ]
+    },
+    "25-29": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 6472,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 6205,
+          "cumulativeRate": -4.125
+        },
+        {
+          "year": 2035,
+          "population": 6006,
+          "cumulativeRate": -7.2
+        },
+        {
+          "year": 2040,
+          "population": 5769,
+          "cumulativeRate": -10.862
+        },
+        {
+          "year": 2045,
+          "population": 5194,
+          "cumulativeRate": -19.747
+        },
+        {
+          "year": 2050,
+          "population": 4561,
+          "cumulativeRate": -29.527
+        }
+      ]
+    },
+    "30-34": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 6418,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 6538,
+          "cumulativeRate": 1.87
+        },
+        {
+          "year": 2035,
+          "population": 6274,
+          "cumulativeRate": -2.244
+        },
+        {
+          "year": 2040,
+          "population": 6075,
+          "cumulativeRate": -5.344
+        },
+        {
+          "year": 2045,
+          "population": 5836,
+          "cumulativeRate": -9.068
+        },
+        {
+          "year": 2050,
+          "population": 5254,
+          "cumulativeRate": -18.136
+        }
+      ]
+    },
+    "35-39": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 6709,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 6427,
+          "cumulativeRate": -4.203
+        },
+        {
+          "year": 2035,
+          "population": 6546,
+          "cumulativeRate": -2.43
+        },
+        {
+          "year": 2040,
+          "population": 6282,
+          "cumulativeRate": -6.365
+        },
+        {
+          "year": 2045,
+          "population": 6085,
+          "cumulativeRate": -9.301
+        },
+        {
+          "year": 2050,
+          "population": 5847,
+          "cumulativeRate": -12.848
+        }
+      ]
+    },
+    "40-44": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 7483,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 6699,
+          "cumulativeRate": -10.477
+        },
+        {
+          "year": 2035,
+          "population": 6418,
+          "cumulativeRate": -14.232
+        },
+        {
+          "year": 2040,
+          "population": 6539,
+          "cumulativeRate": -12.615
+        },
+        {
+          "year": 2045,
+          "population": 6277,
+          "cumulativeRate": -16.117
+        },
+        {
+          "year": 2050,
+          "population": 6081,
+          "cumulativeRate": -18.736
+        }
+      ]
+    },
+    "45-49": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 8440,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 7455,
+          "cumulativeRate": -11.671
+        },
+        {
+          "year": 2035,
+          "population": 6677,
+          "cumulativeRate": -20.889
+        },
+        {
+          "year": 2040,
+          "population": 6398,
+          "cumulativeRate": -24.194
+        },
+        {
+          "year": 2045,
+          "population": 6519,
+          "cumulativeRate": -22.761
+        },
+        {
+          "year": 2050,
+          "population": 6259,
+          "cumulativeRate": -25.841
+        }
+      ]
+    },
+    "50-54": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 9785,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 8372,
+          "cumulativeRate": -14.44
+        },
+        {
+          "year": 2035,
+          "population": 7398,
+          "cumulativeRate": -24.394
+        },
+        {
+          "year": 2040,
+          "population": 6628,
+          "cumulativeRate": -32.264
+        },
+        {
+          "year": 2045,
+          "population": 6354,
+          "cumulativeRate": -35.064
+        },
+        {
+          "year": 2050,
+          "population": 6478,
+          "cumulativeRate": -33.797
+        }
+      ]
+    },
+    "55-59": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 8615,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 9653,
+          "cumulativeRate": 12.049
+        },
+        {
+          "year": 2035,
+          "population": 8264,
+          "cumulativeRate": -4.074
+        },
+        {
+          "year": 2040,
+          "population": 7307,
+          "cumulativeRate": -15.183
+        },
+        {
+          "year": 2045,
+          "population": 6551,
+          "cumulativeRate": -23.958
+        },
+        {
+          "year": 2050,
+          "population": 6283,
+          "cumulativeRate": -27.069
+        }
+      ]
+    },
+    "60-64": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 7767,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 8437,
+          "cumulativeRate": 8.626
+        },
+        {
+          "year": 2035,
+          "population": 9463,
+          "cumulativeRate": 21.836
+        },
+        {
+          "year": 2040,
+          "population": 8108,
+          "cumulativeRate": 4.39
+        },
+        {
+          "year": 2045,
+          "population": 7176,
+          "cumulativeRate": -7.609
+        },
+        {
+          "year": 2050,
+          "population": 6438,
+          "cumulativeRate": -17.111
+        }
+      ]
+    },
+    "65-69": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 7190,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 7519,
+          "cumulativeRate": 4.576
+        },
+        {
+          "year": 2035,
+          "population": 8185,
+          "cumulativeRate": 13.839
+        },
+        {
+          "year": 2040,
+          "population": 9192,
+          "cumulativeRate": 27.844
+        },
+        {
+          "year": 2045,
+          "population": 7885,
+          "cumulativeRate": 9.666
+        },
+        {
+          "year": 2050,
+          "population": 6988,
+          "cumulativeRate": -2.809
+        }
+      ]
+    },
+    "70-74": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 7792,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 6830,
+          "cumulativeRate": -12.346
+        },
+        {
+          "year": 2035,
+          "population": 7163,
+          "cumulativeRate": -8.072
+        },
+        {
+          "year": 2040,
+          "population": 7818,
+          "cumulativeRate": 0.334
+        },
+        {
+          "year": 2045,
+          "population": 8795,
+          "cumulativeRate": 12.872
+        },
+        {
+          "year": 2050,
+          "population": 7558,
+          "cumulativeRate": -3.003
+        }
+      ]
+    },
+    "75-79": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 8421,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 7169,
+          "cumulativeRate": -14.868
+        },
+        {
+          "year": 2035,
+          "population": 6315,
+          "cumulativeRate": -25.009
+        },
+        {
+          "year": 2040,
+          "population": 6653,
+          "cumulativeRate": -20.995
+        },
+        {
+          "year": 2045,
+          "population": 7288,
+          "cumulativeRate": -13.454
+        },
+        {
+          "year": 2050,
+          "population": 8216,
+          "cumulativeRate": -2.434
+        }
+      ]
+    },
+    "80-84": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 6054,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 7323,
+          "cumulativeRate": 20.961
+        },
+        {
+          "year": 2035,
+          "population": 6258,
+          "cumulativeRate": 3.37
+        },
+        {
+          "year": 2040,
+          "population": 5561,
+          "cumulativeRate": -8.143
+        },
+        {
+          "year": 2045,
+          "population": 5900,
+          "cumulativeRate": -2.544
+        },
+        {
+          "year": 2050,
+          "population": 6504,
+          "cumulativeRate": 7.433
+        }
+      ]
+    },
+    "85-89": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 4061,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 4626,
+          "cumulativeRate": 13.913
+        },
+        {
+          "year": 2035,
+          "population": 5724,
+          "cumulativeRate": 40.951
+        },
+        {
+          "year": 2040,
+          "population": 4918,
+          "cumulativeRate": 21.103
+        },
+        {
+          "year": 2045,
+          "population": 4440,
+          "cumulativeRate": 9.333
+        },
+        {
+          "year": 2050,
+          "population": 4770,
+          "cumulativeRate": 17.459
+        }
+      ]
+    },
+    "90-94": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 2199,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 2445,
+          "cumulativeRate": 11.187
+        },
+        {
+          "year": 2035,
+          "population": 2850,
+          "cumulativeRate": 29.604
+        },
+        {
+          "year": 2040,
+          "population": 3655,
+          "cumulativeRate": 66.212
+        },
+        {
+          "year": 2045,
+          "population": 3165,
+          "cumulativeRate": 43.929
+        },
+        {
+          "year": 2050,
+          "population": 2931,
+          "cumulativeRate": 33.288
+        }
+      ]
+    },
+    "95-99": {
+      "trend": [
+        {
+          "year": 2025,
+          "population": 702,
+          "cumulativeRate": 0
+        },
+        {
+          "year": 2030,
+          "population": 888,
+          "cumulativeRate": 26.496
+        },
+        {
+          "year": 2035,
+          "population": 1020,
+          "cumulativeRate": 45.299
+        },
+        {
+          "year": 2040,
+          "population": 1224,
+          "cumulativeRate": 74.359
+        },
+        {
+          "year": 2045,
+          "population": 1652,
+          "cumulativeRate": 135.328
+        },
+        {
+          "year": 2050,
+          "population": 1443,
+          "cumulativeRate": 105.556
+        }
+      ]
+    }
+  }
+}

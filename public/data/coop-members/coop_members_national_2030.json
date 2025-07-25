@@ -1,0 +1,142 @@
+[
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "0-4",
+    "memberCount": 0
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "5-9",
+    "memberCount": 0
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "10-14",
+    "memberCount": 0
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "15-19",
+    "memberCount": 0
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "20-24",
+    "memberCount": 130.8
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "25-29",
+    "memberCount": 145.4
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "30-34",
+    "memberCount": 824.7
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "35-39",
+    "memberCount": 873.5
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "40-44",
+    "memberCount": 1341.1
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "45-49",
+    "memberCount": 1473.1
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "50-54",
+    "memberCount": 1663.7
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "55-59",
+    "memberCount": 2263.3
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "60-64",
+    "memberCount": 2269.5
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "65-69",
+    "memberCount": 2453.2
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "70-74",
+    "memberCount": 2106.7
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "75-79",
+    "memberCount": 1913.7
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "80-84",
+    "memberCount": 1365.8
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "85-89",
+    "memberCount": 410.3
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "90-94",
+    "memberCount": 137
+  },
+  {
+    "year": 2030,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "95-99",
+    "memberCount": 27.7
+  }
+]

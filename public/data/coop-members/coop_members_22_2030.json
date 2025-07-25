@@ -32,111 +32,111 @@
     "prefecture": "静岡県",
     "prefectureCode": "22",
     "ageGroup": "20-24",
-    "memberCount": 0
+    "memberCount": 1.8
   },
   {
     "year": 2030,
     "prefecture": "静岡県",
     "prefectureCode": "22",
     "ageGroup": "25-29",
-    "memberCount": 0
+    "memberCount": 2.1
   },
   {
     "year": 2030,
     "prefecture": "静岡県",
     "prefectureCode": "22",
     "ageGroup": "30-34",
-    "memberCount": 0.01
+    "memberCount": 12.2
   },
   {
     "year": 2030,
     "prefecture": "静岡県",
     "prefectureCode": "22",
     "ageGroup": "35-39",
-    "memberCount": 0.01
+    "memberCount": 11.7
   },
   {
     "year": 2030,
     "prefecture": "静岡県",
     "prefectureCode": "22",
     "ageGroup": "40-44",
-    "memberCount": 0.01
+    "memberCount": 18.7
   },
   {
     "year": 2030,
     "prefecture": "静岡県",
     "prefectureCode": "22",
     "ageGroup": "45-49",
-    "memberCount": 0.02
+    "memberCount": 20.8
   },
   {
     "year": 2030,
     "prefecture": "静岡県",
     "prefectureCode": "22",
     "ageGroup": "50-54",
-    "memberCount": 0.02
+    "memberCount": 23.4
   },
   {
     "year": 2030,
     "prefecture": "静岡県",
     "prefectureCode": "22",
     "ageGroup": "55-59",
-    "memberCount": 0.04
+    "memberCount": 32
   },
   {
     "year": 2030,
     "prefecture": "静岡県",
     "prefectureCode": "22",
     "ageGroup": "60-64",
-    "memberCount": 0.03
+    "memberCount": 32.2
   },
   {
     "year": 2030,
     "prefecture": "静岡県",
     "prefectureCode": "22",
     "ageGroup": "65-69",
-    "memberCount": 0.04
+    "memberCount": 34.8
   },
   {
     "year": 2030,
     "prefecture": "静岡県",
     "prefectureCode": "22",
     "ageGroup": "70-74",
-    "memberCount": 0.03
+    "memberCount": 29.9
   },
   {
     "year": 2030,
     "prefecture": "静岡県",
     "prefectureCode": "22",
     "ageGroup": "75-79",
-    "memberCount": 0.03
+    "memberCount": 27.2
   },
   {
     "year": 2030,
     "prefecture": "静岡県",
     "prefectureCode": "22",
     "ageGroup": "80-84",
-    "memberCount": 0.02
+    "memberCount": 19.2
   },
   {
     "year": 2030,
     "prefecture": "静岡県",
     "prefectureCode": "22",
     "ageGroup": "85-89",
-    "memberCount": 0.01
+    "memberCount": 5.8
   },
   {
     "year": 2030,
     "prefecture": "静岡県",
     "prefectureCode": "22",
     "ageGroup": "90-94",
-    "memberCount": 0
+    "memberCount": 1.9
   },
   {
     "year": 2030,
     "prefecture": "静岡県",
     "prefectureCode": "22",
     "ageGroup": "95-99",
-    "memberCount": 0
+    "memberCount": 0.4
   }
 ]

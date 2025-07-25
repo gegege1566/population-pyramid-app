@@ -17,6 +17,12 @@ const CoopMemberStats: React.FC<CoopMemberStatsProps> = ({
   year,
   className = ''
 }) => {
+  // 年齢層の中央値を計算
+  const getAgeGroupMidpoint = (ageGroup: string): number => {
+    const [start, end] = ageGroup.split('-').map(Number);
+    return (start + end) / 2;
+  };
+
   // 組合員統計データを計算
   const calculateCoopStats = () => {
     if (!data || data.length === 0) {
@@ -24,7 +30,8 @@ const CoopMemberStats: React.FC<CoopMemberStatsProps> = ({
         totalMembers: 0,
         ageBreakdown: [],
         maxMemberCount: 0,
-        membershipRate: 0
+        membershipRate: 0,
+        averageAge: 0
       };
     }
 
@@ -47,11 +54,8 @@ const CoopMemberStats: React.FC<CoopMemberStatsProps> = ({
           return ageStart >= 20;
         })
         .reduce((sum, item) => {
-          // 全国データのみ特別処理、都道府県データはそのまま
-          const isNational = item.prefectureCode === '00000';
-          const population = isNational 
-            ? item.population // 全国データ：既に実人数なのでそのまま使用
-            : item.population * 1000; // 都道府県データ：千人単位から実人数に変換
+          // 全国・都道府県データ共に千人単位なので1000倍して実人数に変換
+          const population = item.population * 1000;
           return sum + population;
         }, 0);
 
@@ -73,11 +77,8 @@ const CoopMemberStats: React.FC<CoopMemberStatsProps> = ({
         const agePopulation = populationData
           .filter(popItem => popItem.ageGroup === item.ageGroup)
           .reduce((sum, popItem) => {
-            // 全国データのみ特別処理、都道府県データはそのまま
-            const isNational = popItem.prefectureCode === '00000';
-            const population = isNational 
-              ? popItem.population // 全国データ：既に実人数なのでそのまま使用
-              : popItem.population * 1000; // 都道府県データ：千人単位から実人数に変換
+            // 全国・都道府県データ共に千人単位なので1000倍して実人数に変換
+            const population = popItem.population * 1000;
             return sum + population;
           }, 0);
         
@@ -101,11 +102,24 @@ const CoopMemberStats: React.FC<CoopMemberStatsProps> = ({
 
     const maxMemberCount = Math.max(...ageBreakdown.map(item => item.memberCount));
 
+    // 平均年齢を計算
+    let averageAge = 0;
+    if (totalMembers > 0) {
+      let weightedAgeSum = 0;
+      validData.forEach(item => {
+        const memberCount = item.memberCount * 1000; // 千人単位から人単位
+        const ageMidpoint = getAgeGroupMidpoint(item.ageGroup);
+        weightedAgeSum += memberCount * ageMidpoint;
+      });
+      averageAge = weightedAgeSum / totalMembers;
+    }
+
     return {
       totalMembers,
       ageBreakdown,
       maxMemberCount,
-      membershipRate
+      membershipRate,
+      averageAge
     };
   };
 
@@ -135,6 +149,10 @@ const CoopMemberStats: React.FC<CoopMemberStatsProps> = ({
               <span className="font-bold text-orange-800">{stats.membershipRate.toFixed(1)}%</span>
             </div>
           )}
+          <div className="flex justify-between">
+            <span className="text-orange-700">平均年齢:</span>
+            <span className="font-bold text-orange-800">{stats.averageAge.toFixed(1)}歳</span>
+          </div>
         </div>
       </div>
 

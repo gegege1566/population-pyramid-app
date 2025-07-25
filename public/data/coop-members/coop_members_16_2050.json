@@ -32,111 +32,111 @@
     "prefecture": "富山県",
     "prefectureCode": "16",
     "ageGroup": "20-24",
-    "memberCount": 0
+    "memberCount": 0.4
   },
   {
     "year": 2050,
     "prefecture": "富山県",
     "prefectureCode": "16",
     "ageGroup": "25-29",
-    "memberCount": 0
+    "memberCount": 0.4
   },
   {
     "year": 2050,
     "prefecture": "富山県",
     "prefectureCode": "16",
     "ageGroup": "30-34",
-    "memberCount": 0
+    "memberCount": 2.6
   },
   {
     "year": 2050,
     "prefecture": "富山県",
     "prefectureCode": "16",
     "ageGroup": "35-39",
-    "memberCount": 0
+    "memberCount": 3.1
   },
   {
     "year": 2050,
     "prefecture": "富山県",
     "prefectureCode": "16",
     "ageGroup": "40-44",
-    "memberCount": 0
+    "memberCount": 4.9
   },
   {
     "year": 2050,
     "prefecture": "富山県",
     "prefectureCode": "16",
     "ageGroup": "45-49",
-    "memberCount": 0
+    "memberCount": 5.1
   },
   {
     "year": 2050,
     "prefecture": "富山県",
     "prefectureCode": "16",
     "ageGroup": "50-54",
-    "memberCount": 0
+    "memberCount": 5.3
   },
   {
     "year": 2050,
     "prefecture": "富山県",
     "prefectureCode": "16",
     "ageGroup": "55-59",
-    "memberCount": 0.01
+    "memberCount": 5.2
   },
   {
     "year": 2050,
     "prefecture": "富山県",
     "prefectureCode": "16",
     "ageGroup": "60-64",
-    "memberCount": 0
+    "memberCount": 5.7
   },
   {
     "year": 2050,
     "prefecture": "富山県",
     "prefectureCode": "16",
     "ageGroup": "65-69",
-    "memberCount": 0
+    "memberCount": 6.4
   },
   {
     "year": 2050,
     "prefecture": "富山県",
     "prefectureCode": "16",
     "ageGroup": "70-74",
-    "memberCount": 0.01
+    "memberCount": 7
   },
   {
     "year": 2050,
     "prefecture": "富山県",
     "prefectureCode": "16",
     "ageGroup": "75-79",
-    "memberCount": 0.01
+    "memberCount": 7.7
   },
   {
     "year": 2050,
     "prefecture": "富山県",
     "prefectureCode": "16",
     "ageGroup": "80-84",
-    "memberCount": 0
+    "memberCount": 5
   },
   {
     "year": 2050,
     "prefecture": "富山県",
     "prefectureCode": "16",
     "ageGroup": "85-89",
-    "memberCount": 0
+    "memberCount": 2.6
   },
   {
     "year": 2050,
     "prefecture": "富山県",
     "prefectureCode": "16",
     "ageGroup": "90-94",
-    "memberCount": 0
+    "memberCount": 0.7
   },
   {
     "year": 2050,
     "prefecture": "富山県",
     "prefectureCode": "16",
     "ageGroup": "95-99",
-    "memberCount": 0
+    "memberCount": 0.1
   }
 ]

@@ -32,111 +32,111 @@
     "prefecture": "岐阜県",
     "prefectureCode": "21",
     "ageGroup": "20-24",
-    "memberCount": 0
+    "memberCount": 1.9
   },
   {
     "year": 2025,
     "prefecture": "岐阜県",
     "prefectureCode": "21",
     "ageGroup": "25-29",
-    "memberCount": 0
+    "memberCount": 2.1
   },
   {
     "year": 2025,
     "prefecture": "岐阜県",
     "prefectureCode": "21",
     "ageGroup": "30-34",
-    "memberCount": 0.01
+    "memberCount": 11.5
   },
   {
     "year": 2025,
     "prefecture": "岐阜県",
     "prefectureCode": "21",
     "ageGroup": "35-39",
-    "memberCount": 0.01
+    "memberCount": 12.9
   },
   {
     "year": 2025,
     "prefecture": "岐阜県",
     "prefectureCode": "21",
     "ageGroup": "40-44",
-    "memberCount": 0.02
+    "memberCount": 21.2
   },
   {
     "year": 2025,
     "prefecture": "岐阜県",
     "prefectureCode": "21",
     "ageGroup": "45-49",
-    "memberCount": 0.02
+    "memberCount": 22.9
   },
   {
     "year": 2025,
     "prefecture": "岐阜県",
     "prefectureCode": "21",
     "ageGroup": "50-54",
-    "memberCount": 0.03
+    "memberCount": 31.5
   },
   {
     "year": 2025,
     "prefecture": "岐阜県",
     "prefectureCode": "21",
     "ageGroup": "55-59",
-    "memberCount": 0.03
+    "memberCount": 32
   },
   {
     "year": 2025,
     "prefecture": "岐阜県",
     "prefectureCode": "21",
     "ageGroup": "60-64",
-    "memberCount": 0.04
+    "memberCount": 35.9
   },
   {
     "year": 2025,
     "prefecture": "岐阜県",
     "prefectureCode": "21",
     "ageGroup": "65-69",
-    "memberCount": 0.03
+    "memberCount": 33.1
   },
   {
     "year": 2025,
     "prefecture": "岐阜県",
     "prefectureCode": "21",
     "ageGroup": "70-74",
-    "memberCount": 0.03
+    "memberCount": 33.1
   },
   {
     "year": 2025,
     "prefecture": "岐阜県",
     "prefectureCode": "21",
     "ageGroup": "75-79",
-    "memberCount": 0.03
+    "memberCount": 28.7
   },
   {
     "year": 2025,
     "prefecture": "岐阜県",
     "prefectureCode": "21",
     "ageGroup": "80-84",
-    "memberCount": 0.01
+    "memberCount": 11.2
   },
   {
     "year": 2025,
     "prefecture": "岐阜県",
     "prefectureCode": "21",
     "ageGroup": "85-89",
-    "memberCount": 0.01
+    "memberCount": 7.2
   },
   {
     "year": 2025,
     "prefecture": "岐阜県",
     "prefectureCode": "21",
     "ageGroup": "90-94",
-    "memberCount": 0
+    "memberCount": 3.5
   },
   {
     "year": 2025,
     "prefecture": "岐阜県",
     "prefectureCode": "21",
     "ageGroup": "95-99",
-    "memberCount": 0
+    "memberCount": 1.1
   }
 ]

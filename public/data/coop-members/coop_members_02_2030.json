@@ -32,111 +32,111 @@
     "prefecture": "青森県",
     "prefectureCode": "02",
     "ageGroup": "20-24",
-    "memberCount": 0
+    "memberCount": 0.9
   },
   {
     "year": 2030,
     "prefecture": "青森県",
     "prefectureCode": "02",
     "ageGroup": "25-29",
-    "memberCount": 0
+    "memberCount": 1.1
   },
   {
     "year": 2030,
     "prefecture": "青森県",
     "prefectureCode": "02",
     "ageGroup": "30-34",
-    "memberCount": 0.01
+    "memberCount": 5.7
   },
   {
     "year": 2030,
     "prefecture": "青森県",
     "prefectureCode": "02",
     "ageGroup": "35-39",
-    "memberCount": 0.01
+    "memberCount": 6.4
   },
   {
     "year": 2030,
     "prefecture": "青森県",
     "prefectureCode": "02",
     "ageGroup": "40-44",
-    "memberCount": 0.01
+    "memberCount": 9.6
   },
   {
     "year": 2030,
     "prefecture": "青森県",
     "prefectureCode": "02",
     "ageGroup": "45-49",
-    "memberCount": 0.01
+    "memberCount": 11.5
   },
   {
     "year": 2030,
     "prefecture": "青森県",
     "prefectureCode": "02",
     "ageGroup": "50-54",
-    "memberCount": 0.01
+    "memberCount": 13.1
   },
   {
     "year": 2030,
     "prefecture": "青森県",
     "prefectureCode": "02",
     "ageGroup": "55-59",
-    "memberCount": 0.02
+    "memberCount": 17.3
   },
   {
     "year": 2030,
     "prefecture": "青森県",
     "prefectureCode": "02",
     "ageGroup": "60-64",
-    "memberCount": 0.02
+    "memberCount": 17.6
   },
   {
     "year": 2030,
     "prefecture": "青森県",
     "prefectureCode": "02",
     "ageGroup": "65-69",
-    "memberCount": 0.02
+    "memberCount": 19.5
   },
   {
     "year": 2030,
     "prefecture": "青森県",
     "prefectureCode": "02",
     "ageGroup": "70-74",
-    "memberCount": 0.01
+    "memberCount": 16.6
   },
   {
     "year": 2030,
     "prefecture": "青森県",
     "prefectureCode": "02",
     "ageGroup": "75-79",
-    "memberCount": 0.02
+    "memberCount": 15.2
   },
   {
     "year": 2030,
     "prefecture": "青森県",
     "prefectureCode": "02",
     "ageGroup": "80-84",
-    "memberCount": 0.01
+    "memberCount": 10.7
   },
   {
     "year": 2030,
     "prefecture": "青森県",
     "prefectureCode": "02",
     "ageGroup": "85-89",
-    "memberCount": 0
+    "memberCount": 3.1
   },
   {
     "year": 2030,
     "prefecture": "青森県",
     "prefectureCode": "02",
     "ageGroup": "90-94",
-    "memberCount": 0
+    "memberCount": 1
   },
   {
     "year": 2030,
     "prefecture": "青森県",
     "prefectureCode": "02",
     "ageGroup": "95-99",
-    "memberCount": 0
+    "memberCount": 0.2
   }
 ]

@@ -13,21 +13,19 @@ export class LocalDataService {
       return this.cache.get(cacheKey)!;
     }
     
-    // 全国（日本）の場合はローカルファイルも試行
-    if (prefCode === '00000') {
-      try {
-        const localData = await this.loadNationalDataFromFile(year);
-        if (localData && localData.length > 0) {
-          this.cache.set(cacheKey, localData);
-          console.log(`Loaded national data from file for ${year}: ${localData.length} records`);
-          return localData;
-        }
-      } catch (error) {
-        console.warn(`Failed to load national data from file for ${year}:`, error);
+    // まずAPIデータから取得を試行（優先）
+    try {
+      const apiData = await this.loadFromApiData(prefCode, year);
+      if (apiData && apiData.length > 0) {
+        this.cache.set(cacheKey, apiData);
+        console.log(`Loaded data from API files for ${prefCode}-${year}: ${apiData.length} records`);
+        return apiData;
       }
+    } catch (error) {
+      console.warn(`Failed to load data from API files for ${prefCode}-${year}:`, error);
     }
     
-    // 統一APIから取得
+    // フォールバック: 統一APIから直接取得
     try {
       console.log(`Fetching data from API for ${prefCode}-${year}`);
       const apiData = await this.apiService.getPopulationData(prefCode, year);
@@ -42,6 +40,34 @@ export class LocalDataService {
     
     // データが空の場合
     return [];
+  }
+
+  private async loadFromApiData(prefCode: string, year: number): Promise<PopulationData[]> {
+    try {
+      if (prefCode === '00000') {
+        // 全国データ
+        const response = await fetch(`/data/population_api/population_national_${year}.json`);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        const data = await response.json();
+        console.log(`✅ Loaded national API data for ${year}: ${data.length} records`);
+        return Array.isArray(data) ? data : [];
+      } else {
+        // 都道府県データ
+        const response = await fetch(`/data/population_api/population_${year}.json`);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        const allData = await response.json();
+        const prefData = allData[prefCode] || [];
+        console.log(`✅ Loaded prefecture API data for ${prefCode}-${year}: ${prefData.length} records`);
+        return prefData;
+      }
+    } catch (error) {
+      console.warn(`Could not load API data file for ${prefCode}-${year}:`, error);
+      return [];
+    }
   }
 
   private async loadNationalDataFromFile(year: number): Promise<PopulationData[]> {
@@ -126,39 +152,40 @@ export class LocalDataService {
       return 250; // デフォルト値
     }
     
-    // 全国データの場合は実人数を千人単位に変換してからスケール計算
-    const isNational = data.length > 0 && data[0].prefectureCode === '00000';
-    
-    // 現在表示されているデータから最大値を計算
+    // 人口ピラミッド用: 男性・女性それぞれの最大値を計算
+    // （男女合計ではなく、個別の性別での最大値を使用）
     let maxPopulation = 0;
+    
     for (const record of data) {
-      const adjustedPopulation = isNational ? record.population / 1000 : record.population;
-      if (adjustedPopulation > maxPopulation) {
-        maxPopulation = adjustedPopulation;
+      if (record.population > maxPopulation) {
+        maxPopulation = record.population;
       }
     }
     
-    // 実データ分析結果を基にした最適化されたスケール計算
+    // 全国・都道府県データ統一後のスケール計算
     let scale: number;
     
-    if (maxPopulation <= 30) {
-      // 小規模: 5千人単位、余裕15%
-      scale = Math.ceil(maxPopulation * 1.15 / 5) * 5;
-    } else if (maxPopulation <= 80) {
-      // 中小規模: 10千人単位、余裕10%
-      scale = Math.ceil(maxPopulation * 1.1 / 10) * 10;
+    if (maxPopulation <= 50) {
+      // 小規模都道府県: 10千人単位、余裕20%
+      scale = Math.ceil(maxPopulation * 1.2 / 10) * 10;
     } else if (maxPopulation <= 200) {
-      // 中規模: 20千人単位、余裕8%
-      scale = Math.ceil(maxPopulation * 1.08 / 20) * 20;
-    } else if (maxPopulation <= 300) {
-      // 大規模: 30千人単位、余裕5%
-      scale = Math.ceil(maxPopulation * 1.05 / 30) * 30;
+      // 中規模都道府県: 20千人単位、余裕15%
+      scale = Math.ceil(maxPopulation * 1.15 / 20) * 20;
+    } else if (maxPopulation <= 500) {
+      // 大規模都道府県: 50千人単位、余裕10%
+      scale = Math.ceil(maxPopulation * 1.1 / 50) * 50;
+    } else if (maxPopulation <= 2000) {
+      // 全国規模小: 200千人単位、余裕10%
+      scale = Math.ceil(maxPopulation * 1.1 / 200) * 200;
+    } else if (maxPopulation <= 5000) {
+      // 全国規模中: 500千人単位、余裕10%
+      scale = Math.ceil(maxPopulation * 1.1 / 500) * 500;
     } else {
-      // 特大規模: 50千人単位、余裕5%
-      scale = Math.ceil(maxPopulation * 1.05 / 50) * 50;
+      // 全国規模大: 1000千人単位、余裕10%
+      scale = Math.ceil(maxPopulation * 1.1 / 1000) * 1000;
     }
     
-    console.log(`Dynamic scale calculated: ${scale} (max population: ${maxPopulation} ${isNational ? 'thousand people (adjusted from actual)' : 'thousand people'})`);
+    console.log(`Dynamic scale calculated: ${scale} (max population: ${maxPopulation} thousand people)`);
     return Math.max(scale, 15); // 最低15千人
   }
 
