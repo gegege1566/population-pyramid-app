@@ -262,7 +262,7 @@ export class UnifiedEStatService {
             const ageGroup = SERIES_TO_AGE[seriesId];
             if (ageGroup) {
               const rawValue = parseInt(value['$']);
-              const processedValue = Math.round(rawValue / 1000 / 1000);
+              const processedValue = Math.round(rawValue / 1000);
               
               allData.push({
                 year: dataYear,
@@ -301,7 +301,7 @@ export class UnifiedEStatService {
             const ageGroup = SERIES_TO_AGE[seriesId];
             if (ageGroup) {
               const rawValue = parseInt(value['$']);
-              const processedValue = Math.round(rawValue / 1000 / 1000);
+              const processedValue = Math.round(rawValue / 1000);
               
               allData.push({
                 year: dataYear,

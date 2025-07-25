@@ -35,153 +35,6 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
   const isInitializedRef = useRef(false);
   const [viewMode, setViewMode] = useState<'graph' | 'table'>('graph');
 
-  useEffect(() => {
-    if (!data || data.length === 0 || viewMode !== 'graph') return;
-
-    const svg = d3.select(svgRef.current);
-    const pyramidData = createPopulationPyramid(data);
-    
-    // 固定スケールまたは動的スケールを使用
-    let scale: number;
-    if (fixedScale) {
-      scale = fixedScale;
-    } else {
-      const localDataService = new LocalDataService();
-      scale = localDataService.calculateDynamicScale(data);
-    }
-    
-    // 初回描画またはviewModeがgraphに切り替わった時は新規描画
-    if (!isInitializedRef.current) {
-      svg.selectAll("*").remove();
-      drawPyramid(svg, pyramidData, width, height, prefecture, year, scale);
-      isInitializedRef.current = true;
-    } else {
-      // データ変更時はスムーズにアニメーション更新
-      updatePyramidWithAnimation(svg, pyramidData, width, height, prefecture, year, scale);
-    }
-  }, [data, width, height, prefecture, year, fixedScale, viewMode, drawPyramid, updatePyramidWithAnimation]);
-
-  // viewModeが変更されたときに初期化フラグをリセット
-  useEffect(() => {
-    if (viewMode === 'graph') {
-      isInitializedRef.current = false;
-    }
-  }, [viewMode]);
-
-  // 組合員数データの描画/削除を別のuseEffectで管理
-  useEffect(() => {
-    if (!svgRef.current || viewMode !== 'graph') return;
-    const svg = d3.select(svgRef.current);
-    const g = svg.select('.chart-container') as d3.Selection<SVGGElement, unknown, null, undefined>;
-    
-    if (showCoopMembers && coopMemberData && g.node()) {
-      const scale = fixedScale || new LocalDataService().calculateDynamicScale(data);
-      drawCoopMembers(svg as d3.Selection<SVGSVGElement, unknown, null, undefined>, coopMemberData, width, height, scale, data);
-    } else {
-      // 組合員数バーを削除
-      g.selectAll('.coop-member-bar').remove();
-    }
-  }, [showCoopMembers, coopMemberData, data, width, height, fixedScale, viewMode]);
-
-  const updatePyramidWithAnimation = (
-    svg: d3.Selection<SVGSVGElement | null, unknown, null, undefined>,
-    pyramidData: PyramidData,
-    width: number,
-    height: number,
-    prefecture: string,
-    year: number,
-    dynamicScale: number
-  ) => {
-    const margin = { top: 40, right: 80, bottom: 60, left: 80 };
-    const chartWidth = width - margin.left - margin.right;
-    const chartHeight = height - margin.top - margin.bottom;
-
-    const maxValue = dynamicScale;
-
-    // スケール設定
-    const xScale = d3.scaleLinear()
-      .domain([-maxValue, maxValue])
-      .range([0, chartWidth]);
-
-    const yScale = d3.scaleBand()
-      .domain(pyramidData.ageGroups)
-      .range([0, chartHeight])
-      .padding(0.1);
-
-    const g = svg.select('.chart-container') as d3.Selection<SVGGElement, unknown, null, undefined>;
-
-    // アニメーション設定
-    const transition = d3.transition()
-      .duration(1200)
-      .ease(d3.easeCubicInOut);
-
-    // 男性バーの更新（データバインディングを考慮）
-    const maleBars = g.selectAll('.male-bar')
-      .data(pyramidData.maleData);
-
-    maleBars
-      .transition(transition)
-      .attr('x', d => xScale(d))
-      .attr('width', d => xScale(0) - xScale(d))
-      .attr('y', (d, i) => yScale(pyramidData.ageGroups[i])!)
-      .attr('height', yScale.bandwidth());
-
-    // 女性バーの更新
-    const femaleBars = g.selectAll('.female-bar')
-      .data(pyramidData.femaleData);
-
-    femaleBars
-      .transition(transition)
-      .attr('width', d => xScale(d) - xScale(0))
-      .attr('y', (d, i) => yScale(pyramidData.ageGroups[i])!)
-      .attr('height', yScale.bandwidth());
-
-    // 中央線の更新
-    g.select('line')
-      .transition(transition)
-      .attr('x1', xScale(0))
-      .attr('x2', xScale(0))
-      .attr('y2', chartHeight);
-
-    // X軸の更新
-    const xAxis = d3.axisBottom(xScale)
-      .tickFormat(d => Math.abs(d as number).toLocaleString());
-
-    g.select('.x-axis')
-      .transition(transition)
-      .call(xAxis as any);
-
-    // Y軸の更新（年齢階級が変わる場合）
-    const yAxis = d3.axisLeft(yScale);
-    g.select('.y-axis')
-      .transition(transition)
-      .call(yAxis as any);
-
-    // グリッドラインの更新
-    const xAxisGrid = d3.axisBottom(xScale)
-      .tickSize(-chartHeight)
-      .tickFormat(() => '');
-
-    g.select('.grid')
-      .transition(transition)
-      .call(xAxisGrid as any)
-      .selectAll('line')
-      .attr('stroke', '#E5E7EB')
-      .attr('stroke-width', 0.5);
-
-    // 性別ラベルの位置更新
-    g.select('.male-label')
-      .transition(transition)
-      .attr('x', xScale(-maxValue * 0.7));
-
-    g.select('.female-label')
-      .transition(transition)
-      .attr('x', xScale(maxValue * 0.7));
-
-    // ツールチップのイベントハンドラーを再設定
-    updateTooltipHandlers(g, pyramidData, data);
-  };
-
   // ツールチップハンドラーの更新
   const updateTooltipHandlers = (
     g: d3.Selection<SVGGElement, unknown, null, undefined>,
@@ -451,6 +304,105 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
       .attr('stroke-width', 0.5);
   };
 
+  const updatePyramidWithAnimation = (
+    svg: d3.Selection<SVGSVGElement | null, unknown, null, undefined>,
+    pyramidData: PyramidData,
+    width: number,
+    height: number,
+    prefecture: string,
+    year: number,
+    dynamicScale: number
+  ) => {
+    const margin = { top: 40, right: 80, bottom: 60, left: 80 };
+    const chartWidth = width - margin.left - margin.right;
+    const chartHeight = height - margin.top - margin.bottom;
+
+    const maxValue = dynamicScale;
+
+    // スケール設定
+    const xScale = d3.scaleLinear()
+      .domain([-maxValue, maxValue])
+      .range([0, chartWidth]);
+
+    const yScale = d3.scaleBand()
+      .domain(pyramidData.ageGroups)
+      .range([0, chartHeight])
+      .padding(0.1);
+
+    const g = svg.select('.chart-container') as d3.Selection<SVGGElement, unknown, null, undefined>;
+
+    // アニメーション設定
+    const transition = d3.transition()
+      .duration(1200)
+      .ease(d3.easeCubicInOut);
+
+    // 男性バーの更新（データバインディングを考慮）
+    const maleBars = g.selectAll('.male-bar')
+      .data(pyramidData.maleData);
+
+    maleBars
+      .transition(transition)
+      .attr('x', d => xScale(d))
+      .attr('width', d => xScale(0) - xScale(d))
+      .attr('y', (d, i) => yScale(pyramidData.ageGroups[i])!)
+      .attr('height', yScale.bandwidth());
+
+    // 女性バーの更新
+    const femaleBars = g.selectAll('.female-bar')
+      .data(pyramidData.femaleData);
+
+    femaleBars
+      .transition(transition)
+      .attr('width', d => xScale(d) - xScale(0))
+      .attr('y', (d, i) => yScale(pyramidData.ageGroups[i])!)
+      .attr('height', yScale.bandwidth());
+
+    // 中央線の更新
+    g.select('line')
+      .transition(transition)
+      .attr('x1', xScale(0))
+      .attr('x2', xScale(0))
+      .attr('y2', chartHeight);
+
+    // X軸の更新
+    const xAxis = d3.axisBottom(xScale)
+      .tickFormat(d => Math.abs(d as number).toLocaleString());
+
+    g.select('.x-axis')
+      .transition(transition)
+      .call(xAxis as any);
+
+    // Y軸の更新（年齢階級が変わる場合）
+    const yAxis = d3.axisLeft(yScale);
+    g.select('.y-axis')
+      .transition(transition)
+      .call(yAxis as any);
+
+    // グリッドラインの更新
+    const xAxisGrid = d3.axisBottom(xScale)
+      .tickSize(-chartHeight)
+      .tickFormat(() => '');
+
+    g.select('.grid')
+      .transition(transition)
+      .call(xAxisGrid as any)
+      .selectAll('line')
+      .attr('stroke', '#E5E7EB')
+      .attr('stroke-width', 0.5);
+
+    // 性別ラベルの位置更新
+    g.select('.male-label')
+      .transition(transition)
+      .attr('x', xScale(-maxValue * 0.7));
+
+    g.select('.female-label')
+      .transition(transition)
+      .attr('x', xScale(maxValue * 0.7));
+
+    // ツールチップのイベントハンドラーを再設定
+    updateTooltipHandlers(g, pyramidData, data);
+  };
+
   const drawCoopMembers = (
     svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
     coopData: CoopMemberData[],
@@ -548,6 +500,56 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
         d3.selectAll('.tooltip').remove();
       });
   };
+
+  // メインのグラフ描画ロジック
+  useEffect(() => {
+    if (!data || data.length === 0 || viewMode !== 'graph') return;
+
+    const svg = d3.select(svgRef.current);
+    const pyramidData = createPopulationPyramid(data);
+    
+    // 固定スケールまたは動的スケールを使用
+    let scale: number;
+    if (fixedScale) {
+      scale = fixedScale;
+    } else {
+      const localDataService = new LocalDataService();
+      scale = localDataService.calculateDynamicScale(data);
+    }
+    
+    // 初回描画またはviewModeがgraphに切り替わった時は新規描画
+    if (!isInitializedRef.current) {
+      svg.selectAll("*").remove();
+      drawPyramid(svg, pyramidData, width, height, prefecture, year, scale);
+      isInitializedRef.current = true;
+    } else {
+      // データ変更時はスムーズにアニメーション更新
+      updatePyramidWithAnimation(svg, pyramidData, width, height, prefecture, year, scale);
+    }
+  }, [data, width, height, prefecture, year, fixedScale, viewMode]);
+
+  // viewModeが変更されたときに初期化フラグをリセット
+  useEffect(() => {
+    if (viewMode === 'graph') {
+      isInitializedRef.current = false;
+    }
+  }, [viewMode]);
+
+  // 組合員数データの描画/削除を別のuseEffectで管理
+  useEffect(() => {
+    if (!svgRef.current || viewMode !== 'graph') return;
+    const svg = d3.select(svgRef.current);
+    const g = svg.select('.chart-container') as d3.Selection<SVGGElement, unknown, null, undefined>;
+    
+    if (showCoopMembers && coopMemberData && g.node()) {
+      const scale = fixedScale || new LocalDataService().calculateDynamicScale(data);
+      drawCoopMembers(svg as d3.Selection<SVGSVGElement, unknown, null, undefined>, coopMemberData, width, height, scale, data);
+    } else {
+      // 組合員数バーを削除
+      g.selectAll('.coop-member-bar').remove();
+    }
+  }, [showCoopMembers, coopMemberData, data, width, height, fixedScale, viewMode]);
+
 
   // 数字テーブル用のデータを準備
   const getTableData = () => {
