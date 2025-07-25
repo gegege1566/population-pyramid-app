@@ -1,4 +1,4 @@
-import { AgeComposition, PrefectureCoopMembers, CoopMemberData, AgeCompositionConfig } from '../types/coopMember';
+import { CoopMemberData, AgeCompositionConfig } from '../types/coopMember';
 import { PopulationData } from '../types/population';
 
 export class CoopMemberService {
@@ -347,7 +347,7 @@ export class CoopMemberService {
         const allPrefectures = Array.from(this.prefectureMembers.keys());
         
         for (const prefectureCode of allPrefectures) {
-          const projectedMembers = await this.calculateFutureMembers(
+          await this.calculateFutureMembers(
             prefectureCode,
             year,
             populationData,

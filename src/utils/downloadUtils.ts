@@ -1,7 +1,7 @@
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { saveAs } from 'file-saver';
+// import { saveAs } from 'file-saver';
 
 // Excelシート名の安全化（31文字制限対応）
 const createSafeSheetName = (name: string): string => {

@@ -41,9 +41,9 @@ const SERIES_TO_AGE: { [key: string]: string } = {
 };
 
 // 系列IDから性別を判定
-const getGenderFromSeriesId = (seriesId: string): 'male' | 'female' => {
-  return seriesId.includes('012000') ? 'male' : 'female';
-};
+// const getGenderFromSeriesId = (seriesId: string): 'male' | 'female' => {
+//   return seriesId.includes('012000') ? 'male' : 'female';
+// };
 
 // 都道府県コードマップ（2桁から5桁への変換）
 const PREFECTURE_CODES: { [key: string]: { code: string; name: string } } = {

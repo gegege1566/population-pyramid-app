@@ -28,7 +28,7 @@ const SpendingSettings: React.FC<SpendingSettingsProps> = ({
         console.error('Failed to parse saved spending data');
       }
     }
-  }, []);
+  }, [onSpendingChange]);
 
   const handleEdit = (index: number) => {
     setEditingIndex(index);

@@ -59,7 +59,7 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
       // データ変更時はスムーズにアニメーション更新
       updatePyramidWithAnimation(svg, pyramidData, width, height, prefecture, year, scale);
     }
-  }, [data, width, height, prefecture, year, fixedScale, viewMode]);
+  }, [data, width, height, prefecture, year, fixedScale, viewMode, drawPyramid, updatePyramidWithAnimation]);
 
   // viewModeが変更されたときに初期化フラグをリセット
   useEffect(() => {

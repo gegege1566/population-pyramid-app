@@ -10,13 +10,11 @@ import SpendingSettings from './components/SpendingSettings';
 import { useAvailableYears } from './hooks/usePopulationData';
 import { usePrefectureData } from './hooks/usePrefectureData';
 import { useMultiplePrefectureData } from './hooks/useMultiplePrefectureData';
-import { LocalDataService } from './services/localDataService';
 import { CoopMemberService } from './services/coopMemberService';
 import { CoopMemberData } from './types/coopMember';
 import { AgeGroupSpending, DEFAULT_AGE_GROUP_SPENDING } from './types/coopSpending';
 import { getSelectedPrefectureNames, getDetailedPrefectureNames, getAbbreviatedPrefectureNames, getPDFTitlePrefectureNames } from './utils/prefectureUtils';
 
-const localDataService = new LocalDataService();
 const coopMemberService = CoopMemberService.getInstance();
 
 function App() {

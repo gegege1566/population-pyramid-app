@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { PopulationData } from '../types/population';
 import { LocalDataService } from '../services/localDataService';
 

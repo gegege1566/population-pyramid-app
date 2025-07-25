@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { PopulationData } from '../types/population';
 import { CoopMemberData } from '../types/coopMember';
 import { AgeGroupSpending, DEFAULT_AGE_GROUP_SPENDING } from '../types/coopSpending';
 import { createPopulationPyramid } from '../utils/populationAnalysis';
@@ -10,7 +9,7 @@ import { useMultiplePrefectureData } from '../hooks/useMultiplePrefectureData';
 import { CoopMemberService } from '../services/coopMemberService';
 import { SpendingEstimationService } from '../services/spendingEstimationService';
 import { downloadComparisonAsExcel, downloadComparisonAsPDF, ComparisonTableRowData } from '../utils/downloadUtils';
-import { getSelectedPrefectureNames, getDetailedPrefectureNames, getAbbreviatedPrefectureNames, getPDFTitlePrefectureNames, getSafeFilenamePrefectureNames } from '../utils/prefectureUtils';
+import { getSelectedPrefectureNames, getDetailedPrefectureNames, getAbbreviatedPrefectureNames, getPDFTitlePrefectureNames } from '../utils/prefectureUtils';
 import { updateOverlaidPyramidsWithAnimation } from './YearComparisonDemo_animations';
 
 interface YearComparisonDemoProps {
@@ -55,7 +54,7 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
   const multiplePrefectureHook = useMultiplePrefectureData();
   const currentHook = isMultipleSelection ? multiplePrefectureHook : singlePrefectureHook;
   
-  const { getDataForYear, isDataAvailable, loading, fixedScale } = currentHook;
+  const { getDataForYear, isDataAvailable, loading } = currentHook;
   
   // preloadingは単一選択時のみ存在
   const preloading = isMultipleSelection ? false : (singlePrefectureHook as any).preloading;
@@ -630,7 +629,7 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
     if (data1.length > 0 && data2.length > 0 && containerWidth > 0 && viewMode === 'graph') {
       drawOverlaidPyramids();
     }
-  }, [data1, data2, coopData1, coopData2, containerWidth, year1, year2, showCoopMembers, viewMode]);
+  }, [data1, data2, coopData1, coopData2, containerWidth, year1, year2, showCoopMembers, viewMode, drawOverlaidPyramids]);
   const loading1 = loading || preloading || !isDataAvailable(year1);
   const loading2 = loading || preloading || !isDataAvailable(year2);
 
@@ -642,8 +641,6 @@ const YearComparisonDemo: React.FC<YearComparisonDemoProps> = ({
   const abbreviatedPrefectureName = getAbbreviatedPrefectureNames(selectedPrefCodes);
   // PDF用タイトル地域名
   const pdfTitlePrefectureName = getPDFTitlePrefectureNames(selectedPrefCodes);
-  // ファイル名用地域名
-  const filenamePrefectureName = getSafeFilenamePrefectureNames(selectedPrefCodes);
 
   // 比較テーブルデータを準備
   const getComparisonTableData = (): ComparisonTableRowData[] | null => {

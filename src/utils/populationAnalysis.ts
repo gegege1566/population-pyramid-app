@@ -113,7 +113,6 @@ export const generateForecast = (historicalData: { year: number; population: num
   
   // 線形回帰による簡易予測
   const n = historicalData.length;
-  const baseYear = historicalData[0].year;
   
   const x = historicalData.map((_, i) => i);
   const y = historicalData.map(d => d.population);
