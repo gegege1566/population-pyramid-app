@@ -484,7 +484,7 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
         if (memberCount === 0) return 0;
         
         const calculatedWidth = xScale(memberCount / 2) - xScale(-memberCount / 2);
-        const minWidth = 4; // 最小幅4ピクセル（見やすくするため）
+        const minWidth = 8; // 最小幅8ピクセル（より見やすく）
         const width = Math.max(calculatedWidth, minWidth);
         
         return width;
