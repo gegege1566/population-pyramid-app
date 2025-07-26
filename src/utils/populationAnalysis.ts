@@ -51,10 +51,8 @@ export const createPopulationPyramid = (data: PopulationData[]): PyramidData => 
     const malePopulation = data.find(d => d.ageGroup === ageGroup && d.gender === 'male')?.population || 0;
     const femalePopulation = data.find(d => d.ageGroup === ageGroup && d.gender === 'female')?.population || 0;
     
-    // デバッグ: 95-99歳のデータを特別にログ出力
-    if (ageGroup === '95-99') {
-      console.log(`95-99歳データ - 男性: ${malePopulation}, 女性: ${femalePopulation}`);
-    }
+    // デバッグ: 全年齢のデータをログ出力
+    console.log(`🔍 Pyramid data - ${ageGroup}: male=${malePopulation}, female=${femalePopulation}`);
     
     // 全国・都道府県データ共に既に千人単位で統一済み
     const maleScale = malePopulation;

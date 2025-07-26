@@ -175,9 +175,12 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
         const ageGroup = pyramidData.ageGroups[index];
         // 全国データのみ特別処理、都道府県データはそのまま
         const isNational = data.length > 0 && data[0].prefectureCode === '00000';
+        const graphValue = Math.abs(d);
         const population = isNational 
-          ? Math.abs(d) * 1000 // 全国データ：千人単位グラフ値を実人数に変換
-          : Math.abs(d) * 1000; // 都道府県データ：千人単位から人単位に変換
+          ? graphValue * 1000 // 全国データ：千人単位グラフ値を実人数に変換
+          : graphValue * 1000; // 都道府県データ：千人単位から人単位に変換
+        
+        console.log(`🔍 Tooltip data - ${ageGroup} male: graph=${graphValue}, isNational=${isNational}, final=${population}`);
         
         tooltip.html(`男性 ${ageGroup}歳<br/>${population.toLocaleString()}人`)
           .style('left', (event.pageX + 10) + 'px')

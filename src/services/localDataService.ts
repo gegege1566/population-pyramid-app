@@ -15,14 +15,15 @@ export class LocalDataService {
     
     // まずAPIデータから取得を試行（優先）
     try {
+      console.log(`🔍 Attempting to load from API files for ${prefCode}-${year}`);
       const apiData = await this.loadFromApiData(prefCode, year);
       if (apiData && apiData.length > 0) {
         this.cache.set(cacheKey, apiData);
-        console.log(`Loaded data from API files for ${prefCode}-${year}: ${apiData.length} records`);
+        console.log(`✅ Loaded data from API files for ${prefCode}-${year}: ${apiData.length} records`);
         return apiData;
       }
     } catch (error) {
-      console.warn(`Failed to load data from API files for ${prefCode}-${year}:`, error);
+      console.warn(`❌ Failed to load data from API files for ${prefCode}-${year}:`, error);
     }
     
     // フォールバック: 統一APIから直接取得
@@ -54,10 +55,15 @@ export class LocalDataService {
         console.log(`✅ Loaded national API data for ${year}: ${data.length} records`);
         
         // 全国データを千人単位に変換（JSONファイルに実人数が格納されているため）
-        const convertedData = Array.isArray(data) ? data.map(record => ({
-          ...record,
-          population: Math.round(record.population / 1000) // 実人数 → 千人単位
-        })) : [];
+        const convertedData = Array.isArray(data) ? data.map(record => {
+          const originalPop = record.population;
+          const convertedPop = Math.round(record.population / 1000);
+          console.log(`🔍 National data conversion: ${record.ageGroup} ${record.gender}: ${originalPop} → ${convertedPop}`);
+          return {
+            ...record,
+            population: convertedPop // 実人数 → 千人単位
+          };
+        }) : [];
         
         return convertedData;
       } else {
@@ -71,6 +77,7 @@ export class LocalDataService {
         console.log(`✅ Loaded prefecture API data for ${prefCode}-${year}: ${prefData.length} records`);
         
         // 都道府県データは既に千人単位で保存されているのでそのまま返す
+        console.log(`🔍 Prefecture data (no conversion): first record:`, prefData[0]);
         return prefData;
       }
     } catch (error) {
