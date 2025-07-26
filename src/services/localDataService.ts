@@ -13,6 +13,7 @@ export class LocalDataService {
     if (!this.cacheCleared) {
       console.log(`🔄 Clearing cache for scale fix...`);
       this.cache.clear();
+      this.apiService.clearCache(); // APIサービスのキャッシュもクリア
       this.cacheCleared = true;
     }
     
@@ -20,18 +21,6 @@ export class LocalDataService {
     if (this.cache.has(cacheKey)) {
       const cachedData = this.cache.get(cacheKey)!;
       console.log(`🔍 Using cached data for ${prefCode}-${year}, sample:`, cachedData[0]);
-      
-      // 全国データの場合、キャッシュされたデータが実人数かどうかチェック
-      if (prefCode === '00000' && cachedData.length > 0 && cachedData[0].population > 100000) {
-        console.log(`⚠️ Cached national data appears to be in actual numbers, converting to thousands...`);
-        const convertedCachedData = cachedData.map(record => ({
-          ...record,
-          population: Math.round(record.population / 1000)
-        }));
-        this.cache.set(cacheKey, convertedCachedData);
-        return convertedCachedData;
-      }
-      
       return cachedData;
     }
     
@@ -77,24 +66,14 @@ export class LocalDataService {
         console.log(`✅ Loaded national API data for ${year}: ${data.length} records`);
         console.log(`🔍 Data type check: isArray=${Array.isArray(data)}, firstRecord:`, data[0]);
         
-        // 全国データを千人単位に変換（JSONファイルに実人数が格納されているため）
+        // 全国データは既に千人単位に変換済み（JSONファイルを直接修正済み）
         if (!Array.isArray(data)) {
           console.error('❌ National data is not an array:', data);
           return [];
         }
         
-        const convertedData = data.map(record => {
-          const originalPop = record.population;
-          const convertedPop = Math.round(record.population / 1000);
-          console.log(`🔍 National data conversion: ${record.ageGroup} ${record.gender}: ${originalPop} → ${convertedPop}`);
-          return {
-            ...record,
-            population: convertedPop // 実人数 → 千人単位
-          };
-        });
-        
-        console.log(`✅ Converted ${convertedData.length} national records, sample:`, convertedData[0]);
-        return convertedData;
+        console.log(`✅ National data already in thousands, sample:`, data[0]);
+        return data;
       } else {
         // 都道府県データ
         const response = await fetch(`/data/population/population_${year}.json`);
