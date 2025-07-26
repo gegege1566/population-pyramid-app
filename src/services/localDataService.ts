@@ -1,112 +1,35 @@
 import { PopulationData } from '../types/population';
 import { UnifiedEStatService } from './unifiedEstatApi';
 
+// API専用データサービス（ローカルファイル参照を廃止）
 export class LocalDataService {
   private apiService = new UnifiedEStatService();
   private cache = new Map<string, PopulationData[]>();
-  private cacheCleared = false; // スケール修正のため一度だけキャッシュクリア
   
   async getPopulationData(prefCode: string, year: number): Promise<PopulationData[]> {
     const cacheKey = `${prefCode}-${year}`;
     
-    // スケール修正のため一度だけキャッシュをクリア
-    if (!this.cacheCleared) {
-      console.log(`🔄 Clearing cache for scale fix...`);
-      this.cache.clear();
-      this.apiService.clearCache(); // APIサービスのキャッシュもクリア
-      this.cacheCleared = true;
-    }
-    
     // キャッシュから取得を試行
     if (this.cache.has(cacheKey)) {
-      const cachedData = this.cache.get(cacheKey)!;
-      console.log(`🔍 Using cached data for ${prefCode}-${year}, sample:`, cachedData[0]);
-      return cachedData;
+      return this.cache.get(cacheKey)!;
     }
     
-    // まずAPIデータから取得を試行（優先）
+    // APIから直接取得（ローカルファイル参照を廃止）
     try {
-      console.log(`🔍 Attempting to load from API files for ${prefCode}-${year}`);
-      const apiData = await this.loadFromApiData(prefCode, year);
-      if (apiData && apiData.length > 0) {
-        this.cache.set(cacheKey, apiData);
-        console.log(`✅ Loaded data from API files for ${prefCode}-${year}: ${apiData.length} records`);
-        return apiData;
-      }
-    } catch (error) {
-      console.warn(`❌ Failed to load data from API files for ${prefCode}-${year}:`, error);
-    }
-    
-    // フォールバック: 統一APIから直接取得
-    try {
-      console.log(`Fetching data from API for ${prefCode}-${year}`);
       const apiData = await this.apiService.getPopulationData(prefCode, year);
       if (apiData && apiData.length > 0) {
         this.cache.set(cacheKey, apiData);
         return apiData;
-      }
-    } catch (error) {
-      console.error(`Failed to fetch data for ${prefCode}-${year}:`, error);
-      throw error; // エラーを上位に伝播
-    }
-    
-    // データが空の場合
-    return [];
-  }
-
-  private async loadFromApiData(prefCode: string, year: number): Promise<PopulationData[]> {
-    try {
-      if (prefCode === '00000') {
-        // 全国データ
-        const response = await fetch(`/data/population/population_national_${year}.json`);
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        const data = await response.json();
-        console.log(`✅ Loaded national API data for ${year}: ${data.length} records`);
-        console.log(`🔍 Data type check: isArray=${Array.isArray(data)}, firstRecord:`, data[0]);
-        
-        // 全国データは既に千人単位に変換済み（JSONファイルを直接修正済み）
-        if (!Array.isArray(data)) {
-          console.error('❌ National data is not an array:', data);
-          return [];
-        }
-        
-        console.log(`✅ National data already in thousands, sample:`, data[0]);
-        return data;
       } else {
-        // 都道府県データ
-        const response = await fetch(`/data/population/population_${year}.json`);
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        const allData = await response.json();
-        const prefData = allData[prefCode] || [];
-        console.log(`✅ Loaded prefecture API data for ${prefCode}-${year}: ${prefData.length} records`);
-        
-        // 都道府県データは既に千人単位で保存されているのでそのまま返す
-        console.log(`🔍 Prefecture data (no conversion): first record:`, prefData[0]);
-        return prefData;
+        console.warn(`⚠️ No data: ${prefCode}-${year}`);
+        return [];
       }
     } catch (error) {
-      console.warn(`Could not load API data file for ${prefCode}-${year}:`, error);
-      return [];
+      console.error(`❌ API error: ${prefCode}-${year}`, error);
+      throw error;
     }
   }
 
-  private async loadNationalDataFromFile(year: number): Promise<PopulationData[]> {
-    try {
-      const response = await fetch(`/data/population/population_national_${year}.json`);
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-      const data = await response.json();
-      return Array.isArray(data) ? data : [];
-    } catch (error) {
-      console.warn(`Could not load national data file for ${year}:`, error);
-      return [];
-    }
-  }
   
   async getAllAvailableYears(): Promise<number[]> {
     // 統一APIから利用可能年度を取得
@@ -124,36 +47,54 @@ export class LocalDataService {
   }
   
   async preloadAllData(): Promise<void> {
-    console.log('Preloading disabled - using API-only mode');
-    // API連携のみではプリロードを行わない（リクエスト時にキャッシュされる）
-  }
-
-  async preloadPrefectureData(prefCode: string): Promise<void> {
-    console.log(`Preloading all years data for prefecture ${prefCode}...`);
+    console.log('🚀 Starting API-only data preload...');
     
     try {
       const availableYears = await this.getAllAvailableYears();
+      console.log(`📅 Available years: ${availableYears.join(', ')}`);
       
-      // 並列でデータ取得（ただしレート制限を考慮して少し遅延）
-      const promises = availableYears.map((year, index) => 
-        new Promise<void>(async (resolve) => {
-          try {
-            // 順次処理でレート制限回避
-            await new Promise(r => setTimeout(r, index * 200));
-            await this.getPopulationData(prefCode, year);
-            console.log(`✓ Preloaded ${prefCode}-${year}`);
-          } catch (error) {
-            console.warn(`⚠ Failed to preload ${prefCode}-${year}:`, error);
-          }
-          resolve();
-        })
-      );
+      // 全国データを優先的にプリロード
+      for (const year of availableYears) {
+        try {
+          await this.getPopulationData('00000', year);
+          console.log(`✅ Preloaded national data for ${year}`);
+        } catch (error) {
+          console.warn(`⚠️ Failed to preload national data for ${year}:`, error);
+        }
+      }
       
-      await Promise.all(promises);
-      console.log(`✅ Preloading completed for ${prefCode}. Cache size: ${this.cache.size}`);
+      console.log(`✅ API-only preload completed. Cache size: ${this.cache.size}`);
+    } catch (error) {
+      console.error('❌ Preload failed:', error);
+    }
+  }
+
+  async preloadPrefectureData(prefCode: string): Promise<void> {
+    console.log(`📡 API-based preloading for prefecture ${prefCode}...`);
+    
+    try {
+      const availableYears = await this.getAllAvailableYears();
+      console.log(`📅 Years to preload: ${availableYears.join(', ')}`);
+      
+      // APIレート制限対応：順次処理で3秒間隔
+      for (const year of availableYears) {
+        try {
+          await this.getPopulationData(prefCode, year);
+          console.log(`✅ Preloaded ${prefCode}-${year}`);
+          
+          // API制限回避のため3秒待機
+          await new Promise(resolve => setTimeout(resolve, 3000));
+        } catch (error) {
+          console.warn(`⚠️ Failed to preload ${prefCode}-${year}:`, error);
+          // エラー時は5秒待機してから次へ
+          await new Promise(resolve => setTimeout(resolve, 5000));
+        }
+      }
+      
+      console.log(`✅ Prefecture preloading completed for ${prefCode}. Cache size: ${this.cache.size}`);
       
     } catch (error) {
-      console.error(`Failed to preload data for ${prefCode}:`, error);
+      console.error(`❌ Failed to preload data for ${prefCode}:`, error);
     }
   }
   

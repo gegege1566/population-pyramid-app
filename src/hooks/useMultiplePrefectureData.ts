@@ -12,38 +12,52 @@ interface MultiplePrefectureDataState {
   fixedScale: number | null;
 }
 
-// 複数の都道府県データを合算する関数
+// 高速化された複数都道府県データ合算関数
 const mergePopulationData = (dataArrays: PopulationData[][]): PopulationData[] => {
   if (dataArrays.length === 0) return [];
   if (dataArrays.length === 1) return dataArrays[0];
 
-  const mergedMap = new Map<string, PopulationData>();
+  const mergedMap = new Map<string, number>();
+  let sampleItem: PopulationData | null = null;
 
-  dataArrays.forEach(data => {
-    data.forEach(item => {
-      const key = `${item.ageGroup}_${item.gender}`;
-      const existing = mergedMap.get(key);
+  // 高速合算処理
+  for (const data of dataArrays) {
+    for (const item of data) {
+      if (!sampleItem) sampleItem = item;
       
-      if (existing) {
-        existing.population += item.population;
-      } else {
-        mergedMap.set(key, {
-          ...item,
-          prefecture: 'Multiple Areas', // 複数地域を示す
-          prefectureCode: 'MULTI'
+      const key = `${item.ageGroup}_${item.gender}`;
+      const current = mergedMap.get(key) || 0;
+      mergedMap.set(key, current + item.population);
+    }
+  }
+
+  if (!sampleItem) return [];
+
+  // 結果の構築（ソート最適化）
+  const ageGroups = ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', 
+                    '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', 
+                    '75-79', '80-84', '85-89', '90-94', '95-99'];
+  const genders = ['male', 'female'];
+
+  const result: PopulationData[] = [];
+  for (const ageGroup of ageGroups) {
+    for (const gender of genders) {
+      const key = `${ageGroup}_${gender}`;
+      const population = mergedMap.get(key);
+      if (population !== undefined) {
+        result.push({
+          year: sampleItem.year,
+          prefecture: 'Multiple Areas',
+          prefectureCode: 'MULTI',
+          ageGroup,
+          gender: gender as 'male' | 'female',
+          population
         });
       }
-    });
-  });
+    }
+  }
 
-  return Array.from(mergedMap.values()).sort((a, b) => {
-    // 年齢グループでソート
-    const ageA = parseInt(a.ageGroup.split('-')[0]);
-    const ageB = parseInt(b.ageGroup.split('-')[0]);
-    if (ageA !== ageB) return ageA - ageB;
-    // 性別でソート（male -> female）
-    return a.gender.localeCompare(b.gender);
-  });
+  return result;
 };
 
 export const useMultiplePrefectureData = () => {
@@ -55,6 +69,7 @@ export const useMultiplePrefectureData = () => {
     fixedScale: null
   });
 
+
   const loadMultiplePrefectureData = useCallback(async (prefCodes: string[], availableYears: number[]) => {
     if (prefCodes.length === 0 || availableYears.length === 0) return;
 
@@ -65,8 +80,6 @@ export const useMultiplePrefectureData = () => {
       return;
     }
 
-    console.log(`Loading data for multiple prefectures: ${prefCodes.join(', ')}`);
-
     setState(prev => ({
       ...prev,
       loading: true,
@@ -75,17 +88,33 @@ export const useMultiplePrefectureData = () => {
     }));
 
     try {
-      // 各年度ごとに全都道府県のデータを取得し合算
-      const dataByYear: { [year: number]: PopulationData[] } = {};
+      // 全年度・全都道府県を並列取得（大幅高速化）
+      const allDataPromises = availableYears.flatMap(year =>
+        prefCodes.map(async prefCode => ({
+          year,
+          prefCode,
+          data: await localDataService.getPopulationData(prefCode, year)
+        }))
+      );
       
-      for (const year of availableYears) {
-        const prefDataPromises = prefCodes.map(prefCode => 
-          localDataService.getPopulationData(prefCode, year)
-        );
-        
-        const prefDataArrays = await Promise.all(prefDataPromises);
-        dataByYear[year] = mergePopulationData(prefDataArrays);
+      const allResults = await Promise.all(allDataPromises);
+      
+      // 年度別にデータを整理・合算（最適化版）
+      const dataByYear: { [year: number]: PopulationData[] } = {};
+      const dataByYearMap = new Map<number, PopulationData[][]>();
+      
+      // 年度別にグループ化
+      for (const { year, data } of allResults) {
+        if (!dataByYearMap.has(year)) {
+          dataByYearMap.set(year, []);
+        }
+        dataByYearMap.get(year)!.push(data);
       }
+      
+      // 各年度でデータを合算
+      dataByYearMap.forEach((prefDataArrays, year) => {
+        dataByYear[year] = mergePopulationData(prefDataArrays);
+      });
 
       // 2025年のデータから固定スケールを計算
       const baseYearData = dataByYear[2025];
@@ -102,7 +131,7 @@ export const useMultiplePrefectureData = () => {
         fixedScale: fixedScale
       }));
 
-      console.log(`✅ Multiple prefecture data loaded for years: ${availableYears.join(', ')}`);
+      console.log(`✅ ${prefCodes.length} prefectures loaded (${allResults.length} total requests)`);
 
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
