@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import * as d3 from 'd3';
 import { PopulationData } from '../types/population';
 import { createPopulationPyramid, PyramidData } from '../utils/populationAnalysis';
@@ -100,7 +100,7 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
       });
   };
 
-  const drawPyramid = (
+  const drawPyramid = useCallback((
     svg: d3.Selection<SVGSVGElement | null, unknown, null, undefined>,
     pyramidData: PyramidData,
     width: number,
@@ -110,9 +110,16 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
     dynamicScale: number
   ) => {
     console.log('drawPyramid called with:', { width, height, prefecture, year, dynamicScale, ageGroups: pyramidData.ageGroups.length });
+    
+    // SVGの状態を確認
+    console.log('SVG node exists:', !!svg.node());
+    console.log('SVG element:', svg.node());
+    
     const margin = { top: 40, right: 80, bottom: 60, left: 80 };
     const chartWidth = width - margin.left - margin.right;
     const chartHeight = height - margin.top - margin.bottom;
+    
+    console.log('Chart dimensions:', { chartWidth, chartHeight, margin });
 
     // 固定スケールを使用
     const maxValue = dynamicScale;
@@ -307,9 +314,9 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
       .selectAll('line')
       .attr('stroke', '#E5E7EB')
       .attr('stroke-width', 0.5);
-  };
+  }, [data]);
 
-  const updatePyramidWithAnimation = (
+  const updatePyramidWithAnimation = useCallback((
     svg: d3.Selection<SVGSVGElement | null, unknown, null, undefined>,
     pyramidData: PyramidData,
     width: number,
@@ -406,7 +413,7 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
 
     // ツールチップのイベントハンドラーを再設定
     updateTooltipHandlers(g, pyramidData, data);
-  };
+  }, [data, updateTooltipHandlers]);
 
   const drawCoopMembers = (
     svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
@@ -514,8 +521,13 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
 
   // メインのグラフ描画ロジック
   useEffect(() => {
-    console.log('Main graph effect - data length:', data?.length, 'viewMode:', viewMode);
-    if (!data || data.length === 0 || viewMode !== 'graph') return;
+    console.log('Main graph effect triggered - data:', !!data, 'length:', data?.length, 'viewMode:', viewMode, 'isInitialized:', isInitializedRef.current);
+    console.log('Effect conditions - hasData:', !!data, 'dataLength > 0:', (data?.length || 0) > 0, 'isGraph:', viewMode === 'graph');
+    
+    if (!data || data.length === 0 || viewMode !== 'graph') {
+      console.log('Effect early return - data exists:', !!data, 'data length:', data?.length, 'viewMode:', viewMode);
+      return;
+    }
 
     const svg = d3.select(svgRef.current);
     const pyramidData = createPopulationPyramid(data);
@@ -542,7 +554,7 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
       console.log('Updating pyramid with animation');
       updatePyramidWithAnimation(svg, pyramidData, width, height, prefecture, year, scale);
     }
-  }, [data, width, height, prefecture, year, fixedScale, viewMode]);
+  }, [data, width, height, prefecture, year, fixedScale, viewMode, drawPyramid, updatePyramidWithAnimation]);
 
   // viewModeが変更されたときに初期化フラグをリセット
   useEffect(() => {
