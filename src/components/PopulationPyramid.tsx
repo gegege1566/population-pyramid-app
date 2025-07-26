@@ -57,10 +57,8 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
 
         const index = pyramidData.maleData.indexOf(d as number);
         const ageGroup = pyramidData.ageGroups[index];
-        const isNational = data.length > 0 && data[0].prefectureCode === '00000';
-        const population = isNational 
-          ? Math.abs(d as number) * 1000
-          : Math.abs(d as number) * 1000;
+        // 全データが既に千人単位で統一済み、実人数表示用に1000を掛ける
+        const population = Math.abs(d as number) * 1000; // 千人単位 → 実人数表示
         
         tooltip.html(`男性 ${ageGroup}歳<br/>${population.toLocaleString()}人`)
           .style('left', (event.pageX + 10) + 'px')
@@ -86,10 +84,8 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
 
         const index = pyramidData.femaleData.indexOf(d as number);
         const ageGroup = pyramidData.ageGroups[index];
-        const isNational = data.length > 0 && data[0].prefectureCode === '00000';
-        const population = isNational 
-          ? (d as number) * 1000
-          : (d as number) * 1000;
+        // 全データが既に千人単位で統一済み、実人数表示用に1000を掛ける
+        const population = (d as number) * 1000; // 千人単位 → 実人数表示
         
         tooltip.html(`女性 ${ageGroup}歳<br/>${population.toLocaleString()}人`)
           .style('left', (event.pageX + 10) + 'px')
@@ -173,14 +169,11 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
 
         const index = pyramidData.maleData.indexOf(d);
         const ageGroup = pyramidData.ageGroups[index];
-        // 全国データのみ特別処理、都道府県データはそのまま
-        const isNational = data.length > 0 && data[0].prefectureCode === '00000';
+        // 全データが既に千人単位で統一済み、実人数表示用に1000を掛ける
         const graphValue = Math.abs(d);
-        const population = isNational 
-          ? graphValue * 1000 // 全国データ：千人単位グラフ値を実人数に変換
-          : graphValue * 1000; // 都道府県データ：千人単位から人単位に変換
+        const population = graphValue * 1000; // 千人単位 → 実人数表示
         
-        console.log(`🔍 Tooltip data - ${ageGroup} male: graph=${graphValue}, isNational=${isNational}, final=${population}`);
+        console.log(`🔍 Tooltip data - ${ageGroup} male: graph=${graphValue}千人, final=${population}人`);
         
         tooltip.html(`男性 ${ageGroup}歳<br/>${population.toLocaleString()}人`)
           .style('left', (event.pageX + 10) + 'px')
@@ -221,11 +214,8 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
 
         const index = pyramidData.femaleData.indexOf(d);
         const ageGroup = pyramidData.ageGroups[index];
-        // 全国データのみ特別処理、都道府県データはそのまま
-        const isNational = data.length > 0 && data[0].prefectureCode === '00000';
-        const population = isNational 
-          ? d * 1000 // 全国データ：千人単位グラフ値を実人数に変換
-          : d * 1000; // 都道府県データ：千人単位から人単位に変換
+        // 全データが既に千人単位で統一済み、実人数表示用に1000を掛ける
+        const population = d * 1000; // 千人単位 → 実人数表示
         
         tooltip.html(`女性 ${ageGroup}歳<br/>${population.toLocaleString()}人`)
           .style('left', (event.pageX + 10) + 'px')
