@@ -52,7 +52,14 @@ export class LocalDataService {
         }
         const data = await response.json();
         console.log(`✅ Loaded national API data for ${year}: ${data.length} records`);
-        return Array.isArray(data) ? data : [];
+        
+        // 全国データを千人単位に変換（JSONファイルに実人数が格納されているため）
+        const convertedData = Array.isArray(data) ? data.map(record => ({
+          ...record,
+          population: Math.round(record.population / 1000) // 実人数 → 千人単位
+        })) : [];
+        
+        return convertedData;
       } else {
         // 都道府県データ
         const response = await fetch(`/data/population/population_${year}.json`);
@@ -62,7 +69,14 @@ export class LocalDataService {
         const allData = await response.json();
         const prefData = allData[prefCode] || [];
         console.log(`✅ Loaded prefecture API data for ${prefCode}-${year}: ${prefData.length} records`);
-        return prefData;
+        
+        // 都道府県データも千人単位に変換（JSONファイルに実人数が格納されているため）
+        const convertedPrefData = prefData.map((record: any) => ({
+          ...record,
+          population: Math.round(record.population / 1000) // 実人数 → 千人単位
+        }));
+        
+        return convertedPrefData;
       }
     } catch (error) {
       console.warn(`Could not load API data file for ${prefCode}-${year}:`, error);

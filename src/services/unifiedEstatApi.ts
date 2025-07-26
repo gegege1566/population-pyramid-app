@@ -177,7 +177,7 @@ export class UnifiedEStatService {
           if (dataYear === year) {
             const ageGroup = SERIES_TO_AGE[seriesId];
             if (ageGroup) {
-              const population = Math.round(parseInt(value['$']) / 1000); // 人単位から千人単位に変換
+              const population = Math.round(parseInt(value['$']) / 1000); // APIから取得した実人数を千人単位に変換
               
               // 95-99歳のデータを特別にログ
               if (ageGroup === '95-99') {
@@ -235,7 +235,7 @@ export class UnifiedEStatService {
           if (dataYear === year) {
             const ageGroup = SERIES_TO_AGE[seriesId];
             if (ageGroup) {
-              const population = Math.round(parseInt(value['$']) / 1000); // 人単位から千人単位に変換
+              const population = Math.round(parseInt(value['$']) / 1000); // APIから取得した実人数を千人単位に変換
               
               // 95-99歳のデータを特別にログ
               if (ageGroup === '95-99') {
