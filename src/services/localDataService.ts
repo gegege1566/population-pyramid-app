@@ -53,9 +53,15 @@ export class LocalDataService {
         }
         const data = await response.json();
         console.log(`✅ Loaded national API data for ${year}: ${data.length} records`);
+        console.log(`🔍 Data type check: isArray=${Array.isArray(data)}, firstRecord:`, data[0]);
         
         // 全国データを千人単位に変換（JSONファイルに実人数が格納されているため）
-        const convertedData = Array.isArray(data) ? data.map(record => {
+        if (!Array.isArray(data)) {
+          console.error('❌ National data is not an array:', data);
+          return [];
+        }
+        
+        const convertedData = data.map(record => {
           const originalPop = record.population;
           const convertedPop = Math.round(record.population / 1000);
           console.log(`🔍 National data conversion: ${record.ageGroup} ${record.gender}: ${originalPop} → ${convertedPop}`);
@@ -63,8 +69,9 @@ export class LocalDataService {
             ...record,
             population: convertedPop // 実人数 → 千人単位
           };
-        }) : [];
+        });
         
+        console.log(`✅ Converted ${convertedData.length} national records, sample:`, convertedData[0]);
         return convertedData;
       } else {
         // 都道府県データ
