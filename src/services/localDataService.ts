@@ -46,7 +46,7 @@ export class LocalDataService {
     try {
       if (prefCode === '00000') {
         // 全国データ
-        const response = await fetch(`/data/population_api/population_national_${year}.json`);
+        const response = await fetch(`/data/population/population_national_${year}.json`);
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
@@ -55,7 +55,7 @@ export class LocalDataService {
         return Array.isArray(data) ? data : [];
       } else {
         // 都道府県データ
-        const response = await fetch(`/data/population_api/population_${year}.json`);
+        const response = await fetch(`/data/population/population_${year}.json`);
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }

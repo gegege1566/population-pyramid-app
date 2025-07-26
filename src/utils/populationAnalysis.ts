@@ -16,14 +16,34 @@ export const createPopulationPyramid = (data: PopulationData[]): PyramidData => 
   // デバッグ: 利用可能な年齢階級をログ出力
   const allAgeGroups = Array.from(new Set(data.map(d => d.ageGroup)));
   console.log('Available age groups:', allAgeGroups);
+  console.log('Total data records:', data.length);
+  
+  // 95-99歳のデータが含まれているか確認
+  const has9599 = data.some(d => d.ageGroup === '95-99');
+  console.log('Has 95-99 age group:', has9599);
+  if (has9599) {
+    const data9599 = data.filter(d => d.ageGroup === '95-99');
+    console.log('95-99 age group data:', data9599);
+  }
   
   // 年齢階級でグループ化（高齢者を上に表示するため降順）
   const ageGroups = allAgeGroups.sort((a, b) => {
     // 年齢順にソート（降順）
     if (a === '85+') return -1;
     if (b === '85+') return 1;
+    if (a === '100歳以上' || a === '100+') return -1;
+    if (b === '100歳以上' || b === '100+') return 1;
+    
+    // 通常の年齢階級のソート（例: "0-4", "5-9", ..., "95-99"）
     const aStart = parseInt(a.split('-')[0]);
     const bStart = parseInt(b.split('-')[0]);
+    
+    // NaNチェック（パースできない場合）
+    if (isNaN(aStart) || isNaN(bStart)) {
+      console.warn(`Invalid age group format: ${isNaN(aStart) ? a : b}`);
+      return 0;
+    }
+    
     return bStart - aStart;
   });
   
@@ -66,8 +86,10 @@ export const calculateStats = (data: PopulationData[]): PopulationStats => {
   
   const elderly = data.filter(d => {
     if (d.ageGroup === '85+') return true;
+    if (d.ageGroup === '100歳以上' || d.ageGroup === '100+') return true;
     const ageStart = parseInt(d.ageGroup.split('-')[0]);
-    return ageStart >= 65;
+    // 65歳以上（95-99歳も含む）
+    return !isNaN(ageStart) && ageStart >= 65;
   }).reduce((sum, d) => sum + d.population, 0);
   
   return {

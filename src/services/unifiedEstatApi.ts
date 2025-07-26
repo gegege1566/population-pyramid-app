@@ -95,11 +95,29 @@ export class UnifiedEStatService {
 
   private async fetchRequest(url: string): Promise<ApiResponse> {
     try {
+      // 95-99歳の系列IDのリクエストを特別にログ出力
+      if (url.includes('0201130120000010205') || url.includes('0201130220000010205')) {
+        console.log(`🔍 Fetching 95-99歳 data: ${url}`);
+      }
+      
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-      return await response.json();
+      const data = await response.json();
+      
+      // 95-99歳のレスポンスを確認
+      if (url.includes('0201130120000010205') || url.includes('0201130220000010205')) {
+        const status = data.GET_STATS?.RESULT?.status;
+        const errorMsg = data.GET_STATS?.RESULT?.errorMsg;
+        const hasData = data.GET_STATS?.STATISTICAL_DATA?.DATA_INF?.DATA_OBJ;
+        console.log(`📊 95-99歳 Response: status=${status}, errorMsg=${errorMsg}, hasData=${!!hasData}`);
+        if (hasData && Array.isArray(hasData)) {
+          console.log(`📊 95-99歳 Data count: ${hasData.length}`);
+        }
+      }
+      
+      return data;
     } catch (error) {
       throw new Error(`API request failed: ${error}`);
     }
@@ -126,15 +144,30 @@ export class UnifiedEStatService {
 
       // 男性データを取得
       for (const seriesId of ALL_SERIES_IDS.male) {
+        // 95-99歳の処理を特別にログ
+        if (seriesId === '0201130120000010205') {
+          console.log(`🎯 Processing male 95-99歳 (series: ${seriesId})`);
+        }
+        
         const url = `${this.baseUrl}?Lang=JP&IndicatorCode=${seriesId}&RegionCode=${prefInfo.code}`;
         const response = await this.fetchRequest(url);
 
         if (response.GET_STATS?.RESULT?.status !== "0") {
+          // 95-99歳がスキップされた場合
+          if (seriesId === '0201130120000010205') {
+            console.log(`⚠️ Male 95-99歳 skipped: status=${response.GET_STATS?.RESULT?.status}, error=${response.GET_STATS?.RESULT?.errorMsg}`);
+          }
           continue; // この系列IDのデータがない場合はスキップ
         }
 
         const dataObjects = response.GET_STATS?.STATISTICAL_DATA?.DATA_INF?.DATA_OBJ;
-        if (!dataObjects || !Array.isArray(dataObjects)) continue;
+        if (!dataObjects || !Array.isArray(dataObjects)) {
+          // 95-99歳でデータが空の場合
+          if (seriesId === '0201130120000010205') {
+            console.log(`⚠️ Male 95-99歳 has no data objects`);
+          }
+          continue;
+        }
 
         for (const obj of dataObjects) {
           const value = obj.VALUE;
@@ -144,13 +177,20 @@ export class UnifiedEStatService {
           if (dataYear === year) {
             const ageGroup = SERIES_TO_AGE[seriesId];
             if (ageGroup) {
+              const population = Math.round(parseInt(value['$']) / 1000); // 人単位から千人単位に変換
+              
+              // 95-99歳のデータを特別にログ
+              if (ageGroup === '95-99') {
+                console.log(`✅ Male 95-99歳 data added: ${population} (pref: ${prefInfo.name})`);
+              }
+              
               allData.push({
                 year: dataYear,
                 prefecture: prefInfo.name,
                 prefectureCode: prefCode,
                 ageGroup,
                 gender: 'male',
-                population: Math.round(parseInt(value['$']) / 1000) // 人単位から千人単位に変換
+                population
               });
             }
           }
@@ -162,15 +202,30 @@ export class UnifiedEStatService {
 
       // 女性データを取得
       for (const seriesId of ALL_SERIES_IDS.female) {
+        // 95-99歳の処理を特別にログ
+        if (seriesId === '0201130220000010205') {
+          console.log(`🎯 Processing female 95-99歳 (series: ${seriesId})`);
+        }
+        
         const url = `${this.baseUrl}?Lang=JP&IndicatorCode=${seriesId}&RegionCode=${prefInfo.code}`;
         const response = await this.fetchRequest(url);
 
         if (response.GET_STATS?.RESULT?.status !== "0") {
+          // 95-99歳がスキップされた場合
+          if (seriesId === '0201130220000010205') {
+            console.log(`⚠️ Female 95-99歳 skipped: status=${response.GET_STATS?.RESULT?.status}, error=${response.GET_STATS?.RESULT?.errorMsg}`);
+          }
           continue; // この系列IDのデータがない場合はスキップ
         }
 
         const dataObjects = response.GET_STATS?.STATISTICAL_DATA?.DATA_INF?.DATA_OBJ;
-        if (!dataObjects || !Array.isArray(dataObjects)) continue;
+        if (!dataObjects || !Array.isArray(dataObjects)) {
+          // 95-99歳でデータが空の場合
+          if (seriesId === '0201130220000010205') {
+            console.log(`⚠️ Female 95-99歳 has no data objects`);
+          }
+          continue;
+        }
 
         for (const obj of dataObjects) {
           const value = obj.VALUE;
@@ -180,13 +235,20 @@ export class UnifiedEStatService {
           if (dataYear === year) {
             const ageGroup = SERIES_TO_AGE[seriesId];
             if (ageGroup) {
+              const population = Math.round(parseInt(value['$']) / 1000); // 人単位から千人単位に変換
+              
+              // 95-99歳のデータを特別にログ
+              if (ageGroup === '95-99') {
+                console.log(`✅ Female 95-99歳 data added: ${population} (pref: ${prefInfo.name})`);
+              }
+              
               allData.push({
                 year: dataYear,
                 prefecture: prefInfo.name,
                 prefectureCode: prefCode,
                 ageGroup,
                 gender: 'female',
-                population: Math.round(parseInt(value['$']) / 1000) // 人単位から千人単位に変換
+                population
               });
             }
           }
@@ -243,15 +305,30 @@ export class UnifiedEStatService {
       // 全国データは地域コード 00000 で直接取得
       // 男性データを取得
       for (const seriesId of ALL_SERIES_IDS.male) {
+        // 95-99歳の処理を特別にログ
+        if (seriesId === '0201130120000010205') {
+          console.log(`🎯 Processing national male 95-99歳 (series: ${seriesId})`);
+        }
+        
         const url = `${this.baseUrl}?Lang=JP&IndicatorCode=${seriesId}&RegionCode=00000`;
         const response = await this.fetchRequest(url);
 
         if (response.GET_STATS?.RESULT?.status !== "0") {
+          // 95-99歳がスキップされた場合
+          if (seriesId === '0201130120000010205') {
+            console.log(`⚠️ National male 95-99歳 skipped: status=${response.GET_STATS?.RESULT?.status}, error=${response.GET_STATS?.RESULT?.errorMsg}`);
+          }
           continue; // この系列IDのデータがない場合はスキップ
         }
 
         const dataObjects = response.GET_STATS?.STATISTICAL_DATA?.DATA_INF?.DATA_OBJ;
-        if (!dataObjects || !Array.isArray(dataObjects)) continue;
+        if (!dataObjects || !Array.isArray(dataObjects)) {
+          // 95-99歳でデータが空の場合
+          if (seriesId === '0201130120000010205') {
+            console.log(`⚠️ National male 95-99歳 has no data objects`);
+          }
+          continue;
+        }
 
         for (const obj of dataObjects) {
           const value = obj.VALUE;
@@ -287,15 +364,30 @@ export class UnifiedEStatService {
 
       // 女性データを取得
       for (const seriesId of ALL_SERIES_IDS.female) {
+        // 95-99歳の処理を特別にログ
+        if (seriesId === '0201130220000010205') {
+          console.log(`🎯 Processing national female 95-99歳 (series: ${seriesId})`);
+        }
+        
         const url = `${this.baseUrl}?Lang=JP&IndicatorCode=${seriesId}&RegionCode=00000`;
         const response = await this.fetchRequest(url);
 
         if (response.GET_STATS?.RESULT?.status !== "0") {
+          // 95-99歳がスキップされた場合
+          if (seriesId === '0201130220000010205') {
+            console.log(`⚠️ National female 95-99歳 skipped: status=${response.GET_STATS?.RESULT?.status}, error=${response.GET_STATS?.RESULT?.errorMsg}`);
+          }
           continue; // この系列IDのデータがない場合はスキップ
         }
 
         const dataObjects = response.GET_STATS?.STATISTICAL_DATA?.DATA_INF?.DATA_OBJ;
-        if (!dataObjects || !Array.isArray(dataObjects)) continue;
+        if (!dataObjects || !Array.isArray(dataObjects)) {
+          // 95-99歳でデータが空の場合
+          if (seriesId === '0201130220000010205') {
+            console.log(`⚠️ National female 95-99歳 has no data objects`);
+          }
+          continue;
+        }
 
         for (const obj of dataObjects) {
           const value = obj.VALUE;
@@ -379,12 +471,12 @@ export class UnifiedEStatService {
       // 年齢グループ別に集計
       const nationalData: { [key: string]: { male: number, female: number } } = {};
       
-      // 年齢グループを定義（0-4, 5-9, ..., 95-99, 100+）
+      // 年齢グループを定義（0-4, 5-9, ..., 95-99）
       const ageGroups = [];
       for (let i = 0; i < 20; i++) {
         ageGroups.push(`${i * 5}-${i * 5 + 4}`);
       }
-      ageGroups.push('100+');
+      // 100+は削除（APIデータに存在しないため）
       
       // 初期化
       ageGroups.forEach(ageGroup => {
