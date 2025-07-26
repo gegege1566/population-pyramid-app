@@ -70,13 +70,8 @@ export class LocalDataService {
         const prefData = allData[prefCode] || [];
         console.log(`✅ Loaded prefecture API data for ${prefCode}-${year}: ${prefData.length} records`);
         
-        // 都道府県データも千人単位に変換（JSONファイルに実人数が格納されているため）
-        const convertedPrefData = prefData.map((record: any) => ({
-          ...record,
-          population: Math.round(record.population / 1000) // 実人数 → 千人単位
-        }));
-        
-        return convertedPrefData;
+        // 都道府県データは既に千人単位で保存されているのでそのまま返す
+        return prefData;
       }
     } catch (error) {
       console.warn(`Could not load API data file for ${prefCode}-${year}:`, error);
