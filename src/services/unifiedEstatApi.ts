@@ -264,6 +264,11 @@ export class UnifiedEStatService {
               const rawValue = parseInt(value['$']);
               const processedValue = Math.round(rawValue / 1000);
               
+              // デバッグ: 95-99歳のデータを特別にログ出力
+              if (ageGroup === '95-99') {
+                console.log(`API取得 95-99歳 男性: ${processedValue} (元の値: ${rawValue})`);
+              }
+              
               allData.push({
                 year: dataYear,
                 prefecture: '全国',
@@ -302,6 +307,11 @@ export class UnifiedEStatService {
             if (ageGroup) {
               const rawValue = parseInt(value['$']);
               const processedValue = Math.round(rawValue / 1000);
+              
+              // デバッグ: 95-99歳のデータを特別にログ出力
+              if (ageGroup === '95-99') {
+                console.log(`API取得 95-99歳 女性: ${processedValue} (元の値: ${rawValue})`);
+              }
               
               allData.push({
                 year: dataYear,

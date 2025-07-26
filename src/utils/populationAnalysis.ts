@@ -13,9 +13,12 @@ export const createPopulationPyramid = (data: PopulationData[]): PyramidData => 
     femaleData: []
   };
   
+  // デバッグ: 利用可能な年齢階級をログ出力
+  const allAgeGroups = Array.from(new Set(data.map(d => d.ageGroup)));
+  console.log('Available age groups:', allAgeGroups);
   
   // 年齢階級でグループ化（高齢者を上に表示するため降順）
-  const ageGroups = Array.from(new Set(data.map(d => d.ageGroup))).sort((a, b) => {
+  const ageGroups = allAgeGroups.sort((a, b) => {
     // 年齢順にソート（降順）
     if (a === '85+') return -1;
     if (b === '85+') return 1;
@@ -27,6 +30,11 @@ export const createPopulationPyramid = (data: PopulationData[]): PyramidData => 
   ageGroups.forEach(ageGroup => {
     const malePopulation = data.find(d => d.ageGroup === ageGroup && d.gender === 'male')?.population || 0;
     const femalePopulation = data.find(d => d.ageGroup === ageGroup && d.gender === 'female')?.population || 0;
+    
+    // デバッグ: 95-99歳のデータを特別にログ出力
+    if (ageGroup === '95-99') {
+      console.log(`95-99歳データ - 男性: ${malePopulation}, 女性: ${femalePopulation}`);
+    }
     
     // 全国・都道府県データ共に既に千人単位で統一済み
     const maleScale = malePopulation;
