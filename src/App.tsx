@@ -24,6 +24,9 @@ function App() {
   const [showComparison, setShowComparison] = useState(false);
   const [showCoopMembers, setShowCoopMembers] = useState(false);
   const [coopMemberData, setCoopMemberData] = useState<CoopMemberData[] | undefined>(undefined);
+  
+  // デバッグ: 初期状態をログ出力
+  console.log('App.tsx - showCoopMembers initial state:', showCoopMembers);
   const [showSpendingSettings, setShowSpendingSettings] = useState(false);
   const [ageGroupSpending, setAgeGroupSpending] = useState<AgeGroupSpending[]>(DEFAULT_AGE_GROUP_SPENDING);
 
@@ -140,7 +143,11 @@ function App() {
                 {selectedPrefecture} • {selectedYear}年
               </div>
               <button
-                onClick={() => setShowCoopMembers(!showCoopMembers)}
+                onClick={() => {
+                  console.log('Coop member button clicked! Current state:', showCoopMembers);
+                  setShowCoopMembers(!showCoopMembers);
+                  console.log('Setting showCoopMembers to:', !showCoopMembers);
+                }}
                 className={`px-3 py-1 text-sm rounded-md border transition-colors ${
                   showCoopMembers
                     ? 'bg-orange-500 text-white border-orange-500'
