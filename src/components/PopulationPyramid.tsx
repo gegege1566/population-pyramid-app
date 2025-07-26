@@ -453,6 +453,9 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
     coopData.forEach(d => {
       membersByAge[d.ageGroup] = d.memberCount;
     });
+    
+    console.log('Coop members by age:', membersByAge);
+    console.log('Pyramid age groups:', pyramidData.ageGroups);
 
     // 組合員バー（中央に配置）
     const coopBars = g.selectAll('.coop-member-bar')
@@ -541,11 +544,15 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
     const svg = d3.select(svgRef.current);
     const g = svg.select('.chart-container') as d3.Selection<SVGGElement, unknown, null, undefined>;
     
+    console.log('Coop member effect - showCoopMembers:', showCoopMembers, 'coopMemberData:', coopMemberData?.length, 'g.node():', !!g.node());
+    
     if (showCoopMembers && coopMemberData && g.node()) {
       const scale = fixedScale || new LocalDataService().calculateDynamicScale(data);
+      console.log('Drawing coop members with scale:', scale);
       drawCoopMembers(svg as d3.Selection<SVGSVGElement, unknown, null, undefined>, coopMemberData, width, height, scale, data);
     } else {
       // 組合員数バーを削除
+      console.log('Removing coop member bars');
       g.selectAll('.coop-member-bar').remove();
     }
   }, [showCoopMembers, coopMemberData, data, width, height, fixedScale, viewMode]);

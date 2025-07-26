@@ -53,10 +53,13 @@ function App() {
 
   // 組合員データを読み込み
   useEffect(() => {
+    console.log('Coop member loading effect - showCoopMembers:', showCoopMembers, 'selectedPrefCodes:', selectedPrefCodes);
     if (showCoopMembers && selectedPrefCodes.length > 0) {
       const loadCoopMemberData = async () => {
         try {
+          console.log('Loading coop member data for:', selectedPrefCodes, selectedYear);
           const data = await coopMemberService.getMultipleCoopMemberData(selectedPrefCodes, selectedYear);
+          console.log('Loaded coop member data:', data?.length);
           setCoopMemberData(data);
         } catch (error) {
           console.error('組合員データの読み込みに失敗:', error);
@@ -65,6 +68,7 @@ function App() {
       };
       loadCoopMemberData();
     } else {
+      console.log('Clearing coop member data');
       setCoopMemberData(undefined);
     }
   }, [showCoopMembers, selectedPrefCodes, selectedYear]);

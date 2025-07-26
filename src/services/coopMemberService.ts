@@ -127,13 +127,16 @@ export class CoopMemberService {
 
   // 都道府県別の組合員データを取得（年齢階級別）
   async getCoopMemberData(prefectureCode: string, year: number = 2025): Promise<CoopMemberData[]> {
+    console.log('getCoopMemberData called with:', prefectureCode, year);
     // 2030年以降は推計データを読み込み
     if (year >= 2030) {
+      console.log('Loading projected data for year >= 2030');
       return await this.loadProjectedData(year, prefectureCode);
     }
     
     // 2025年は既存の計算ロジックを使用
     const totalMembers = this.prefectureMembers.get(prefectureCode) || 0;
+    console.log('Total members for', prefectureCode, ':', totalMembers);
     if (totalMembers === 0) return [];
 
     const result: CoopMemberData[] = [];
@@ -227,10 +230,12 @@ export class CoopMemberService {
 
   // 複数都道府県の組合員データを合算取得（年齢階級別）
   async getMultipleCoopMemberData(prefectureCodes: string[], year: number = 2025): Promise<CoopMemberData[]> {
+    console.log('getMultipleCoopMemberData called with:', prefectureCodes, year);
     if (prefectureCodes.length === 0) return [];
     
     // 単一都道府県の場合は既存メソッドを使用
     if (prefectureCodes.length === 1) {
+      console.log('Single prefecture, using getCoopMemberData');
       return await this.getCoopMemberData(prefectureCodes[0], year);
     }
 
