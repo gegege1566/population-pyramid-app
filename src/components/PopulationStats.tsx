@@ -39,11 +39,8 @@ const PopulationStats: React.FC<PopulationStatsProps> = ({
     let elderly = 0; // 65歳以上
 
     data.forEach(item => {
-      // 全国データのみ特別処理、都道府県データはそのまま
-      const isNational = item.prefectureCode === '00000';
-      const population = isNational 
-        ? item.population // 全国データ：既に実人数なのでそのまま使用
-        : item.population * 1000; // 都道府県データ：千人単位から実人数に変換
+      // 全データが千人単位で統一済み、実人数計算用に1000を掛ける
+      const population = item.population * 1000; // 千人単位 → 実人数変換
       const ageStart = parseInt(item.ageGroup.split('-')[0]);
       
       if (item.gender === 'male') {

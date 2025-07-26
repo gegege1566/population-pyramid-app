@@ -5,7 +5,7 @@
     "prefectureCode": "00000",
     "ageGroup": "0-4",
     "gender": "male",
-    "population": 1646
+    "population": 1646.2
   },
   {
     "year": 2050,
@@ -13,7 +13,7 @@
     "prefectureCode": "00000",
     "ageGroup": "5-9",
     "gender": "male",
-    "population": 1784
+    "population": 1784.2
   },
   {
     "year": 2050,
@@ -21,7 +21,7 @@
     "prefectureCode": "00000",
     "ageGroup": "10-14",
     "gender": "male",
-    "population": 1900
+    "population": 1899.6
   },
   {
     "year": 2050,
@@ -29,7 +29,7 @@
     "prefectureCode": "00000",
     "ageGroup": "15-19",
     "gender": "male",
-    "population": 2008
+    "population": 2008.4
   },
   {
     "year": 2050,
@@ -37,7 +37,7 @@
     "prefectureCode": "00000",
     "ageGroup": "20-24",
     "gender": "male",
-    "population": 2169
+    "population": 2168.6
   },
   {
     "year": 2050,
@@ -45,7 +45,7 @@
     "prefectureCode": "00000",
     "ageGroup": "25-29",
     "gender": "male",
-    "population": 2331
+    "population": 2330.7
   },
   {
     "year": 2050,
@@ -53,7 +53,7 @@
     "prefectureCode": "00000",
     "ageGroup": "30-34",
     "gender": "male",
-    "population": 2689
+    "population": 2688.9
   },
   {
     "year": 2050,
@@ -61,7 +61,7 @@
     "prefectureCode": "00000",
     "ageGroup": "35-39",
     "gender": "male",
-    "population": 2995
+    "population": 2994.8
   },
   {
     "year": 2050,
@@ -69,7 +69,7 @@
     "prefectureCode": "00000",
     "ageGroup": "40-44",
     "gender": "male",
-    "population": 3110
+    "population": 3109.7
   },
   {
     "year": 2050,
@@ -77,7 +77,7 @@
     "prefectureCode": "00000",
     "ageGroup": "45-49",
     "gender": "male",
-    "population": 3206
+    "population": 3206.5
   },
   {
     "year": 2050,
@@ -85,7 +85,7 @@
     "prefectureCode": "00000",
     "ageGroup": "50-54",
     "gender": "male",
-    "population": 3308
+    "population": 3307.6
   },
   {
     "year": 2050,
@@ -93,7 +93,7 @@
     "prefectureCode": "00000",
     "ageGroup": "55-59",
     "gender": "male",
-    "population": 3196
+    "population": 3196.4
   },
   {
     "year": 2050,
@@ -101,7 +101,7 @@
     "prefectureCode": "00000",
     "ageGroup": "60-64",
     "gender": "male",
-    "population": 3236
+    "population": 3235.8
   },
   {
     "year": 2050,
@@ -109,7 +109,7 @@
     "prefectureCode": "00000",
     "ageGroup": "65-69",
     "gender": "male",
-    "population": 3454
+    "population": 3454.3
   },
   {
     "year": 2050,
@@ -117,7 +117,7 @@
     "prefectureCode": "00000",
     "ageGroup": "70-74",
     "gender": "male",
-    "population": 3666
+    "population": 3666.3
   },
   {
     "year": 2050,
@@ -125,7 +125,7 @@
     "prefectureCode": "00000",
     "ageGroup": "75-79",
     "gender": "male",
-    "population": 3856
+    "population": 3855.6
   },
   {
     "year": 2050,
@@ -133,7 +133,7 @@
     "prefectureCode": "00000",
     "ageGroup": "80-84",
     "gender": "male",
-    "population": 2882
+    "population": 2882.3
   },
   {
     "year": 2050,
@@ -141,7 +141,7 @@
     "prefectureCode": "00000",
     "ageGroup": "85-89",
     "gender": "male",
-    "population": 1918
+    "population": 1918.5
   },
   {
     "year": 2050,
@@ -149,7 +149,7 @@
     "prefectureCode": "00000",
     "ageGroup": "90-94",
     "gender": "male",
-    "population": 992
+    "population": 992.1
   },
   {
     "year": 2050,
@@ -165,7 +165,7 @@
     "prefectureCode": "00000",
     "ageGroup": "5-9",
     "gender": "female",
-    "population": 1699
+    "population": 1699.3
   },
   {
     "year": 2050,
@@ -173,7 +173,7 @@
     "prefectureCode": "00000",
     "ageGroup": "10-14",
     "gender": "female",
-    "population": 1811
+    "population": 1810.8
   },
   {
     "year": 2050,
@@ -181,7 +181,7 @@
     "prefectureCode": "00000",
     "ageGroup": "15-19",
     "gender": "female",
-    "population": 1924
+    "population": 1923.5
   },
   {
     "year": 2050,
@@ -189,7 +189,7 @@
     "prefectureCode": "00000",
     "ageGroup": "20-24",
     "gender": "female",
-    "population": 2100
+    "population": 2100.4
   },
   {
     "year": 2050,
@@ -205,7 +205,7 @@
     "prefectureCode": "00000",
     "ageGroup": "30-34",
     "gender": "female",
-    "population": 2565
+    "population": 2565.4
   },
   {
     "year": 2050,
@@ -213,7 +213,7 @@
     "prefectureCode": "00000",
     "ageGroup": "35-39",
     "gender": "female",
-    "population": 2852
+    "population": 2852.3
   },
   {
     "year": 2050,
@@ -221,7 +221,7 @@
     "prefectureCode": "00000",
     "ageGroup": "40-44",
     "gender": "female",
-    "population": 2971
+    "population": 2970.8
   },
   {
     "year": 2050,
@@ -229,7 +229,7 @@
     "prefectureCode": "00000",
     "ageGroup": "45-49",
     "gender": "female",
-    "population": 3053
+    "population": 3053.4
   },
   {
     "year": 2050,
@@ -237,7 +237,7 @@
     "prefectureCode": "00000",
     "ageGroup": "50-54",
     "gender": "female",
-    "population": 3170
+    "population": 3169.5
   },
   {
     "year": 2050,
@@ -245,7 +245,7 @@
     "prefectureCode": "00000",
     "ageGroup": "55-59",
     "gender": "female",
-    "population": 3087
+    "population": 3087.2
   },
   {
     "year": 2050,
@@ -253,7 +253,7 @@
     "prefectureCode": "00000",
     "ageGroup": "60-64",
     "gender": "female",
-    "population": 3202
+    "population": 3202.2
   },
   {
     "year": 2050,
@@ -261,7 +261,7 @@
     "prefectureCode": "00000",
     "ageGroup": "65-69",
     "gender": "female",
-    "population": 3534
+    "population": 3534.2
   },
   {
     "year": 2050,
@@ -269,7 +269,7 @@
     "prefectureCode": "00000",
     "ageGroup": "70-74",
     "gender": "female",
-    "population": 3892
+    "population": 3891.8
   },
   {
     "year": 2050,
@@ -277,7 +277,7 @@
     "prefectureCode": "00000",
     "ageGroup": "75-79",
     "gender": "female",
-    "population": 4360
+    "population": 4360.1
   },
   {
     "year": 2050,
@@ -285,7 +285,7 @@
     "prefectureCode": "00000",
     "ageGroup": "80-84",
     "gender": "female",
-    "population": 3622
+    "population": 3621.6
   },
   {
     "year": 2050,
@@ -293,7 +293,7 @@
     "prefectureCode": "00000",
     "ageGroup": "85-89",
     "gender": "female",
-    "population": 2852
+    "population": 2852.5
   },
   {
     "year": 2050,
@@ -301,7 +301,7 @@
     "prefectureCode": "00000",
     "ageGroup": "90-94",
     "gender": "female",
-    "population": 1939
+    "population": 1938.5
   },
   {
     "year": 2050,

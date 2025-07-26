@@ -5,7 +5,7 @@
     "prefectureCode": "00000",
     "ageGroup": "0-4",
     "gender": "male",
-    "population": 1886
+    "population": 1885.9
   },
   {
     "year": 2040,
@@ -13,7 +13,7 @@
     "prefectureCode": "00000",
     "ageGroup": "5-9",
     "gender": "male",
-    "population": 1968
+    "population": 1968.5
   },
   {
     "year": 2040,
@@ -21,7 +21,7 @@
     "prefectureCode": "00000",
     "ageGroup": "10-14",
     "gender": "male",
-    "population": 1994
+    "population": 1994.4
   },
   {
     "year": 2040,
@@ -29,7 +29,7 @@
     "prefectureCode": "00000",
     "ageGroup": "15-19",
     "gender": "male",
-    "population": 2071
+    "population": 2070.8
   },
   {
     "year": 2040,
@@ -45,7 +45,7 @@
     "prefectureCode": "00000",
     "ageGroup": "25-29",
     "gender": "male",
-    "population": 2953
+    "population": 2952.8
   },
   {
     "year": 2040,
@@ -53,7 +53,7 @@
     "prefectureCode": "00000",
     "ageGroup": "30-34",
     "gender": "male",
-    "population": 3117
+    "population": 3116.6
   },
   {
     "year": 2040,
@@ -61,7 +61,7 @@
     "prefectureCode": "00000",
     "ageGroup": "35-39",
     "gender": "male",
-    "population": 3231
+    "population": 3231.3
   },
   {
     "year": 2040,
@@ -69,7 +69,7 @@
     "prefectureCode": "00000",
     "ageGroup": "40-44",
     "gender": "male",
-    "population": 3352
+    "population": 3351.6
   },
   {
     "year": 2040,
@@ -77,7 +77,7 @@
     "prefectureCode": "00000",
     "ageGroup": "45-49",
     "gender": "male",
-    "population": 3271
+    "population": 3271.1
   },
   {
     "year": 2040,
@@ -85,7 +85,7 @@
     "prefectureCode": "00000",
     "ageGroup": "50-54",
     "gender": "male",
-    "population": 3362
+    "population": 3362.1
   },
   {
     "year": 2040,
@@ -93,7 +93,7 @@
     "prefectureCode": "00000",
     "ageGroup": "55-59",
     "gender": "male",
-    "population": 3673
+    "population": 3673.2
   },
   {
     "year": 2040,
@@ -101,7 +101,7 @@
     "prefectureCode": "00000",
     "ageGroup": "60-64",
     "gender": "male",
-    "population": 4053
+    "population": 4052.8
   },
   {
     "year": 2040,
@@ -109,7 +109,7 @@
     "prefectureCode": "00000",
     "ageGroup": "65-69",
     "gender": "male",
-    "population": 4537
+    "population": 4536.5
   },
   {
     "year": 2040,
@@ -117,7 +117,7 @@
     "prefectureCode": "00000",
     "ageGroup": "70-74",
     "gender": "male",
-    "population": 3762
+    "population": 3762.4
   },
   {
     "year": 2040,
@@ -125,7 +125,7 @@
     "prefectureCode": "00000",
     "ageGroup": "75-79",
     "gender": "male",
-    "population": 3081
+    "population": 3081.2
   },
   {
     "year": 2040,
@@ -133,7 +133,7 @@
     "prefectureCode": "00000",
     "ageGroup": "80-84",
     "gender": "male",
-    "population": 2419
+    "population": 2419.1
   },
   {
     "year": 2040,
@@ -141,7 +141,7 @@
     "prefectureCode": "00000",
     "ageGroup": "85-89",
     "gender": "male",
-    "population": 1921
+    "population": 1921.3
   },
   {
     "year": 2040,
@@ -149,7 +149,7 @@
     "prefectureCode": "00000",
     "ageGroup": "90-94",
     "gender": "male",
-    "population": 1198
+    "population": 1198.1
   },
   {
     "year": 2040,
@@ -157,7 +157,7 @@
     "prefectureCode": "00000",
     "ageGroup": "0-4",
     "gender": "female",
-    "population": 1794
+    "population": 1794.1
   },
   {
     "year": 2040,
@@ -165,7 +165,7 @@
     "prefectureCode": "00000",
     "ageGroup": "5-9",
     "gender": "female",
-    "population": 1875
+    "population": 1874.9
   },
   {
     "year": 2040,
@@ -173,7 +173,7 @@
     "prefectureCode": "00000",
     "ageGroup": "10-14",
     "gender": "female",
-    "population": 1901
+    "population": 1901.3
   },
   {
     "year": 2040,
@@ -181,7 +181,7 @@
     "prefectureCode": "00000",
     "ageGroup": "15-19",
     "gender": "female",
-    "population": 1983
+    "population": 1983.3
   },
   {
     "year": 2040,
@@ -189,7 +189,7 @@
     "prefectureCode": "00000",
     "ageGroup": "20-24",
     "gender": "female",
-    "population": 2447
+    "population": 2446.7
   },
   {
     "year": 2040,
@@ -197,7 +197,7 @@
     "prefectureCode": "00000",
     "ageGroup": "25-29",
     "gender": "female",
-    "population": 2816
+    "population": 2815.6
   },
   {
     "year": 2040,
@@ -205,7 +205,7 @@
     "prefectureCode": "00000",
     "ageGroup": "30-34",
     "gender": "female",
-    "population": 2958
+    "population": 2958.4
   },
   {
     "year": 2040,
@@ -213,7 +213,7 @@
     "prefectureCode": "00000",
     "ageGroup": "35-39",
     "gender": "female",
-    "population": 3051
+    "population": 3051.4
   },
   {
     "year": 2040,
@@ -221,7 +221,7 @@
     "prefectureCode": "00000",
     "ageGroup": "40-44",
     "gender": "female",
-    "population": 3187
+    "population": 3186.9
   },
   {
     "year": 2040,
@@ -229,7 +229,7 @@
     "prefectureCode": "00000",
     "ageGroup": "45-49",
     "gender": "female",
-    "population": 3127
+    "population": 3127.2
   },
   {
     "year": 2040,
@@ -237,7 +237,7 @@
     "prefectureCode": "00000",
     "ageGroup": "50-54",
     "gender": "female",
-    "population": 3266
+    "population": 3266.5
   },
   {
     "year": 2040,
@@ -253,7 +253,7 @@
     "prefectureCode": "00000",
     "ageGroup": "60-64",
     "gender": "female",
-    "population": 4055
+    "population": 4055.1
   },
   {
     "year": 2040,
@@ -261,7 +261,7 @@
     "prefectureCode": "00000",
     "ageGroup": "65-69",
     "gender": "female",
-    "population": 4655
+    "population": 4655.2
   },
   {
     "year": 2040,
@@ -269,7 +269,7 @@
     "prefectureCode": "00000",
     "ageGroup": "70-74",
     "gender": "female",
-    "population": 4056
+    "population": 4055.9
   },
   {
     "year": 2040,
@@ -285,7 +285,7 @@
     "prefectureCode": "00000",
     "ageGroup": "80-84",
     "gender": "female",
-    "population": 3142
+    "population": 3142.3
   },
   {
     "year": 2040,
@@ -301,7 +301,7 @@
     "prefectureCode": "00000",
     "ageGroup": "90-94",
     "gender": "female",
-    "population": 2457
+    "population": 2457.3
   },
   {
     "year": 2040,
