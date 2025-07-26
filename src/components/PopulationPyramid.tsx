@@ -454,29 +454,17 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
       membersByAge[d.ageGroup] = d.memberCount;
     });
     
-    console.log('Coop members by age:', membersByAge);
-    console.log('Pyramid age groups:', pyramidData.ageGroups);
-
     // 組合員バー（中央に配置）
     const coopBars = g.selectAll('.coop-member-bar')
       .data(pyramidData.ageGroups);
 
-    console.log('Coop bars selection:', coopBars.size(), 'pyramid age groups:', pyramidData.ageGroups.length);
-    console.log('Coop bars enter selection size:', coopBars.enter().size());
-
     const enterSelection = coopBars.enter()
       .append('rect')
       .attr('class', 'coop-member-bar');
-      
-    console.log('Created coop member bars:', enterSelection.size());
     
     enterSelection.attr('x', (d) => {
         const memberCount = membersByAge[d] || 0;
-        const x = xScale(-memberCount / 2);
-        if (memberCount > 0) {
-          console.log(`Coop bar ${d}: x=${x}, memberCount=${memberCount}`);
-        }
-        return x;
+        return xScale(-memberCount / 2);
       })
       .attr('y', (d) => yScale(d)!)
       .attr('width', (d) => {
@@ -484,17 +472,16 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
         if (memberCount === 0) return 0;
         
         const calculatedWidth = xScale(memberCount / 2) - xScale(-memberCount / 2);
-        const minWidth = 2; // 最小幅2ピクセル
+        const minWidth = 4; // 最小幅4ピクセル（見やすくするため）
         const width = Math.max(calculatedWidth, minWidth);
         
-        console.log(`Coop bar ${d}: width=${width} (calc=${calculatedWidth}), memberCount=${memberCount}`);
         return width;
       })
       .attr('height', yScale.bandwidth())
-      .attr('fill', '#FF0000') // デバッグ用：赤色
-      .attr('opacity', 1.0) // 完全不透明
-      .attr('stroke', '#000000') // 黒い枠線
-      .attr('stroke-width', 3)
+      .attr('fill', '#FF6B35') // オレンジ色
+      .attr('opacity', 0.8) // 半透明
+      .attr('stroke', '#FF4500') // オレンジの枠線
+      .attr('stroke-width', 1)
       .style('z-index', 1000) // 前面に表示
       .on('mouseover', function(event, d) {
         const tooltip = d3.select('body').append('div')
