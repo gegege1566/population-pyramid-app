@@ -4,13 +4,35 @@ import { UnifiedEStatService } from './unifiedEstatApi';
 export class LocalDataService {
   private apiService = new UnifiedEStatService();
   private cache = new Map<string, PopulationData[]>();
+  private cacheCleared = false; // スケール修正のため一度だけキャッシュクリア
   
   async getPopulationData(prefCode: string, year: number): Promise<PopulationData[]> {
     const cacheKey = `${prefCode}-${year}`;
     
+    // スケール修正のため一度だけキャッシュをクリア
+    if (!this.cacheCleared) {
+      console.log(`🔄 Clearing cache for scale fix...`);
+      this.cache.clear();
+      this.cacheCleared = true;
+    }
+    
     // キャッシュから取得を試行
     if (this.cache.has(cacheKey)) {
-      return this.cache.get(cacheKey)!;
+      const cachedData = this.cache.get(cacheKey)!;
+      console.log(`🔍 Using cached data for ${prefCode}-${year}, sample:`, cachedData[0]);
+      
+      // 全国データの場合、キャッシュされたデータが実人数かどうかチェック
+      if (prefCode === '00000' && cachedData.length > 0 && cachedData[0].population > 100000) {
+        console.log(`⚠️ Cached national data appears to be in actual numbers, converting to thousands...`);
+        const convertedCachedData = cachedData.map(record => ({
+          ...record,
+          population: Math.round(record.population / 1000)
+        }));
+        this.cache.set(cacheKey, convertedCachedData);
+        return convertedCachedData;
+      }
+      
+      return cachedData;
     }
     
     // まずAPIデータから取得を試行（優先）
