@@ -466,20 +466,27 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
       .attr('class', 'coop-member-bar')
       .attr('x', (d) => {
         const memberCount = membersByAge[d] || 0;
-        // 男女半々として左側に配置
-        return xScale(-memberCount / 2);
+        const x = xScale(-memberCount / 2);
+        if (memberCount > 0) {
+          console.log(`Coop bar ${d}: x=${x}, memberCount=${memberCount}`);
+        }
+        return x;
       })
       .attr('y', (d) => yScale(d)!)
       .attr('width', (d) => {
         const memberCount = membersByAge[d] || 0;
-        // 全体の幅
-        return xScale(memberCount / 2) - xScale(-memberCount / 2);
+        const width = xScale(memberCount / 2) - xScale(-memberCount / 2);
+        if (memberCount > 0) {
+          console.log(`Coop bar ${d}: width=${width}, memberCount=${memberCount}`);
+        }
+        return width;
       })
       .attr('height', yScale.bandwidth())
       .attr('fill', '#FF6B35') // オレンジ色
-      .attr('opacity', 0.7)
-      .attr('stroke', '#FF6B35')
-      .attr('stroke-width', 1)
+      .attr('opacity', 0.9)
+      .attr('stroke', '#FF4500') // より濃いオレンジ
+      .attr('stroke-width', 2)
+      .style('z-index', 1000) // 前面に表示
       .on('mouseover', function(event, d) {
         const tooltip = d3.select('body').append('div')
           .attr('class', 'tooltip')
