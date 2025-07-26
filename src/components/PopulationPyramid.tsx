@@ -109,6 +109,7 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
     year: number,
     dynamicScale: number
   ) => {
+    console.log('drawPyramid called with:', { width, height, prefecture, year, dynamicScale, ageGroups: pyramidData.ageGroups.length });
     const margin = { top: 40, right: 80, bottom: 60, left: 80 };
     const chartWidth = width - margin.left - margin.right;
     const chartHeight = height - margin.top - margin.bottom;
@@ -132,11 +133,15 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
       .attr('class', 'chart-container')
       .attr('transform', `translate(${margin.left},${margin.top})`);
       
+    console.log('Created chart container with transform:', `translate(${margin.left},${margin.top})`);
+      
     // スケール表示を削除
 
     // 男性バー（左側）
     const maleBars = g.selectAll('.male-bar')
       .data(pyramidData.maleData);
+      
+    console.log('Male bars data length:', pyramidData.maleData.length);
       
     maleBars.enter()
       .append('rect')
@@ -509,6 +514,7 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
 
   // メインのグラフ描画ロジック
   useEffect(() => {
+    console.log('Main graph effect - data length:', data?.length, 'viewMode:', viewMode);
     if (!data || data.length === 0 || viewMode !== 'graph') return;
 
     const svg = d3.select(svgRef.current);
@@ -523,13 +529,17 @@ const PopulationPyramid: React.FC<PopulationPyramidProps> = ({
       scale = localDataService.calculateDynamicScale(data);
     }
     
+    console.log('Drawing pyramid - initialized:', isInitializedRef.current, 'scale:', scale);
+    
     // 初回描画またはviewModeがgraphに切り替わった時は新規描画
     if (!isInitializedRef.current) {
+      console.log('Initial pyramid draw');
       svg.selectAll("*").remove();
       drawPyramid(svg, pyramidData, width, height, prefecture, year, scale);
       isInitializedRef.current = true;
     } else {
       // データ変更時はスムーズにアニメーション更新
+      console.log('Updating pyramid with animation');
       updatePyramidWithAnimation(svg, pyramidData, width, height, prefecture, year, scale);
     }
   }, [data, width, height, prefecture, year, fixedScale, viewMode]);
