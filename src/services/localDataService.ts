@@ -186,6 +186,10 @@ export class LocalDataService {
       }
     }
     
+    // データのサンプルをログ出力
+    const sample = data.slice(0, 3);
+    console.log(`🔍 Scale calculation sample data:`, sample.map(r => `${r.ageGroup} ${r.gender}: ${r.population}`));
+    
     // 全国・都道府県データ統一後のスケール計算
     let scale: number;
     
