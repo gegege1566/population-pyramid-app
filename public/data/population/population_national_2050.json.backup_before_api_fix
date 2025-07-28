@@ -1,0 +1,322 @@
+[
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "0-4",
+    "gender": "male",
+    "population": 1646.2
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "5-9",
+    "gender": "male",
+    "population": 1784.2
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "10-14",
+    "gender": "male",
+    "population": 1899.6
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "15-19",
+    "gender": "male",
+    "population": 2008.4
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "20-24",
+    "gender": "male",
+    "population": 2168.6
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "25-29",
+    "gender": "male",
+    "population": 2330.7
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "30-34",
+    "gender": "male",
+    "population": 2688.9
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "35-39",
+    "gender": "male",
+    "population": 2994.8
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "40-44",
+    "gender": "male",
+    "population": 3109.7
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "45-49",
+    "gender": "male",
+    "population": 3206.5
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "50-54",
+    "gender": "male",
+    "population": 3307.6
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "55-59",
+    "gender": "male",
+    "population": 3196.4
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "60-64",
+    "gender": "male",
+    "population": 3235.8
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "65-69",
+    "gender": "male",
+    "population": 3454.3
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "70-74",
+    "gender": "male",
+    "population": 3666.3
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "75-79",
+    "gender": "male",
+    "population": 3855.6
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "80-84",
+    "gender": "male",
+    "population": 2882.3
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "85-89",
+    "gender": "male",
+    "population": 1918.5
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "90-94",
+    "gender": "male",
+    "population": 992.1
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "0-4",
+    "gender": "female",
+    "population": 1566
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "5-9",
+    "gender": "female",
+    "population": 1699.3
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "10-14",
+    "gender": "female",
+    "population": 1810.8
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "15-19",
+    "gender": "female",
+    "population": 1923.5
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "20-24",
+    "gender": "female",
+    "population": 2100.4
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "25-29",
+    "gender": "female",
+    "population": 2230
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "30-34",
+    "gender": "female",
+    "population": 2565.4
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "35-39",
+    "gender": "female",
+    "population": 2852.3
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "40-44",
+    "gender": "female",
+    "population": 2970.8
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "45-49",
+    "gender": "female",
+    "population": 3053.4
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "50-54",
+    "gender": "female",
+    "population": 3169.5
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "55-59",
+    "gender": "female",
+    "population": 3087.2
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "60-64",
+    "gender": "female",
+    "population": 3202.2
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "65-69",
+    "gender": "female",
+    "population": 3534.2
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "70-74",
+    "gender": "female",
+    "population": 3891.8
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "75-79",
+    "gender": "female",
+    "population": 4360.1
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "80-84",
+    "gender": "female",
+    "population": 3621.6
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "85-89",
+    "gender": "female",
+    "population": 2852.5
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "90-94",
+    "gender": "female",
+    "population": 1938.5
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "95-99",
+    "gender": "male",
+    "population": 785
+  },
+  {
+    "year": 2050,
+    "prefecture": "全国",
+    "prefectureCode": "00000",
+    "ageGroup": "95-99",
+    "gender": "female",
+    "population": 1885
+  }
+]

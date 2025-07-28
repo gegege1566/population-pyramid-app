@@ -5,6 +5,7 @@ export class CoopMemberService {
   private static instance: CoopMemberService;
   private ageCompositionConfig: AgeCompositionConfig;
   private prefectureMembers: Map<string, number>;
+  private cache = new Map<string, CoopMemberData[]>();
 
   private constructor() {
     // デフォルトの年齢構成比データ
@@ -125,83 +126,67 @@ export class CoopMemberService {
     }
   }
 
-  // 都道府県別の組合員データを取得（年齢階級別）
+  // 都道府県別の組合員データを取得（年齢階級別・キャッシュ対応）
   async getCoopMemberData(prefectureCode: string, year: number = 2025): Promise<CoopMemberData[]> {
-    console.log('getCoopMemberData called with:', prefectureCode, year);
-    // 2030年以降は推計データを読み込み
-    if (year >= 2030) {
-      console.log('Loading projected data for year >= 2030');
-      return await this.loadProjectedData(year, prefectureCode);
+    const cacheKey = `${prefectureCode}-${year}`;
+    
+    // キャッシュから取得を試行
+    if (this.cache.has(cacheKey)) {
+      return this.cache.get(cacheKey)!;
     }
     
-    // 2025年は既存の計算ロジックを使用
-    const totalMembers = this.prefectureMembers.get(prefectureCode) || 0;
-    console.log('Total members for', prefectureCode, ':', totalMembers);
-    if (totalMembers === 0) return [];
-
+    let result: CoopMemberData[];
+    
+    // 2030年以降は推計データを読み込み
+    if (year >= 2030) {
+      result = await this.loadProjectedData(year, prefectureCode);
+    } else {
+      // 2025年は既存の計算ロジックを使用
+      const totalMembers = this.prefectureMembers.get(prefectureCode) || 0;
+      if (totalMembers === 0) {
+        result = [];
+      } else {
+        result = this.calculateMemberData(prefectureCode, year, totalMembers);
+      }
+    }
+    
+    // キャッシュに保存
+    this.cache.set(cacheKey, result);
+    return result;
+  }
+  
+  // 組合員データ計算処理を分離
+  private calculateMemberData(prefectureCode: string, year: number, totalMembers: number): CoopMemberData[] {
     const result: CoopMemberData[] = [];
     
-    // 人口ピラミッドの年齢階級（0-4歳から100歳以上まで）
-    const populationAgeGroups = [
+    // 予定義された年齢階級（高速化）
+    const ageGroups = [
       '0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39',
       '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74',
       '75-79', '80-84', '85-89', '90-94', '95-99', '100歳以上'
     ];
 
-    populationAgeGroups.forEach(ageGroup => {
-      // 20歳未満と100歳以上は0として扱う
-      if (ageGroup === '0-4' || ageGroup === '5-9' || ageGroup === '10-14' || ageGroup === '15-19' || ageGroup === '100歳以上') {
-        result.push({
-          year,
-          prefecture: this.getPrefectureName(prefectureCode),
-          prefectureCode,
-          ageGroup,
-          memberCount: 0
-        });
-      } else if (ageGroup === '95-99') {
-        // 95-99歳の組合員数を正しく計算
+    const prefName = this.getPrefectureName(prefectureCode);
+    
+    for (const ageGroup of ageGroups) {
+      let memberCount = 0;
+      
+      // 20歳未満と100歳以上は0
+      if (!['0-4', '5-9', '10-14', '15-19', '100歳以上'].includes(ageGroup)) {
         const composition = this.ageCompositionConfig.compositions.find(c => c.ageGroup === ageGroup);
         if (composition) {
-          // 都道府県の総組合員数に構成比を適用して千人単位に変換
-          const memberCount = (totalMembers * composition.percentage / 100) / 1000;
-          result.push({
-            year,
-            prefecture: this.getPrefectureName(prefectureCode),
-            prefectureCode,
-            ageGroup,
-            memberCount: Math.round(memberCount * 10) / 10 // 小数点1位まで
-          });
-        }
-      } else if (ageGroup === '90-94') {
-        // 90-94歳の組合員数を正しく計算
-        const composition = this.ageCompositionConfig.compositions.find(c => c.ageGroup === ageGroup);
-        if (composition) {
-          // 都道府県の総組合員数に構成比を適用して千人単位に変換
-          const memberCount = (totalMembers * composition.percentage / 100) / 1000;
-          result.push({
-            year,
-            prefecture: this.getPrefectureName(prefectureCode),
-            prefectureCode,
-            ageGroup,
-            memberCount: Math.round(memberCount * 10) / 10 // 小数点1位まで
-          });
-        }
-      } else {
-        // 対応する年齢構成比を取得
-        const composition = this.ageCompositionConfig.compositions.find(c => c.ageGroup === ageGroup);
-        if (composition) {
-          // 都道府県の総組合員数に構成比を適用して千人単位に変換
-          const memberCount = (totalMembers * composition.percentage / 100) / 1000;
-          result.push({
-            year,
-            prefecture: this.getPrefectureName(prefectureCode),
-            prefectureCode,
-            ageGroup,
-            memberCount: Math.round(memberCount * 10) / 10 // 小数点1位まで
-          });
+          memberCount = Math.round(((totalMembers * composition.percentage / 100) / 1000) * 10) / 10;
         }
       }
-    });
+      
+      result.push({
+        year,
+        prefecture: prefName,
+        prefectureCode,
+        ageGroup,
+        memberCount
+      });
+    }
 
     return result;
   }
@@ -214,60 +199,64 @@ export class CoopMemberService {
       const response = await fetch(`/data/coop-members/coop_members_${filePrefix}_${year}.json`);
       
       if (!response.ok) {
-        // 都道府県のデータが見つからない場合は空配列を返す
-        if (prefectureCode !== '00000') {
-          console.warn(`Prefecture projection data not found for ${this.getPrefectureName(prefectureCode)} (${year})`);
-          return [];
-        }
-        throw new Error(`Failed to load projected data for ${year}`);
+        // データが見つからない場合は空配列を返す
+        return [];
       }
       return await response.json();
     } catch (error) {
-      console.error(`Error loading projected data for ${this.getPrefectureName(prefectureCode)} (${year}):`, error);
       return [];
     }
   }
 
-  // 複数都道府県の組合員データを合算取得（年齢階級別）
+  // 複数都道府県の組合員データを合算取得（年齢階級別・高速化版）
   async getMultipleCoopMemberData(prefectureCodes: string[], year: number = 2025): Promise<CoopMemberData[]> {
-    console.log('getMultipleCoopMemberData called with:', prefectureCodes, year);
     if (prefectureCodes.length === 0) return [];
     
     // 単一都道府県の場合は既存メソッドを使用
     if (prefectureCodes.length === 1) {
-      console.log('Single prefecture, using getCoopMemberData');
       return await this.getCoopMemberData(prefectureCodes[0], year);
     }
 
-    // 複数都道府県の場合は合算
-    const result: CoopMemberData[] = [];
-    const combinedPrefectureName = `${prefectureCodes.length}地域選択`;
+    // 複数都道府県の場合は並列取得で高速化
+    const allDataPromises = prefectureCodes.map(prefCode => 
+      this.getCoopMemberData(prefCode, year)
+    );
     
-    // 人口ピラミッドの年齢階級（0-4歳から100歳以上まで）
-    const populationAgeGroups = [
+    const allPrefData = await Promise.all(allDataPromises);
+    
+    // 年齢階級別に合算（Map使用で高速化）
+    const ageGroupTotals = new Map<string, number>();
+    
+    // 予定義された年齢階級（ソート済み）
+    const ageGroups = [
       '0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39',
       '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74',
       '75-79', '80-84', '85-89', '90-94', '95-99', '100歳以上'
     ];
-
-    for (const ageGroup of populationAgeGroups) {
-      let totalMemberCount = 0;
-
-      // 各都道府県の組合員数を合算
-      for (const prefCode of prefectureCodes) {
-        const prefData = await this.getCoopMemberData(prefCode, year);
-        const ageData = prefData.find(d => d.ageGroup === ageGroup);
-        if (ageData) {
-          totalMemberCount += ageData.memberCount;
-        }
+    
+    // 各年齢階級を初期化
+    ageGroups.forEach(ageGroup => ageGroupTotals.set(ageGroup, 0));
+    
+    // 全都道府県データを高速合算
+    for (const prefData of allPrefData) {
+      for (const record of prefData) {
+        const current = ageGroupTotals.get(record.ageGroup) || 0;
+        ageGroupTotals.set(record.ageGroup, current + record.memberCount);
       }
+    }
 
+    // 結果の構築
+    const combinedPrefectureName = `${prefectureCodes.length}地域選択`;
+    const result: CoopMemberData[] = [];
+    
+    for (const ageGroup of ageGroups) {
+      const memberCount = ageGroupTotals.get(ageGroup) || 0;
       result.push({
         year,
         prefecture: combinedPrefectureName,
-        prefectureCode: prefectureCodes.join(','), // 複数コードをカンマ区切りで保存
+        prefectureCode: prefectureCodes.join(','),
         ageGroup,
-        memberCount: Math.round(totalMemberCount * 10) / 10 // 小数点1位まで
+        memberCount: Math.round(memberCount * 10) / 10
       });
     }
 
@@ -545,6 +534,19 @@ export class CoopMemberService {
     };
     
     return ageGroupMap[ageGroup] || null;
+  }
+
+  // キャッシュクリア
+  clearCache(): void {
+    this.cache.clear();
+  }
+  
+  // キャッシュステータス取得
+  getCacheStatus(): { size: number; keys: string[] } {
+    return {
+      size: this.cache.size,
+      keys: Array.from(this.cache.keys())
+    };
   }
 
   // 注意事項テキストを取得

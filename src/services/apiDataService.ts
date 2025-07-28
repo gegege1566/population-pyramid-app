@@ -1,8 +1,8 @@
 import { PopulationData } from '../types/population';
 import { UnifiedEStatService } from './unifiedEstatApi';
 
-// API専用データサービス（ローカルファイル参照を廃止）
-export class LocalDataService {
+// API専用データサービス（ローカルファイル参照を完全に廃止）
+export class ApiDataService {
   private apiService = new UnifiedEStatService();
   private cache = new Map<string, PopulationData[]>();
   
@@ -14,7 +14,7 @@ export class LocalDataService {
       return this.cache.get(cacheKey)!;
     }
     
-    // APIから直接取得（ローカルファイル参照を廃止）
+    // APIから直接取得
     try {
       const apiData = await this.apiService.getPopulationData(prefCode, year);
       if (apiData && apiData.length > 0) {
@@ -55,11 +55,11 @@ export class LocalDataService {
         try {
           await this.getPopulationData('00000', year);
         } catch (error) {
-          // サイレントに失敗処理
+          console.warn(`⚠️ Preload failed: ${year}`);
         }
       }
     } catch (error) {
-      // サイレントに失敗処理
+      console.error('❌ Preload error:', error);
     }
   }
 
@@ -71,15 +71,14 @@ export class LocalDataService {
       for (const year of availableYears) {
         try {
           await this.getPopulationData(prefCode, year);
-          // API制限回避のため3秒待機
           await new Promise(resolve => setTimeout(resolve, 3000));
         } catch (error) {
-          // エラー時は5秒待機してから次へ
+          console.warn(`⚠️ Preload failed: ${prefCode}-${year}`);
           await new Promise(resolve => setTimeout(resolve, 5000));
         }
       }
     } catch (error) {
-      // サイレントに失敗処理
+      console.error(`❌ Preload error: ${prefCode}`, error);
     }
   }
   
@@ -100,7 +99,6 @@ export class LocalDataService {
       return 250;
     }
     
-    // 人口ピラミッド用: 男性・女性それぞれの最大値を計算
     let maxPopulation = 0;
     for (const record of data) {
       if (record.population > maxPopulation) {
@@ -108,9 +106,7 @@ export class LocalDataService {
       }
     }
     
-    // 全国・都道府県データ統一後のスケール計算
     let scale: number;
-    
     if (maxPopulation <= 50) {
       scale = Math.ceil(maxPopulation * 1.2 / 10) * 10;
     } else if (maxPopulation <= 200) {
@@ -133,7 +129,6 @@ export class LocalDataService {
       const availableYears = await this.getAllAvailableYears();
       let maxPopulation = 0;
       
-      // 全年度のデータを取得して最大値を計算
       for (const year of availableYears) {
         const data = await this.getPopulationData(prefCode, year);
         for (const record of data) {
@@ -144,7 +139,6 @@ export class LocalDataService {
       }
       
       let scale: number;
-      
       if (maxPopulation <= 30) {
         scale = Math.ceil(maxPopulation * 1.15 / 5) * 5;
       } else if (maxPopulation <= 80) {
@@ -160,6 +154,7 @@ export class LocalDataService {
       return Math.max(scale, 15);
       
     } catch (error) {
+      console.error(`❌ Scale calculation error: ${prefCode}`, error);
       return 250;
     }
   }
